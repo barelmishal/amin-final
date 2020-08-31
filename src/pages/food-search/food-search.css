@@ -57,14 +57,24 @@
 
 .food-search .food-search-bar {
     background: #92A3B5;
-    padding: 4px;
+    padding: 12px;
     display: grid;
-    justify-items: center;
+    justify-items: stretch;
     align-items: center;
 }
 
-
-.food-search #search-food-items {
-
+.food-search .input-container {
+    display: grid;
+    height: 25px;
+    background-color: #F7FBFB;
+    border-radius: 7px;
+    border: 1px solid #F7FBFB;
 }
+
+.food-search .food-search-bar input {
+    background: transparent;
+    border: none;
+}
+
+
 
