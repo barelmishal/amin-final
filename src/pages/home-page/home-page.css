@@ -1,0 +1,33 @@
+.login-title {
+    background: #2C3A42;
+    height: 45px;
+    display: grid;
+    justify-content: center;
+    align-items: center;
+}
+
+.log-in-button {
+    background: #F7FBFB;
+    height: 30px;
+    width: 80px;
+    border-radius: 9px;
+    border: none;
+}
+
+/* כאן יש לי קושי להעביר את החלקים שלו למטה
+ - אני חושב שהבעיה נמצאת בגלל ההורה מאין
+ - ניסיתי לעשות כל מיני אופציות של אליין ולשנות את כמות המקום שלו
+ */
+.login-content {
+    display: grid;
+    grid-template-rows: 1fr 10px 50px;
+    justify-content: center;
+    align-items: center;
+}
+
+.submit {
+    width: 369px;
+    height: 87.33px;
+    background: #E75027;
+    border-radius: 15px;
+}
