@@ -1,0 +1,70 @@
+/* food search section */
+.food-search .user-nav {
+    background: #2C3A42;
+    height: 30px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-areas: 
+    "user-title menu-icon";
+    gap: 3px;
+    padding: 10px;
+}
+
+.food-search .menu-icon {
+    grid-area: menu-icon;
+    justify-self: end;
+    align-self: center;
+}
+
+/*  ניסתי לעשות ששתי החלקים האלו יפתחו בזמן שלוחצים על ההמבורגר */
+
+/* #log-out {
+    grid-area: log-out;
+    color: #92A3B5;
+    background-color: #2C3A42;
+    border: none;
+    border-radius: 9px;
+    height: 30px;
+    width: 80px;
+    justify-self: end;
+}
+
+/* #back-btn-main-page {
+    grid-area: back-btn-main-page;
+    border-radius: 9px;
+    border: none;
+    height: 30px;
+    width: 150px;
+    background-color: #FEE7D6;
+} */
+
+.food-search #title {
+    grid-area: user-title;
+    color: #F7FBFB;
+    justify-self: center;
+    align-self: center;
+} 
+
+/* creat recipe steps section */
+.food-search .bar-steps {
+    background: #92A3B5;
+    display: grid;
+    justify-items: center;
+    align-items: center;
+    color: #2C3A42;
+    height: 30px;
+}
+
+.food-search .food-search-bar {
+    background: #92A3B5;
+    padding: 4px;
+    display: grid;
+    justify-items: center;
+    align-items: center;
+}
+
+
+.food-search #search-food-items {
+
+}
+
