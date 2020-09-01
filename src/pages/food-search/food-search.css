@@ -58,6 +58,7 @@
 }
 
 .food-search .food-search-bar {
+    position: relative;
     background: #92A3B5;
     padding: 12px;
     display: grid;
@@ -75,7 +76,7 @@
 
 .food-search .food-search-bar input {
     background: transparent;
-    border: none;
+    border: 1px;
     font-family: Rubic, sans-serif;
     border-style: none;
     padding: 0px 15px;
@@ -87,6 +88,7 @@
 }
 
 .food-search .result-list {
+    position: relative;
     display: grid;
     height: 100px;
     border-radius: 15px;

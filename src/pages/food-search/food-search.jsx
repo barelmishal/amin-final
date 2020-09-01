@@ -27,11 +27,11 @@ const FoodSearch = () => (
                     name="items" 
                     id="items" 
                     placeholder="search foods items"/>
-                </div>
-                <div className="result-list">
-                    <div className="result">
-                        <div className="category">
-                            <div className="description">
+                    <div className="result-list">
+                        <div className="result">
+                            <div className="category">
+                                <div className="description">
+                                </div>
                             </div>
                         </div>
                     </div>
