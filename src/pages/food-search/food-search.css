@@ -78,7 +78,7 @@
     background: transparent;
     border: 1px;
     font-family: Rubic, sans-serif;
-    border-style: none;
+    border-style: 1px;
     padding: 0px 15px;
 }
 
