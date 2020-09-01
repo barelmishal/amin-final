@@ -19,6 +19,7 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3"
   },
+  "homepage": "/",
   "proxy": "http://localhost:3002",
   "devDependencies": {
     "concurrently": "^5.3.0",

@@ -4,8 +4,8 @@ import {BrowserRouter as Router, Switch, Route, Link} from "react-router-dom";
 // CSS
 import './App.css';
 // components
-import FoodSearch from './pages/food-search/food-search';
 // PAGES
+import FoodSearch from './pages/food-search/food-search';
 import HomePage from './pages/home-page/home-page';
 
 
