@@ -28,10 +28,10 @@ const FoodSearch = () => (
                     id="items" 
                     placeholder="search foods items"/>
                 </div>
-                <div className="result-list">l;kj
-                    <div className="result">l;kj
-                        <div className="category">;lkj
-                            <div className="description">;lkj
+                <div className="result-list">
+                    <div className="result">
+                        <div className="category">
+                            <div className="description">
                             </div>
                         </div>
                     </div>
