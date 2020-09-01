@@ -1,4 +1,14 @@
-.login-title {
+.home-page {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.home-page .login-content {
+    flex-grow: 1;
+}
+/* todo - make the buttom apper in the buttom of the page (make sceen fit to evrry page responsive) */
+.home-page .login-title {
     background: #2C3A42;
     height: 45px;
     display: grid;
@@ -6,7 +16,7 @@
     align-items: center;
 }
 
-.log-in-button {
+.home-page .log-in-button {
     background: #F7FBFB;
     height: 30px;
     width: 80px;
@@ -18,17 +28,22 @@
  - אני חושב שהבעיה נמצאת בגלל ההורה מאין
  - ניסיתי לעשות כל מיני אופציות של אליין ולשנות את כמות המקום שלו
  */
-.login-content {
+ .home-page .login-content {
+    
     display: grid;
-    grid-template-rows: 1fr 10px 50px;
-    justify-content: center;
+    grid-template-rows: 1fr 10px 50px 0.05fr;
+    justify-items: center;
     align-items: center;
+
 }
 
-.submit {
-    width: 369px;
-    height: 87.33px;
-    background: #E75027;
+
+.home-page .register {
+    background-color: #E75027;
+    border: none;
+    height: 40px;
+    width: 180px;
     border-radius: 15px;
+    color: beige;
 }
 

@@ -12,18 +12,18 @@ class HomePage extends Component  {
     }
     render() {
         return (
-          <div className="main">
-              <section className="login-title"> 
+          <div className="home-page main">
+              <div className="login-title"> 
                 {/* look good */}
                   <button className="log-in-button">log in</button>
-              </section>
-              <section className="login-content">
+              </div>
+              <div className="login-content">
                   <div className="app-description">
                       <p>this app ...</p>
                   </div>
                   <div className="register-down dots"></div>
-                  <button type="register-down submit">Register with Google</button>
-              </section>
+                  <button className="register-down register">Register with Google</button>
+              </div>
           </div>
         );
     }

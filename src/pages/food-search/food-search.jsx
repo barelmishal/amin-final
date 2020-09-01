@@ -1,6 +1,6 @@
 import React from 'react';
 import './food-search.css';
-//photo
+// photo
 import hamburgerIcon from '../../pic/hamburger-icon.svg';
 
 
@@ -14,7 +14,7 @@ const FoodSearch = () => (
                   {/* <button className="back-main-page" id='back-btn-main-page'>BACK TO MAIN PAGE</button> */}
                   <div className="title" id='title'>welcome Ron Levi</div>
                   {/* <button className="logout" id='log-out'>log out</button> */}
-                  <img className="menu-icon" src={hamburgerIcon} />
+                  <img className="menu-icon" alt='' src={hamburgerIcon} />
             </section>
             <section className='bar-steps'>
                 <div className="bar-steps-title" id="bar-steps">step 1: search and chose foods items</div>
@@ -28,11 +28,10 @@ const FoodSearch = () => (
                     id="items" 
                     placeholder="search foods items"/>
                 </div>
-                <div className="result-list">
-                    <div className="result">
-                        <div className="category">
-                            <div className="description">
-                                
+                <div className="result-list">l;kj
+                    <div className="result">l;kj
+                        <div className="category">;lkj
+                            <div className="description">;lkj
                             </div>
                         </div>
                     </div>

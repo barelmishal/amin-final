@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,700;1,400&display=swap');
+
 /* food search section */
 .food-search .user-nav {
     background: #2C3A42;
@@ -65,16 +67,30 @@
 
 .food-search .input-container {
     display: grid;
-    height: 25px;
+    height: 30px;
     background-color: #F7FBFB;
-    border-radius: 7px;
+    border-radius: 15px;
     border: 1px solid #F7FBFB;
 }
 
 .food-search .food-search-bar input {
     background: transparent;
     border: none;
+    font-family: Rubic, sans-serif;
+    border-style: none;
+    padding: 0px 15px;
 }
 
+.food-search .food-search-bar input:focus{
+    outline: none;
 
+}
+
+.food-search .result-list {
+    position: absolute;
+    display: grid;
+    border-radius: 15px;
+    height: 100px;
+    background-color: red;
+}
 
