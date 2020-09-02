@@ -65,15 +65,26 @@
 
 .food-search .input-container {
     display: grid;
-    background-color: #F7FBFB;
+    height: 30px;
+    background-color: #f7fbfb;
+    border-radius: 15px 15px 15px 15px;
+    border: 1px solid #f7fbfb;
+}
+
+.food-search #there-is-result {
+    display: grid;
+    height: 30px;
+    background-color: #f7fbfb;
     border-radius: 15px 15px 0px 0px;
+    border: 1px solid #f7fbfb;
 }
 
 .food-search .food-search-bar input {
     background: transparent;
     border: none;
     height: 30px;
-    padding: 12px;
+    left: 10px;
+    position: relative;
 }
 
 .food-search .food-search-bar input:focus{
