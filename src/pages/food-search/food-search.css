@@ -58,46 +58,31 @@
 }
 
 .food-search .food-search-bar {
-    position: relative;
-    background: #92A3B5;
-    padding: 12px;
-    display: grid;
-    justify-items: stretch;
-    align-items: center;
+    background-color: #92A3B5;
+    padding: 10px;
+    height: 30px;
 }
 
 .food-search .input-container {
     display: grid;
-    height: 30px;
     background-color: #F7FBFB;
-    border-radius: 15px;
-    border: 1px solid #F7FBFB;
+    border-radius: 15px 15px 0px 0px;
 }
 
 .food-search .food-search-bar input {
     background: transparent;
-    /* border: 1px; */
-    font-family: Rubic, sans-serif;
-    border-style: none;
-    padding: 0px 15px;
-    /* position: absolute; */
-    background: yellow;
-    z-index: 1;
-    left: 25px;
-    height: inherit;
-    /* width: fit-content; */
+    border: none;
+    height: 30px;
+    padding: 12px;
 }
 
 .food-search .food-search-bar input:focus{
     outline: none;
-
 }
 
 .food-search .result-list {
-    position: relative;
-    display: grid;
-    height: 100px;
-    border-radius: 15px;
-    background-color: red;
+    background-color: #F7FBFB;
+    padding: 12px;
+    border-radius: 0px 0px 15px 15px;
 }
 
