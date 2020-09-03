@@ -68,7 +68,7 @@
     height: 30px;
     background-color: #f7fbfb;
     border-radius: 15px 15px 15px 15px;
-    border: 1px solid #f7fbfb;
+    border: 1px solid #d7dbdb;
 }
 
 .food-search #there-is-result {
@@ -76,7 +76,7 @@
     height: 30px;
     background-color: #f7fbfb;
     border-radius: 15px 15px 0px 0px;
-    border: 1px solid #f7fbfb;
+    border: 1px solid #d0d3d3;
 }
 
 .food-search .food-search-bar input {
@@ -95,5 +95,7 @@
     background-color: #F7FBFB;
     padding: 12px;
     border-radius: 0px 0px 15px 15px;
+    border: 1px solid #d0d3d3;
+    position: relative;
 }
 
