@@ -24,25 +24,20 @@ export default class App extends React.Component {
     fetch('/api/users/me')
     .then(res => res.json())
     .then(userInfo => {
-      this.setState({userInfo, loading: false})
+      this.setState({userInfo, loading: false}) // תיישם בצד שרת את הראות לגט שקוראת את הקוקי ומחזירה את הפרטים של המשתמש
     })
     .catch(e => {
       this.setState({loading: false});
     })
   }
 
-  onLogin = (res) => {
-    console.log(res);
-    this.setState({userInfo: res});
-  } 
-
-  login = (response) => {
+  onLogin = (response) => {
     fetch('/api/users/me', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ userToken: response.getAuthResponse().id_token })
+      body: JSON.stringify({ googleToken: response.getAuthResponse().id_token })
     })
     .then(response => response.json())
     .then(info => {

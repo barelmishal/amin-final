@@ -71,7 +71,7 @@
     border: 1px solid #d7dbdb;
 }
 
-.food-search #there-is-result {
+.food-search #has-text {
     display: grid;
     height: 30px;
     background-color: #f7fbfb;

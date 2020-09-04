@@ -11,7 +11,8 @@ class FoodSearch extends Component {
         super(); 
         this.state = {
             query: '',
-            fetchResults: null
+            results: null,
+            selection: []
         }
     }
     
@@ -44,14 +45,22 @@ class FoodSearch extends Component {
                                 this.setState({results: categoryMap});
                             } else {
                                 this.setState({results: new Map()});
-                                console.log(results);
+                                console.log(results)
                             }
                         });
         }
         
     }
-    
-
+    select(food) {
+        const selection = this.state.selection;
+        selection.splice(0, 0, food);
+        this.setState({
+          selection, 
+          results: null, 
+          query: ''
+        });
+        
+      }
 
     render() {
         return (
@@ -69,7 +78,7 @@ class FoodSearch extends Component {
         
                     <section className="food-search-bar">
                         {/* ברגע שכותבים אז הID משתנה ויש לנו ID there-is-result */}
-                        <div className="input-container" id={this.state.query}>
+                        <div className="input-container" id={this.state.results && ("has-text")}>
                             <input 
                             type="text" 
                             // value={this.state.query} 
@@ -77,18 +86,41 @@ class FoodSearch extends Component {
                             name="items" 
                             id="items" 
                             placeholder="search foods items"/>
-                        </div>
-                            {this.state.fetchResults && (
-                                <div className="result-list" key>
-                                    <div className="result">
-                                        <div className="category">
-                                            <div className="description">
-                                            </div>
-                                        </div>
-                                    </div>
+                            </div>
+                            {this.state.results && (
+                                <div className="result-list">
+                            {Array.from(this.state.results.entries()).map(entry => {
+                                const category = entry[0];
+                                const foods = entry[1]; 
+                                return (
+                                <div key={category} className="result">
+                                    <div className="category">{category}</div>
+                                      {Array.from(foods.values()).map(food => (
+                                    <div onClick={() => this.select(food)} key={food.fdcId} className="description">{food.description}</div>
+                                    ))}
                                 </div>
-                            )}  
+                                )
+                            })}
+                             {!this.state.results.size && (<div>לא נמצאו תוצאות</div>)}
+                            </div>
+                        )}
                     </section>
+                    <main className="main">
+                                    <div className="selection">
+                            {this.state.selection.map(food => (
+                            <div className="result">
+                                <div className="category">{food.brandedFoodCategory || 'Other'}</div>
+                                <div className="description">{food.description}</div>
+                            </div>
+                            ))}
+                        </div>
+                        {!this.state.selection.length && (
+                            <div className="instructions">
+                            <div className="primary">search food items to add in the list</div>
+                            <div className="secondary">after search it appere items on the screen that you cen chose from</div>
+                            </div>
+                        )}
+                    </main>
             </div>
         )
     }

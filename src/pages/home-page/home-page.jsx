@@ -25,7 +25,7 @@ class HomePage extends Component  {
               {/* NavBar */}
               
               {userInfo ? (
-                   <div className="login-page">you are log in</div>
+                   <div className="login-page">{`welcome ${userInfo.firstName} ${userInfo.lastName}`}</div>
 
                 ) : (
                   
