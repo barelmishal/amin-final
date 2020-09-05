@@ -8,10 +8,6 @@ import './App.css';
 import FoodSearch from './pages/food-search/food-search';
 import HomePage from './pages/home-page/home-page';
 
-
-// לשלוח את המידע לשרת 
-// שיטען את המידע מהמשתמש מהשרת שלנו 
-
 export default class App extends React.Component {
   constructor(props) {
     super(props);
@@ -32,7 +28,7 @@ export default class App extends React.Component {
   }
 
   onLogin = (response) => {
-    fetch('/api/users/me', {
+    fetch('/api/users/me', { // הולך לצד שרת ומבקש 
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

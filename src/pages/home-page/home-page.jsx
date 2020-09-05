@@ -8,7 +8,7 @@ import './home-page.css';
 const CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 
 
-class HomePage extends Component  {
+class HomePage extends Component {
     constructor() {
         super();
     }

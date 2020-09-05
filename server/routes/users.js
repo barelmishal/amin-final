@@ -2,12 +2,18 @@ var express = require('express');
 var jwt = require('jsonwebtoken');
 const { OAuth2Client } = require('google-auth-library');
 var router = express.Router();
+var knex = require('knex')
 
 const CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 const AUTH_SECRET = process.env.AUTH_SECRET;
 
 const REQUIRE_HTTPS_COOKIE = !!process.env.REQUIRE_HTTPS_COOKIE;
 const client = new OAuth2Client(CLIENT_ID);
+
+const db = knex({
+  client: 'pg',
+  connection: process.env.DATABASE_URL
+});
 
 async function verify(token) {
   const ticket = await client.verifyIdToken({
@@ -16,6 +22,35 @@ async function verify(token) {
   });
   return ticket.getPayload();
 }
+
+router.get('/me', async function(req, res, next) {
+  const authToken = req.cookies.userToken;
+  if (authToken) {
+    try {
+      jwt.verify(authToken, AUTH_SECRET, (err, userInfo) => {
+        if (err) {
+          next(err);
+          return;
+        }
+
+        /*
+        TODO: This is where we will:
+        1. fetch the user information from our database.
+        2. update the last seen time of the user in our database
+        */
+
+        // The decrypted JSON string has this extra property that 
+        // we don't want to send in the response. So we delete it
+        delete userInfo.iat;
+        res.json(userInfo);
+      });
+    } catch (err) {
+       next(err);
+    }
+  } else {
+    res.sendStatus(404);
+  }
+});
 
 router.post("/me", async (req, res, next) => {
   const googleToken = req.body.googleToken;
@@ -38,6 +73,8 @@ router.post("/me", async (req, res, next) => {
           next(err);
           return;
         }
+
+        
 
         // Set the encrypted user JSON object as the `userToken` cookie.
         // As explained above the browser will implicitly store and send
