@@ -2,7 +2,7 @@ var express = require('express');
 var jwt = require('jsonwebtoken');
 const { OAuth2Client } = require('google-auth-library');
 var router = express.Router();
-var knex = require('knex')
+var knex = require('knex');
 
 const CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 const AUTH_SECRET = process.env.AUTH_SECRET;
@@ -27,20 +27,24 @@ router.get('/me', async function(req, res, next) {
   const authToken = req.cookies.userToken;
   if (authToken) {
     try {
-      jwt.verify(authToken, AUTH_SECRET, (err, userInfo) => {
+      jwt.verify(authToken, AUTH_SECRET, async (err, userInfo) => {
         if (err) {
           next(err);
           return;
         }
 
-        /*
-        TODO: This is where we will:
-        1. fetch the user information from our database.
-        2. update the last seen time of the user in our database
-        */
+        try {
+          const user = await db('users').select().where({id: userRef.uid});
+          if (user.length) {
+            await db('users').update({last_seen: new Date()}).where({id: userRef.uid});
+            res.json(user[0]);
+          } else {
+            res.sendStatus(404);
+          };
+        } catch (err) {
+          next(err);
+        }
 
-        // The decrypted JSON string has this extra property that 
-        // we don't want to send in the response. So we delete it
         delete userInfo.iat;
         res.json(userInfo);
       });
@@ -54,15 +58,28 @@ router.get('/me', async function(req, res, next) {
 
 router.post("/me", async (req, res, next) => {
   const googleToken = req.body.googleToken;
-  console.log(googleToken);
   if (googleToken) {
     try {
       const payload = await verify(googleToken) // we whant to tack email first and last name and when we will store in the database also the id!!
       const user = {
-        firstName: payload.given_name,
-        lastName: payload.family_name,
-        email: payload.email
+        google_id: payload.sub,
+        email: payload.email,
+        first_name: payload.given_name,
+        last_name: payload.family_name,
+        last_seen: new Date(),
+        created: new Date()
       };
+
+      const dbUser = await db('users').select().where({google_id: user.google_id});
+      if (!dbUser.length) {
+        const result = await db('users').insert(user, 'id');
+        user.id = result[0];
+      } else {
+        user.id = dbUser[0].id;
+        await db('users').update(user).where({google_id: user.google_id});
+      }
+
+
       jwt.sign(user, AUTH_SECRET, (err, authToken) => {
         // Check if there was an error encrypting the user information
         if (err) {
@@ -94,6 +111,11 @@ router.post("/me", async (req, res, next) => {
   } else {
     res.sendStatus(400); 
   }
-})
+});
+
+router.post('/logout', async function(req, res, next) {
+  res.clearCookie('userToken');
+  res.sendStatus(200);
+});
   
 module.exports = router;

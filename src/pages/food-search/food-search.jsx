@@ -7,8 +7,8 @@ const FDC_API_KEY = process.env.REACT_APP_FDC_API_KEY;
 
 class FoodSearch extends Component {
     timeout = null; // אני לא מבין למה בעצם ? להבין
-    constructor() {
-        super(); 
+    constructor(props) {
+        super(props); 
         this.state = {
             query: '',
             results: null,
@@ -33,7 +33,6 @@ class FoodSearch extends Component {
                             const categoryMap = new Map();
                             if (Array.isArray(results)) {
                                 for (const food of results) {
-                                    console.log(food);
                                     const category = food.brandedFoodCategory || 'Other';
                                     let foods = categoryMap.get(category);                          
                                     if (!foods) {
@@ -45,22 +44,31 @@ class FoodSearch extends Component {
                                 this.setState({results: categoryMap});
                             } else {
                                 this.setState({results: new Map()});
-                                console.log(results)
                             }
                         });
-        }
-        
+        }   
     }
-    select(food) {
+
+    select = (food) => {
         const selection = this.state.selection;
         selection.splice(0, 0, food);
         this.setState({
           selection, 
           results: null, 
           query: ''
+        }); 
+        this.dbSelection(food.fdcId);
+    }
+
+    dbSelection = (food) => {
+        fetch('/api/foodslist/chose', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            // אני רוצה שהוא ישלח רק מאכל אחד 
+            body: JSON.stringify({ foodChosen: food })
         });
-        
-      }
+    }
+
 
     render() {
         return (

@@ -20,7 +20,7 @@ export default class App extends React.Component {
     fetch('/api/users/me')
     .then(res => res.json())
     .then(userInfo => {
-      this.setState({userInfo, loading: false}) // תיישם בצד שרת את הראות לגט שקוראת את הקוקי ומחזירה את הפרטים של המשתמש
+      this.setState({userInfo, loading: false}) 
     })
     .catch(e => {
       this.setState({loading: false});
@@ -61,7 +61,6 @@ export default class App extends React.Component {
           <Switch>
             <Route path="/food-search">
                   <FoodSearch/>
-
             </Route>
             <Route path='/'>
               <HomePage onLogin={this.onLogin} userInfo={userInfo}/>
