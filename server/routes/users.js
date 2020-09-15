@@ -2,7 +2,8 @@ var express = require('express');
 var jwt = require('jsonwebtoken');
 const { OAuth2Client } = require('google-auth-library');
 var router = express.Router();
-var knex = require('knex');
+var db = require('../db');
+
 
 const CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 const AUTH_SECRET = process.env.AUTH_SECRET;
@@ -10,10 +11,6 @@ const AUTH_SECRET = process.env.AUTH_SECRET;
 const REQUIRE_HTTPS_COOKIE = !!process.env.REQUIRE_HTTPS_COOKIE;
 const client = new OAuth2Client(CLIENT_ID);
 
-const db = knex({
-  client: 'pg',
-  connection: process.env.DATABASE_URL
-});
 
 async function verify(token) {
   const ticket = await client.verifyIdToken({
