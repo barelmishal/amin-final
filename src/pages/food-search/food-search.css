@@ -99,3 +99,12 @@
     position: relative;
 }
 
+.food-search .category {
+    color: #92A3B5;
+    line-height: 2;
+}
+
+.food-search .description {
+    text-indent: 1em;
+    line-height: 2;
+}

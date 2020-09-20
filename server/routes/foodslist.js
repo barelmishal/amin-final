@@ -6,9 +6,15 @@ var db = require('../db');
 
 const FDC_API_KEY = process.env.REACT_APP_FDC_API_KEY;
 
+// todo:
+// 1. working on logic of survay 
+// 2. done -- search qury chenge the qury that it gonna work on survay 
+// 3. join tables foods and measure unit with portions and foods with nutrients
+// 4. check all is working proprly and orgenize the code
 
 
-router.post("/chose", async (req, res, next) => {
+
+router.post("/fdcid", async (req, res, next) => {
   let trx;
   // נתונים שאני צריך
   // בודק במאגר נתונים שלי
@@ -21,51 +27,122 @@ router.post("/chose", async (req, res, next) => {
       trx = await db.transaction();
       const FoodData = await axios.get(`https://api.nal.usda.gov/fdc/v1/foods/?fdcIds=${fdcFoodId}&api_key=${FDC_API_KEY}`).then(resp => resp.data);
       
-      
-      // Import measure units
-      const fdcMeasures = new Map();
-      FoodData.forEach(f => f.foodPortions.forEach((p, i) => {
-        if (p.measureUnit.id === 9999) {
-          fdcMeasures.set(-i, {name: p.portionDescription || p.modifier, foodPortionId: p.id});
-        } else {
-          fdcMeasures.set(p.measureUnit.id, p.measureUnit);
-        }
-      }));
-      const dbMeasures = await db('measure_units').select('id', 'fdc_id').whereIn('fdc_id', Array.from(fdcMeasures.keys()));
-      const newFdcMeasures = Array.from(fdcMeasures.values()).filter(fdcm => !dbMeasures.find(dbm => dbm.fdc_id === fdcm.id));
-      const newDbMeasures = newFdcMeasures.map(m => ({fdc_id: m.id, measure_unit_name: m.name, abbreviation: m.abbreviation}));
-      const newMids = await trx('measure_units').insert(newDbMeasures, 'id');
-      const allDbMeasures = [...dbMeasures, ...newDbMeasures.map((dbm, idx) => ({
-        ...dbm,
-        food_portion_id: newFdcMeasures[idx].foodPortionId,
-        id: newMids[idx]
-      }))];
-      
-      // boolen value that needed to get Category MeasureUnit
-      let Branded    = (FoodData[0].dataType === 'Branded');
-      let SrLegacy   = (FoodData[0].dataType === 'SR Legacy');
-      let Foundation = (FoodData[0].dataType === 'Foundation');
-      
+      // import category
+      const checkCategoryDb = await trx('category').select('id', 'fdc_id_category').whereIn('fdc_id_category', [FoodData[0].wweiaFoodCategory.wweiaFoodCategoryCode]);
+      let dbInsertCategory;
+      if (!checkCategoryDb.length) { // if "checkCategoryDb" is empty then insert the new category to database
+        const objForCategory = {
+          food_category: FoodData[0].wweiaFoodCategory.wweiaFoodCategoryDescription,
+          fdc_id_category: FoodData[0].wweiaFoodCategory.wweiaFoodCategoryCode
+        };
+        console.log(objForCategory)
+        dbInsertCategory = await trx('category').insert([objForCategory], 'id');
+      } else {
+        null
+      };
       // import foods
-      let categoryIs = '';
-      const getCategory = () => {
-        if (Branded) {
-          categoryIs = FoodData[0].brandedFoodCategory;
-        } else if (SrLegacy || Foundation) {
-          categoryIs = FoodData[0].foodCategory.description;
-        } else {
-          categoryIs = FoodData[0].wweiaFoodCategory.wweiaFoodCategoryDescription;
-        }
-        return categoryIs
-      }
-      getCategory()
-      const [food, category, fdcId] = [FoodData[0].description, categoryIs, fdcFoodId];
-      const insertNewFoodToDb = await trx('foods').insert([
-      {
-        food_category: category,
-        fdc_id: fdcId,
-        food_description: food
-      }], 'id');      
+      console.log("food data", FoodData);
+      const objForFoods = {
+        food_description: FoodData[0].description,
+        fdc_id: fdcFoodId,
+        category_id: (dbInsertCategory !== undefined ? (dbInsertCategory[0]) : (false)) || (checkCategoryDb[0].id) 
+      };
+      const insertfood = await trx('foods').insert([objForFoods], 'id');
+
+      // import measure_units and portion
+      const objmeasureUnitsAndPortion = FoodData[0].foodPortions.map(p => ({
+        // measure_units
+        fdc_id: Number(p.modifier), 
+        measure_unit_name: p.portionDescription,
+        // food_portions 
+        gram_weight: p.gramWeight,
+        fdc_id_portion: p.id, 
+        amount: 1,
+        sequence_number: p.sequenceNumber,
+        food_id: insertfood
+      }));
+      // check measure units in db
+      const idsMeasureUnits = objmeasureUnitsAndPortion.map(id => id.fdc_id);
+      const checkmeasureUnitsDb = await trx('measure_units').select('id', 'fdc_id').whereIn('fdc_id', idsMeasureUnits);
+      // filter ids
+      const arrayofobjM = objmeasureUnitsAndPortion.map(m => ({fdc_id: m.fdc_id, measure_unit_name: m.measure_unit_name}));
+      const filterobjM = arrayofobjM.filter(m => !checkmeasureUnitsDb.find(x => x.fdc_id === m.fdc_id));
+      
+      // insert
+      const insertMeasureUnits = await trx('measure_units').insert(filterobjM, 'id');
+      const objP = [...checkmeasureUnitsDb, ...filterobjM.map((mesureU, idx) => ({
+        ...mesureU, id: insertMeasureUnits[idx]
+      }))];
+      const dbfoodP = objmeasureUnitsAndPortion.map(p => ({
+        gram_weight: p.gram_weight,
+        fdc_id: p.fdc_id_portion, 
+        sequence_number: p.sequence_number,
+        amount: p.amount,
+        food_id: insertfood[0],
+        measure_unit_id: objP.find(i => i.fdc_id === p.fdc_id).id
+      }));
+      const insertP = await trx('food_portions').insert(dbfoodP);
+
+      // i want to get just the items that do not in database
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      // let mapMeasureUnits = new Map()
+      // // import measure_units
+      // for (const p in FoodData[0].foodPortions) {
+      //   mapMeasureUnits.set(p.modifier, p.portionDescription);
+      //   console.log(p);
+      // } 
+
+      // console.log('objMeasureUnit', mapMeasureUnits);
+      // // const filterModifiers = objMeasureUnit.filter(p => !checkModifier.find(x => x.fdc_id === p.fdc_id));
+      // // console.log('no 90000 61667', filterModifiers);
+      // // let insertUnitNamesAndIds;
+      
+      // // if (checkModifier) {
+      // //   // insertUnitNamesAndIds = await trx('measure_units').insert(objMeasureUnit, 'id');
+      // // } else { 
+      // //   null
+      // // }
+
+      // // const measureUnitId = [...checkModifier.map(p => p.id), ...((insertUnitNamesAndIds !== undefined) ? [...insertUnitNamesAndIds] : [])];
+
+      // // measure unit id forign key is: measure_unit_id, food_id
+      // // const objfoodPortions = FoodData[0].foodPortions.map(p => (
+      // //   {
+      // //     food_id: insertfood[0],
+      // //     // measure_unit_id: ,
+      // //     sequence_number: p.sequenceNumber,
+      // //     gram_weight: p.gramWeight,
+      // //     amount: 1,
+      // //     fdc_id: p.id
+      // //   }));
+
+
 
       // import 
       await trx.commit();
@@ -81,8 +158,5 @@ router.post("/chose", async (req, res, next) => {
   }
 });
 
-// const arr = db.select('fdc_id').from('foods').then(user => {console.log(user)});
-// const id = arr
-// console.log(id);
 
 module.exports = router;

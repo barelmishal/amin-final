@@ -18,13 +18,14 @@ class FoodSearch extends Component {
     
     onSearchFetchResults = (event) => {
         const query = event.target.value;
+        const datatype = "Survey%20(FNDDS)";
         this.setState({query});
         if (!query) {
             this.setState({
-                query: ""
+                query: "",
             });
         } else {
-            fetch(`https://api.nal.usda.gov/fdc/v1/foods/search?query=${encodeURIComponent(query)}&pageSize=10&api_key=${FDC_API_KEY}`)
+            fetch(`https://api.nal.usda.gov/fdc/v1/foods/search?api_key=${FDC_API_KEY}&query=${encodeURIComponent(query)}&dataType=${datatype}&pageSize=10`)
                 .then(resp => resp.json())
                 .then(results => {const fdcIds = results.foods.map(food => food.fdcId).join(',');
                     return fetch(`https://api.nal.usda.gov/fdc/v1/foods/?fdcIds=${fdcIds}&api_key=${FDC_API_KEY}`);})
@@ -33,7 +34,7 @@ class FoodSearch extends Component {
                             const categoryMap = new Map();
                             if (Array.isArray(results)) {
                                 for (const food of results) {
-                                    const category = food.brandedFoodCategory || 'Other';
+                                    const category = food.wweiaFoodCategory.wweiaFoodCategoryDescription || 'Other';
                                     let foods = categoryMap.get(category);                          
                                     if (!foods) {
                                         foods = new Map();
@@ -61,7 +62,7 @@ class FoodSearch extends Component {
     }
 
     dbSelection = (food) => {
-        fetch('/api/foodslist/chose', {
+        fetch('/api/foodslist/fdcid', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
             // אני רוצה שהוא ישלח רק מאכל אחד 
