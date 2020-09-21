@@ -1,15 +1,17 @@
 const axios = require('axios').default;
 var express = require('express');
 var jwt = require('jsonwebtoken');
+const { whereIn } = require('../db');
 var router = express.Router();
 var db = require('../db');
 
 const FDC_API_KEY = process.env.REACT_APP_FDC_API_KEY;
 
 // todo:
-// 1. working on logic of survay 
+// 1. done -- working on logic of survay 
 // 2. done -- search qury chenge the qury that it gonna work on survay 
-// 3. join tables foods and measure unit with portions and foods with nutrients
+// 3. done -- join tables foods and measure unit with portions 
+// 5. foods with nutrients
 // 4. check all is working proprly and orgenize the code
 
 
@@ -35,13 +37,11 @@ router.post("/fdcid", async (req, res, next) => {
           food_category: FoodData[0].wweiaFoodCategory.wweiaFoodCategoryDescription,
           fdc_id_category: FoodData[0].wweiaFoodCategory.wweiaFoodCategoryCode
         };
-        console.log(objForCategory)
         dbInsertCategory = await trx('category').insert([objForCategory], 'id');
       } else {
         null
       };
       // import foods
-      console.log("food data", FoodData);
       const objForFoods = {
         food_description: FoodData[0].description,
         fdc_id: fdcFoodId,
@@ -82,6 +82,23 @@ router.post("/fdcid", async (req, res, next) => {
         measure_unit_id: objP.find(i => i.fdc_id === p.fdc_id).id
       }));
       const insertP = await trx('food_portions').insert(dbfoodP);
+
+      // import nutrients
+      const getdbnutrients = await trx('nutrients').select('id', 'fdc_id');
+      // filter nutrients
+      const mapDbNutirents = new Map(getdbnutrients.map(n => [n.fdc_id, n.id]));
+      const filterN = FoodData[0].foodNutrients.filter(e => mapDbNutirents.has(e.nutrient.id));
+      // obj preper
+      const fdcNutreintIds = filterN.map(e => ({
+        food_id: insertfood[0],
+        fdc_id: e.id,
+        nutrient_id: mapDbNutirents.get(e.nutrient.id),
+        amount: e.amount
+      }));
+      // insert db food nutrinets
+      const insertDbN = await trx('food_nutrients').insert(fdcNutreintIds, 'id');
+      console.log(insertDbN);
+
 
       // i want to get just the items that do not in database
 

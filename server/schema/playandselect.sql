@@ -7,3 +7,9 @@ CREATE TABLE users (
     created timestamp not null DEFAULT current_timestamp,
     last_seen timestamp not null DEFAULT current_timestamp
 );
+
+
+select * from foods
+join food_nutrients ON food_nutrients.food_id=foods.id 
+join category ON foods.category_id=category.id
+join nutrients on food_nutrients.nutrient_id=nutrients.id;
