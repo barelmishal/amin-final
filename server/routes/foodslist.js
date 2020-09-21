@@ -100,71 +100,9 @@ router.post("/fdcid", async (req, res, next) => {
       console.log(insertDbN);
 
 
-      // i want to get just the items that do not in database
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      // let mapMeasureUnits = new Map()
-      // // import measure_units
-      // for (const p in FoodData[0].foodPortions) {
-      //   mapMeasureUnits.set(p.modifier, p.portionDescription);
-      //   console.log(p);
-      // } 
-
-      // console.log('objMeasureUnit', mapMeasureUnits);
-      // // const filterModifiers = objMeasureUnit.filter(p => !checkModifier.find(x => x.fdc_id === p.fdc_id));
-      // // console.log('no 90000 61667', filterModifiers);
-      // // let insertUnitNamesAndIds;
-      
-      // // if (checkModifier) {
-      // //   // insertUnitNamesAndIds = await trx('measure_units').insert(objMeasureUnit, 'id');
-      // // } else { 
-      // //   null
-      // // }
-
-      // // const measureUnitId = [...checkModifier.map(p => p.id), ...((insertUnitNamesAndIds !== undefined) ? [...insertUnitNamesAndIds] : [])];
-
-      // // measure unit id forign key is: measure_unit_id, food_id
-      // // const objfoodPortions = FoodData[0].foodPortions.map(p => (
-      // //   {
-      // //     food_id: insertfood[0],
-      // //     // measure_unit_id: ,
-      // //     sequence_number: p.sequenceNumber,
-      // //     gram_weight: p.gramWeight,
-      // //     amount: 1,
-      // //     fdc_id: p.id
-      // //   }));
-
-
-
-      // import 
+      // commit db to make sure that the data is pass 
       await trx.commit();
-
-
+      res.json(insertfood[0]);
     }
   } catch (err) {
     console.error(err);
