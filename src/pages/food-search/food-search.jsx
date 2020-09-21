@@ -15,7 +15,7 @@ class FoodSearch extends Component {
             selection: []
         }
     }
-    
+    // hi this is my chenge for this pull requst we cen feel free to delate me (the message)
     onSearchFetchResults = (event) => {
         const query = event.target.value;
         const datatype = "Survey%20(FNDDS)";
@@ -62,10 +62,10 @@ class FoodSearch extends Component {
     }
 
     dbSelection = (food) => {
-        fetch('/api/foodslist/fdcid', {
+        fetch('/api/foodslist/id', {
             method: 'POST',
             headers: {'Content-Type': 'application/json'},
-            // אני רוצה שהוא ישלח רק מאכל אחד 
+             
             body: JSON.stringify({ foodChosen: food })
         });
     }
