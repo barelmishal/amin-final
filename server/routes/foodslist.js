@@ -16,7 +16,7 @@ const FDC_API_KEY = process.env.REACT_APP_FDC_API_KEY;
 
 
 
-router.post("/fdcid", async (req, res, next) => {
+router.post("/id", async (req, res, next) => {
   let trx;
   // נתונים שאני צריך
   // בודק במאגר נתונים שלי
@@ -98,7 +98,6 @@ router.post("/fdcid", async (req, res, next) => {
       // insert db food nutrinets
       const insertDbN = await trx('food_nutrients').insert(fdcNutreintIds, 'id');
       console.log(insertDbN);
-
 
       // commit db to make sure that the data is pass 
       await trx.commit();
