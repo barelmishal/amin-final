@@ -1,14 +1,18 @@
 import React, { Component } from 'react';
+// style
 import './food-search.css';
 // photo
 import hamburgerIcon from '../../pic/hamburger-icon.svg';
+// files
+import RecipesBox from './recipes-box/recipes-box.jsx';
+import Viewport from './viewport/viewport';
 
 const FDC_API_KEY = process.env.REACT_APP_FDC_API_KEY;
 
 class FoodSearch extends Component {
     timeout = null; // אני לא מבין למה בעצם ? להבין
     constructor(props) {
-        super(props); 
+        super(); 
         this.state = {
             query: '',
             results: null,
@@ -23,6 +27,7 @@ class FoodSearch extends Component {
         if (!query) {
             this.setState({
                 query: "",
+                
             });
         } else {
             fetch(`https://api.nal.usda.gov/fdc/v1/foods/search?api_key=${FDC_API_KEY}&query=${encodeURIComponent(query)}&dataType=${datatype}&pageSize=10`)
@@ -54,7 +59,7 @@ class FoodSearch extends Component {
         const selection = this.state.selection;
         selection.splice(0, 0, food);
         this.setState({
-          selection, 
+          selection,
           results: null, 
           query: ''
         }); 
@@ -114,22 +119,14 @@ class FoodSearch extends Component {
                             </div>
                         )}
                     </section>
-                    <main className="main">
-                                    <div className="selection">
-                            {this.state.selection.map(food => (
-                            <div className="result">
-                                <div className="category">{food.brandedFoodCategory || 'Other'}</div>
-                                <div className="description">{food.description}</div>
-                            </div>
-                            ))}
+                        <div class="buttons clickable font">
+                            <button class="button add-new-recipe">ADD NEW RECIPE</button>
+                            <button class="button go-to-amounts">GO TO AMOUNTS</button>
                         </div>
-                        {!this.state.selection.length && (
-                            <div className="instructions">
-                            <div className="primary">search food items to add in the list</div>
-                            <div className="secondary">after search it appere items on the screen that you cen chose from</div>
-                            </div>
-                        )}
-                    </main>
+                    <Viewport>
+                        
+                        <RecipesBox className="main"/>
+                    </Viewport>
             </div>
         )
     }
