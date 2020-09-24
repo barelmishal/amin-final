@@ -18,8 +18,6 @@ const FDC_API_KEY = process.env.REACT_APP_FDC_API_KEY;
 
 router.post("/id", async (req, res, next) => {
   let trx;
-  // נתונים שאני צריך
-  // בודק במאגר נתונים שלי
   try {
     const fdcFoodId = req.body.foodChosen;
     const checkFdcFoodIdInDb = await db('foods').where('fdc_id', fdcFoodId);

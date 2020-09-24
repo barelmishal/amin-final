@@ -6,6 +6,7 @@ import hamburgerIcon from '../../pic/hamburger-icon.svg';
 // files
 import RecipesBox from './recipes-box/recipes-box.jsx';
 import Viewport from './viewport/viewport';
+import RecipeTag from './recipe-tag/recipe-tag';
 
 const FDC_API_KEY = process.env.REACT_APP_FDC_API_KEY;
 
@@ -124,7 +125,7 @@ class FoodSearch extends Component {
                             <button class="button go-to-amounts">GO TO AMOUNTS</button>
                         </div>
                     <Viewport>
-                        
+                        <RecipeTag/>
                         <RecipesBox className="main"/>
                     </Viewport>
             </div>

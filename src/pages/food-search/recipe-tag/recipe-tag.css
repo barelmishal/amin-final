@@ -1,0 +1,16 @@
+.recipe-tag input {
+    border: none;
+    border-radius: 9px;
+    height: 50px;
+
+}
+
+.recipe-details {
+    display: grid;
+    grid-template-columns: 1fr 0.2fr;
+}
+
+
+
+
+
