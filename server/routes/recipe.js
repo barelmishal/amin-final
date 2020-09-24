@@ -7,7 +7,7 @@ router.post("/", async (req, res, next) => {
   let trx;
   try {
     trx = await db.transaction();
-    const recipeIds = await trx('recipes').insert({recipe_description: 'Untitled  recipe'}, 'id');
+    const recipeIds = await trx('recipes').insert({recipe_description: 'Untitled recipe'}, 'id');
     await trx.commit();
     
     res.json({
