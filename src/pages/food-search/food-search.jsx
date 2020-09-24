@@ -7,6 +7,7 @@ import hamburgerIcon from '../../pic/hamburger-icon.svg';
 import RecipesBox from './recipes-box/recipes-box.jsx';
 import Viewport from './viewport/viewport';
 import RecipeTag from './recipe-tag/recipe-tag';
+import Scrollbele from './Scrollbele/Scrollbele';
 
 const FDC_API_KEY = process.env.REACT_APP_FDC_API_KEY;
 
@@ -126,7 +127,9 @@ class FoodSearch extends Component {
                         </div>
                     <Viewport>
                         <RecipeTag/>
-                        <RecipesBox className="main"/>
+                        <Scrollbele>
+                            <RecipesBox className="main"/>
+                        </Scrollbele>
                     </Viewport>
             </div>
         )

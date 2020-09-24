@@ -1,14 +1,36 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,700;1,300&display=swap');
+
 .recipe-tag input {
     border: none;
-    border-radius: 9px;
-    height: 50px;
+    border-radius: 9px 0px 0px 9px;
+    height: 40px;
+    padding-left: 19px;
+    font-family: 'Roboto', sans-serif;
+    
+}
 
+::placeholder {
+    font-size: 16px;
+    display: grid;
+    align-items: center;
+}
+
+.recipe-tag .btn {
+    border-radius: 0 9px 9px 0;
+    border: none;   
+    background: #2C3A42;
 }
 
 .recipe-details {
     display: grid;
     grid-template-columns: 1fr 0.2fr;
+    border: 10px solid  #F5B5A3;
+    border-radius: 9px;
+    background: #F5B5A3;
 }
+
+
+
 
 
 

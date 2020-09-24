@@ -5,11 +5,44 @@ import './recipes-box.css';
 class RecipesBox extends React.Component {
     render() {
         return (
-            <div className="container">
+            <div className="container-recipe-box">
                 <div class="ingridentes">
-                    <div class="item1">melon</div>
-                    <div class="item2">melon 2</div>
-                    <div class="item3">melon 3</div>
+                    <div class="food-items">
+                        <div className="food-category">fruit</div>
+                        <div className="food-description">melon</div>
+                    </div>
+                    <div class="food-items brightness">
+                        <div className="food-category">fruit</div>
+                        <div className="food-description">melon</div>
+                    </div>
+                    <div class="food-items">
+                        <div className="food-category">fruit</div>
+                        <div className="food-description">melon</div>
+                    </div>
+                    <div class="food-items">
+                        <div className="food-category">fruit</div>
+                        <div className="food-description">melon</div>
+                    </div>
+                    <div class="food-items">
+                        <div className="food-category">fruit</div>
+                        <div className="food-description">melon</div>
+                    </div>
+                    <div class="food-items">
+                        <div className="food-category">fruit</div>
+                        <div className="food-description">melon</div>
+                    </div>
+                    <div class="food-items">
+                        <div className="food-category">fruit</div>
+                        <div className="food-description">melon</div>
+                    </div>
+                    <div class="food-items">
+                        <div className="food-category">fruit</div>
+                        <div className="food-description">melon</div>
+                    </div>
+                    <div class="food-items">
+                        <div className="food-category">fruit</div>
+                        <div className="food-description">melon</div>
+                    </div>
                 </div>
                     {/* <div className="box-skeleton">hihi</div>
                     <div className="selection">
