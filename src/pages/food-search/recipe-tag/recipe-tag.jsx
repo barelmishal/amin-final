@@ -6,7 +6,6 @@ class RecipeTag extends React.Component {
   constructor(props) {
     super()
     this.state = {
-
     }
   }
   render() {
