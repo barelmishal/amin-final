@@ -17,15 +17,30 @@ class HomePage extends Component {
 		console.error(e)
 	}
 
+	onCreateRecipeClick = (e) => {
+    fetch('/api/recipes', {
+      method: 'POST',
+      // headers: {
+      //   'Content-Type': 'application/json'
+      // },
+    })
+    .then(response => response.json())
+    .then(info => {
+			// this.setState({userInfo: info}
+			console.log(info);
+    });
+  }
+
   render() {
     const { onLogin, userInfo } = this.props
 
     return (
       <div className="home-page main">            
 				{userInfo ? (
-					<Welcome className="login-page">
+					<Welcome className="login-page" onCreateRecipeClick={this.onCreateRecipeClick}>
 							<div>{`welcome ${userInfo.firstName} ${userInfo.lastName}`}</div>
 							<div>{this.props.children}</div>
+							
 					</Welcome>
 				) : (
 				<div className="logout">you are log out
