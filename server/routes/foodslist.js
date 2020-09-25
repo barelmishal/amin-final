@@ -7,19 +7,8 @@ var db = require('../db');
 
 const FDC_API_KEY = process.env.REACT_APP_FDC_API_KEY;
 
-// todo:
-// 1. done -- working on logic of survay 
-// 2. done -- search qury chenge the qury that it gonna work on survay 
-// 3. done -- join tables foods and measure unit with portions 
-// 5. foods with nutrients
-// 4. check all is working proprly and orgenize the code
-
-
-
 router.post("/id", async (req, res, next) => {
   let trx;
-  // נתונים שאני צריך
-  // בודק במאגר נתונים שלי
   try {
     const fdcFoodId = req.body.foodChosen;
     const checkFdcFoodIdInDb = await db('foods').where('fdc_id', fdcFoodId);
@@ -32,8 +21,8 @@ router.post("/id", async (req, res, next) => {
       // import category
       const checkCategoryDb = await trx('category').select('id', 'fdc_id_category').whereIn('fdc_id_category', [FoodData[0].wweiaFoodCategory.wweiaFoodCategoryCode]);
       let dbInsertCategory;
-      if (!checkCategoryDb.length) { // if "checkCategoryDb" is empty then insert the new category to database
-        const objForCategory = {
+      if (!checkCategoryDb.length) { 
+          const objForCategory = {
           food_category: FoodData[0].wweiaFoodCategory.wweiaFoodCategoryDescription,
           fdc_id_category: FoodData[0].wweiaFoodCategory.wweiaFoodCategoryCode
         };

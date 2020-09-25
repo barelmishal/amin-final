@@ -4,13 +4,11 @@ const { OAuth2Client } = require('google-auth-library');
 var router = express.Router();
 var db = require('../db');
 
-
 const CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 const AUTH_SECRET = process.env.AUTH_SECRET;
 
 const REQUIRE_HTTPS_COOKIE = !!process.env.REQUIRE_HTTPS_COOKIE;
 const client = new OAuth2Client(CLIENT_ID);
-
 
 async function verify(token) {
   const ticket = await client.verifyIdToken({
@@ -26,7 +24,8 @@ router.get('/me', async function(req, res, next) {
     try {
       jwt.verify(authToken, AUTH_SECRET, async (err, userInfo) => {
         if (err) {
-          next(err);
+          console.warn('recive bad user token');
+
           return;
         }
 
@@ -46,6 +45,7 @@ router.get('/me', async function(req, res, next) {
         res.json(userInfo);
       });
     } catch (err) {
+      console.log('difjsiodfjsdiojfoisdjfios')
        next(err);
     }
   } else {
@@ -72,8 +72,8 @@ router.post("/me", async (req, res, next) => {
         const result = await db('users').insert(user, 'id');
         user.id = result[0];
       } else {
-        user.id = dbUser[0].id;
         await db('users').update(user).where({google_id: user.google_id});
+        user.id = dbUser[0].id;
       }
 
 
