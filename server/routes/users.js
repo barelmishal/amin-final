@@ -45,7 +45,6 @@ router.get('/me', async function(req, res, next) {
         res.json(userInfo);
       });
     } catch (err) {
-      console.log('difjsiodfjsdiojfoisdjfios')
        next(err);
     }
   } else {
