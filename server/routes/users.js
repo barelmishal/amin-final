@@ -24,7 +24,7 @@ router.get('/me', async function(req, res, next) {
     try {
       jwt.verify(authToken, AUTH_SECRET, async (err, userInfo) => {
         if (err) {
-          console.warn('recive bad user token');
+          res.json("user not found");
 
           return;
         }
