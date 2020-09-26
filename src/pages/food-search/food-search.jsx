@@ -70,10 +70,10 @@ class FoodSearch extends Component {
         });
     }
 
-
     render() {
         return (
             <div className="food-search">
+
                     <section className="user-nav"> 
                     {/* אני מנסה להבין כיצד עושים אקורדיון */}
                           {/* <button className="back-main-page" id='back-btn-main-page'>BACK TO MAIN PAGE</button> */}
