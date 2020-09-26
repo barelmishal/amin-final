@@ -10,7 +10,7 @@ import HomePage from './pages/home-page/home-page';
 
 export default class App extends React.Component {
   constructor(props) {
-    super(props);
+    super();
     this.state = {
       loading: true
     };
@@ -28,7 +28,7 @@ export default class App extends React.Component {
   }
 
   onLogin = (response) => {
-    fetch('/api/users/me', { // הולך לצד שרת ומבקש 
+    fetch('/api/users/me', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -55,7 +55,6 @@ export default class App extends React.Component {
   render() {
     const {userInfo} = this.state
     return (
-
       <div className="App">
         <Router>
           <Switch>

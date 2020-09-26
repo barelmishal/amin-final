@@ -7,8 +7,7 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var foodslistRouter = require('./routes/foodslist');
-var recipeRouter = require('./routes/recipe');
-
+var recipesRouter = require('./routes/recipes');
 
 var app = express();
 
@@ -26,7 +25,8 @@ app.use(express.static(path.join(__dirname, '../build')));
 app.use('/api/users', usersRouter);
 app.use('/', indexRouter);
 app.use('/api/foodslist', foodslistRouter);
-app.use('/api/recipe', recipeRouter);
+app.use('/api/recipes', recipesRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -38,7 +38,7 @@ app.use(function(err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
-
+  console.error(err)
   // render the error page
   res.status(err.status || 500);
   res.render('error');
