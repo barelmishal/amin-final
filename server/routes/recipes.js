@@ -31,6 +31,8 @@ router.get("/food-search", async (req, res, next) => {
       .join('foods', 'foods.id', '=', 'recipe_foods.food_id')
       .select('foods.food_description', 'recipe_foods.amount', 'recipe_foods.recipe_id')
       .whereIn('recipe_foods.recipe_id', recipeIds); 
+
+
       
     res.json(recipes.map(r => ({
       ...r,
