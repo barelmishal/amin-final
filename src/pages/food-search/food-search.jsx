@@ -21,7 +21,6 @@ class FoodSearchComponent extends Component {
         const search = this.props.location.search;
         const params = new URLSearchParams(search);
         const recipeIds = params.get('recipe-ids'); 
-        console.log(params);
         console.log(recipeIds)
     }
     // hi this is my chenge for this pull requst we cen feel free to delate me (the message)
