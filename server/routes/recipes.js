@@ -27,11 +27,15 @@ router.get("/food-search", async (req, res, next) => {
   try {
     const recipeIds = req.query.recipeIds.split(',');
     const recipes = await db('recipes').select().whereIn('id', recipeIds);
-    res.json(recipes)
+    const foods = await db('recipe_foods')
+      .join('foods', 'foods.id', '=', 'recipe_foods.food_id')
+      .select('foods.food_description', 'recipe_foods.amount').whereIn('recipe_foods.recipe_id', recipeIds);
+          res.json({recipes, foods});
   } catch (err) {
     next(err)
   }
-} )
+});
+
 
 
 module.exports = router;
