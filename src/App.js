@@ -55,7 +55,6 @@ export default class App extends React.Component {
   render() {
     const {userInfo} = this.state
     return (
-
       <div className="App">
         <Router>
           <Switch>
