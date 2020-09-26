@@ -11,7 +11,7 @@ router.post("/", async (req, res, next) => {
     await trx.commit();
     
     res.json({
-      IdRecipeName: recipeIds[0]
+      IdRecipe: recipeIds[0]
     })
   } catch (err) {
       console.error(err);

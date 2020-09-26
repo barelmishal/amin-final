@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 import './food-search.css';
 // photo
 import hamburgerIcon from '../../pic/hamburger-icon.svg';
+import { withRouter } from 'react-router-dom';
 
 const FDC_API_KEY = process.env.REACT_APP_FDC_API_KEY;
 
 class FoodSearchComponent extends Component {
     timeout = null; 
     constructor(props) {
-        super(props); 
+        super(); 
         this.state = {
             query: '',
             results: null,
@@ -76,10 +77,10 @@ class FoodSearchComponent extends Component {
         });
     }
 
-
     render() {
         return (
             <div className="food-search">
+
                     <section className="user-nav"> 
                     {/* אני מנסה להבין כיצד עושים אקורדיון */}
                           {/* <button className="back-main-page" id='back-btn-main-page'>BACK TO MAIN PAGE</button> */}
@@ -141,5 +142,4 @@ class FoodSearchComponent extends Component {
     }
 }
 
-
-export default FoodSearch;
+export default withRouter(FoodSearchComponent);
