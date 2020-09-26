@@ -5,8 +5,8 @@ import hamburgerIcon from '../../pic/hamburger-icon.svg';
 
 const FDC_API_KEY = process.env.REACT_APP_FDC_API_KEY;
 
-class FoodSearch extends Component {
-    timeout = null; // אני לא מבין למה בעצם ? להבין
+class FoodSearchComponent extends Component {
+    timeout = null; 
     constructor(props) {
         super(props); 
         this.state = {
@@ -15,7 +15,13 @@ class FoodSearch extends Component {
             selection: []
         }
     }
-    // hi this is my chenge for this pull requst we cen feel free to delate me (the message)
+
+    componentDidMount = () => {
+        const search = this.props.location.search;
+        const params = new URLSearchParams(search);
+        const recipeIds = params.get('recipe-ids'); 
+        console.log(recipeIds)
+    }
     onSearchFetchResults = (event) => {
         const query = event.target.value;
         const datatype = "Survey%20(FNDDS)";

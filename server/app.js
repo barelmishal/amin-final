@@ -22,8 +22,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, '../build')));
 
 app.use('/api/users', usersRouter);
-app.use('/', indexRouter);
 app.use('/api/foodslist', foodslistRouter);
+app.use('/api/recipes', recipesRouter);
+app.use('/', indexRouter);
 
 
 // catch 404 and forward to error handler
