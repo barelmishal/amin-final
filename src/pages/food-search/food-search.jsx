@@ -2,18 +2,27 @@ import React, { Component } from 'react';
 import './food-search.css';
 // photo
 import hamburgerIcon from '../../pic/hamburger-icon.svg';
+import { withRouter } from 'react-router-dom';
 
 const FDC_API_KEY = process.env.REACT_APP_FDC_API_KEY;
 
-class FoodSearch extends Component {
+class FoodSearchComponent extends Component {
     timeout = null; // אני לא מבין למה בעצם ? להבין
     constructor(props) {
-        super(props); 
+        super(); 
         this.state = {
             query: '',
             results: null,
             selection: []
         }
+    }
+
+    componentDidMount = () => {
+        const search = this.props.location.search;
+        const params = new URLSearchParams(search);
+        const recipeIds = params.get('recipe-ids'); 
+        console.log(params);
+        console.log(recipeIds)
     }
     // hi this is my chenge for this pull requst we cen feel free to delate me (the message)
     onSearchFetchResults = (event) => {
@@ -135,5 +144,4 @@ class FoodSearch extends Component {
     }
 }
 
-
-export default FoodSearch;
+export default withRouter(FoodSearchComponent);
