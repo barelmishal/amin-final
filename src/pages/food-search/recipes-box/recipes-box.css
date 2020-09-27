@@ -1,0 +1,38 @@
+@viewport {
+    width: device-width;
+    zoom: 1;
+}
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,700;1,300&display=swap');
+
+
+.container-recipe-box {
+    font-family: 'Roboto', sans-serif;
+    text-indent: 5px;
+
+}
+
+.container-recipe-box .food-category {
+    color: #2C3A42;
+}
+
+
+.container-recipe-box .food-description {
+    color: #2C3A42;
+    text-indent: 15px;
+}
+
+
+.food-items {
+    height: 50px;
+    background-color:  #f5c2b5b0;
+    display: grid;
+    align-items: center;
+}
+
+.brightness {
+    height: 50px;
+    background-color: #f5c2b560;
+}
+
+
+

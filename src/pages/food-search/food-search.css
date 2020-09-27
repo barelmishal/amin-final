@@ -1,51 +1,38 @@
-@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,700;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,500;0,700;0,900;1,700;1,800&display=swap');
+.food-search {
+    font-family: 'Rubik', sans-serif;
+}
 
 /* food search section */
 .food-search .user-nav {
     background: #2C3A42;
     height: 30px;
     display: grid;
-    grid-template-columns: 1fr auto;
-    grid-template-areas: 
-    "user-title menu-icon";
-    gap: 3px;
-    padding: 10px;
+    grid-template-columns: 1fr 2.2fr 1fr;
+
+    padding: 4px;
 }
-
-.food-search .menu-icon {
-    grid-area: menu-icon;
-    justify-self: end;
-    align-self: center;
-}
-
-/*  ניסתי לעשות ששתי החלקים האלו יפתחו בזמן שלוחצים על ההמבורגר */
-
-/* #log-out {
-    grid-area: log-out;
-    color: #92A3B5;
-    background-color: #2C3A42;
-    border: none;
-    border-radius: 9px;
-    height: 30px;
-    width: 80px;
-    justify-self: end;
-}
-
-/* #back-btn-main-page {
-    grid-area: back-btn-main-page;
-    border-radius: 9px;
-    border: none;
-    height: 30px;
-    width: 150px;
-    background-color: #FEE7D6;
-} */
-
 .food-search #title {
-    grid-area: user-title;
     color: #F7FBFB;
-    justify-self: center;
-    align-self: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 } 
+.food-search .sign-out {
+    color: #a0aebd;
+    font-family: Roboto, sans-serif;
+    font-size: 12px;
+    border: none;
+    background: none;
+
+}
+.main-page {
+    border: 2px solid;
+    border-radius: 15px;
+    background: #f7fbfbd7;
+    color: #2C3A42;
+
+}
 
 /* creat recipe steps section */
 .food-search .bar-steps {
@@ -60,15 +47,15 @@
 .food-search .food-search-bar {
     background-color: #92A3B5;
     padding: 10px;
-    height: 30px;
+    height: 30px;    
 }
 
 .food-search .input-container {
-    display: grid;
     height: 30px;
     background-color: #f7fbfb;
-    border-radius: 15px 15px 15px 15px;
-    border: 1px solid #d7dbdb;
+    border-radius: 15px;    
+    display: grid;
+    align-content: center;
 }
 
 .food-search #has-text {
@@ -76,7 +63,8 @@
     height: 30px;
     background-color: #f7fbfb;
     border-radius: 15px 15px 0px 0px;
-    border: 1px solid #d0d3d3;
+    border: 1px solid #BF3A15;
+    align-content: center;
 }
 
 .food-search .food-search-bar input {
@@ -95,8 +83,10 @@
     background-color: #F7FBFB;
     padding: 12px;
     border-radius: 0px 0px 15px 15px;
-    border: 1px solid #d0d3d3;
     position: relative;
+    border-left: solid 1px  #BF3A15;
+    border-right: solid 1px  #BF3A15;
+    border-bottom: solid 1px  #BF3A15;
 }
 
 .food-search .category {
@@ -107,4 +97,48 @@
 .food-search .description {
     text-indent: 1em;
     line-height: 2;
+}
+
+.food-search .description:hover {
+    
+    background-color:#8f9eaf3b;
+    border-radius: 9px;
+}
+
+.food-search .description.description:active {
+    background-color:#5d705eb0;
+    border-radius: 9px;
+}
+
+
+.search-input {
+    border-radius: 10px;
+    border-style: none;
+    width: 90vw;
+    height: 30px;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: none;
+}
+
+.button {
+    border: none;
+    width: 100vw;
+    height: 45px;
+}
+
+.add-new-recipe {
+    border-radius: 0 0 0px 9px;
+    background: #2C3A42;
+    color: #F7FBFB;
+}
+
+.go-to-amounts {
+    border-radius: 0 0 9px 0px;
+    border: 2px solid #2C3A42;
+    background: #F7FBFB;
 }

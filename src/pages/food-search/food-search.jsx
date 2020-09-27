@@ -1,53 +1,61 @@
 import React, { Component } from 'react';
+// style
 import './food-search.css';
 // photo
 import hamburgerIcon from '../../pic/hamburger-icon.svg';
+// files
+import RecipesBox from './recipes-box/recipes-box.jsx';
+import Viewport from './viewport/viewport';
+import RecipeTag from './recipe-tag/recipe-tag';
+import Scrollbele from './Scrollbele/Scrollbele';
 import { withRouter } from 'react-router-dom';
+import Action from '../../components/buttons/back-to/action';
 
 const FDC_API_KEY = process.env.REACT_APP_FDC_API_KEY;
 
 class FoodSearchComponent extends Component {
-    timeout = null; // אני לא מבין למה בעצם ? להבין
-    constructor(props) {
-        super(); 
-        this.state = {
-            query: '',
-            results: null,
-            selection: []
-        }
-    }
+  timeout = null; // אני לא מבין למה בעצם ? להבין
+  constructor(props) {
+    super(); 
+      this.state = {
+				query: '',
+				results: null,
+				selection: []
+      }
+  }
 
-    componentDidMount = () => {
-        const search = this.props.location.search;
-        const params = new URLSearchParams(search);
-        const recipeIds = params.get('recipe-ids'); 
-        console.log(recipeIds)
-    }
-    // hi this is my chenge for this pull requst we cen feel free to delate me (the message)
-    onSearchFetchResults = (event) => {
-        const query = event.target.value;
-        const datatype = "Survey%20(FNDDS)";
-        this.setState({query});
-        if (!query) {
-            this.setState({
-                query: "",
-            });
-        } else {
-            fetch(`https://api.nal.usda.gov/fdc/v1/foods/search?api_key=${FDC_API_KEY}&query=${encodeURIComponent(query)}&dataType=${datatype}&pageSize=10`)
-                .then(resp => resp.json())
-                .then(results => {const fdcIds = results.foods.map(food => food.fdcId).join(',');
-                    return fetch(`https://api.nal.usda.gov/fdc/v1/foods/?fdcIds=${fdcIds}&api_key=${FDC_API_KEY}`);})
-                        .then(resp => resp.json())
-                        .then(results => {
-                            const categoryMap = new Map();
-                            if (Array.isArray(results)) {
-                                for (const food of results) {
-                                    const category = food.wweiaFoodCategory.wweiaFoodCategoryDescription || 'Other';
-                                    let foods = categoryMap.get(category);                          
-                                    if (!foods) {
-                                        foods = new Map();
-                                        categoryMap.set(category, foods);
-                                    }
+  componentDidMount = () => {
+		const search = this.props.location.search;
+		const params = new URLSearchParams(search);
+		const recipeIds = params.get('recipe-ids'); 
+		console.log(recipeIds)
+	}
+	// hi this is my chenge for this pull requst we cen feel free to delate me (the message)
+	onSearchFetchResults = (event) => {
+		const query = event.target.value;
+		const datatype = "Survey%20(FNDDS)";
+		this.setState({query});
+		if (!query) {
+		this.setState({
+				query: "",
+						
+				});
+		} else {
+				fetch(`https://api.nal.usda.gov/fdc/v1/foods/search?api_key=${FDC_API_KEY}&query=${encodeURIComponent(query)}&dataType=${datatype}&pageSize=10`)
+						.then(resp => resp.json())
+						.then(results => {const fdcIds = results.foods.map(food => food.fdcId).join(',');
+								return fetch(`https://api.nal.usda.gov/fdc/v1/foods/?fdcIds=${fdcIds}&api_key=${FDC_API_KEY}`);})
+										.then(resp => resp.json())
+										.then(results => {
+												const categoryMap = new Map();
+												if (Array.isArray(results)) {
+														for (const food of results) {
+																const category = food.wweiaFoodCategory.wweiaFoodCategoryDescription || 'Other';
+																let foods = categoryMap.get(category);                          
+																if (!foods) {
+																		foods = new Map();
+																		categoryMap.set(category, foods);
+																}
                                     foods.set(food.description, food);
                                 }
                                 this.setState({results: categoryMap});
@@ -62,7 +70,7 @@ class FoodSearchComponent extends Component {
         const selection = this.state.selection;
         selection.splice(0, 0, food);
         this.setState({
-          selection, 
+          selection,
           results: null, 
           query: ''
         }); 
@@ -83,11 +91,10 @@ class FoodSearchComponent extends Component {
             <div className="food-search">
 
                     <section className="user-nav"> 
-                    {/* אני מנסה להבין כיצד עושים אקורדיון */}
-                          {/* <button className="back-main-page" id='back-btn-main-page'>BACK TO MAIN PAGE</button> */}
+
+                          <Action btnTatile='main page' className="main-page"/>
                           <div className="title" id='title'>welcome Ron Levi</div>
-                          {/* <button className="logout" id='log-out'>log out</button> */}
-                          <img className="menu-icon" alt='' src={hamburgerIcon} />
+                          <Action btnTatile='sign out' className="sign-out"/>
                     </section>
                     <section className='bar-steps'>
                         <div className="bar-steps-title" id="bar-steps">step 1: search and chose foods items</div>
@@ -122,22 +129,16 @@ class FoodSearchComponent extends Component {
                             </div>
                         )}
                     </section>
-                    <main className="main">
-                                    <div className="selection">
-                            {this.state.selection.map(food => (
-                            <div className="result">
-                                <div className="category">{food.brandedFoodCategory || 'Other'}</div>
-                                <div className="description">{food.description}</div>
-                            </div>
-                            ))}
+                        <div class="buttons clickable font">
+                            <Action btnTatile='ADD NEW RECIPE' className="button add-new-recipe"/>
+                            <Action btnTatile='GO TO AMOUNTS' className="button go-to-amounts"/>
                         </div>
-                        {!this.state.selection.length && (
-                            <div className="instructions">
-                            <div className="primary">search food items to add in the list</div>
-                            <div className="secondary">after search it appere items on the screen that you cen chose from</div>
-                            </div>
-                        )}
-                    </main>
+                    <Viewport>
+                        <RecipeTag/>
+                        <Scrollbele>
+                            <RecipesBox className="main"/>
+                        </Scrollbele>
+                    </Viewport>
             </div>
         )
     }
