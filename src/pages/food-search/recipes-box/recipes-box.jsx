@@ -7,42 +7,11 @@ class RecipesBox extends React.Component {
         return (
             <div className="container-recipe-box">
                 <div class="ingridentes">
-                    <div class="food-items">
-                        <div className="food-category">fruit</div>
-                        <div className="food-description">melon</div>
-                    </div>
-                    <div class="food-items brightness">
-                        <div className="food-category">fruit</div>
-                        <div className="food-description">melon</div>
-                    </div>
-                    <div class="food-items">
-                        <div className="food-category">fruit</div>
-                        <div className="food-description">melon</div>
-                    </div>
-                    <div class="food-items">
-                        <div className="food-category">fruit</div>
-                        <div className="food-description">melon</div>
-                    </div>
-                    <div class="food-items">
-                        <div className="food-category">fruit</div>
-                        <div className="food-description">melon</div>
-                    </div>
-                    <div class="food-items">
-                        <div className="food-category">fruit</div>
-                        <div className="food-description">melon</div>
-                    </div>
-                    <div class="food-items">
-                        <div className="food-category">fruit</div>
-                        <div className="food-description">melon</div>
-                    </div>
-                    <div class="food-items">
-                        <div className="food-category">fruit</div>
-                        <div className="food-description">melon</div>
-                    </div>
-                    <div class="food-items">
-                        <div className="food-category">fruit</div>
-                        <div className="food-description">melon</div>
-                    </div>
+                    {this.props.foods.map(f => (
+                        <div class="food-items">
+                            <div className="food-description">{f.food_description}</div>
+                        </div>
+                    ))}
                 </div>
             </div>
         );   

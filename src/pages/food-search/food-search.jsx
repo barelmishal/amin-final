@@ -20,7 +20,8 @@ class FoodSearchComponent extends Component {
         this.state = {
             query: '',
             results: null,
-            selection: []
+            selection: [],
+            recipes: []
         }
     }
     
@@ -33,7 +34,7 @@ class FoodSearchComponent extends Component {
         fetch('/api/recipes/food-search?recipeIds=' + recipeIds)
             .then(res => res.json())
             .then(recipes => {
-        console.log({recipes, loading: false}) 
+        this.setState({recipes, loading: false}); 
     })
     }
     onSearchFetchResults = (event) => {
@@ -105,7 +106,6 @@ class FoodSearchComponent extends Component {
                     </section>
         
                     <section className="food-search-bar">
-                        {/* ברגע שכותבים אז הID משתנה ויש לנו ID there-is-result */}
                         <div className="input-container" id={this.state.results && ("has-text")}>
                             <input 
                             type="text" 
@@ -137,12 +137,14 @@ class FoodSearchComponent extends Component {
                             <Action btnTatile='ADD NEW RECIPE' className="button add-new-recipe"/>
                             <Action btnTatile='GO TO AMOUNTS' className="button go-to-amounts"/>
                         </div>
-                    <Viewport>
-                        <RecipeTag/>
-                        <Scrollbele>
-                            <RecipesBox className="main"/>
-                        </Scrollbele>
-                    </Viewport>
+                    {this.state.recipes.map(r => (
+                        <Viewport>
+                            <RecipeTag description={r.recipe_description}/>
+                            <Scrollbele>
+                                <RecipesBox foods={r.foods} className="main"/>
+                            </Scrollbele>
+                        </Viewport>
+                    ))}
             </div>
         )
     }
