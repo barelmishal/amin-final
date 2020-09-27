@@ -52,7 +52,15 @@ export default class App extends React.Component {
   };
 
   render() {
-    const { userInfo } = this.state;
+    const { userInfo, loading } = this.state;
+
+    // Hide the entire UI while we load the logged in user info
+    // in order to prevent the logged out content from flickering
+    // before we load the user info.
+    if (loading) {
+      return <div></div>;
+    }
+
     return (
       <div className="App">
         <Router>

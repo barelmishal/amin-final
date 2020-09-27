@@ -30,11 +30,11 @@ router.get("/me", async function (req, res, next) {
         }
 
         try {
-          const user = await db("users").select().where({ id: userRef.uid });
+          const user = await db("users").select().where({ id: userInfo.id });
           if (user.length) {
             await db("users")
               .update({ last_seen: new Date() })
-              .where({ id: userRef.uid });
+              .where({ id: userInfo.id });
             res.json(user[0]);
           } else {
             res.sendStatus(404);
