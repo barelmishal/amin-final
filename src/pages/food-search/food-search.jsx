@@ -9,6 +9,7 @@ import Viewport from './viewport/viewport';
 import RecipeTag from './recipe-tag/recipe-tag';
 import Scrollbele from './Scrollbele/Scrollbele';
 import { withRouter } from 'react-router-dom';
+import Action from '../../components/buttons/back-to/action';
 
 const FDC_API_KEY = process.env.REACT_APP_FDC_API_KEY;
 
@@ -90,11 +91,10 @@ class FoodSearchComponent extends Component {
             <div className="food-search">
 
                     <section className="user-nav"> 
-                    {/* אני מנסה להבין כיצד עושים אקורדיון */}
-                          {/* <button className="back-main-page" id='back-btn-main-page'>BACK TO MAIN PAGE</button> */}
+
+                          <Action btnTatile='main page' styleing="main-page"/>
                           <div className="title" id='title'>welcome Ron Levi</div>
-                          {/* <button className="logout" id='log-out'>log out</button> */}
-                          <img className="menu-icon" alt='' src={hamburgerIcon} />
+                          <Action btnTatile='sign out' styleing="sign-out"/>
                     </section>
                     <section className='bar-steps'>
                         <div className="bar-steps-title" id="bar-steps">step 1: search and chose foods items</div>
@@ -130,8 +130,8 @@ class FoodSearchComponent extends Component {
                         )}
                     </section>
                         <div class="buttons clickable font">
-                            <button class="button add-new-recipe">ADD NEW RECIPE</button>
-                            <button class="button go-to-amounts">GO TO AMOUNTS</button>
+                            <Action btnTatile='ADD NEW RECIPE' styleing="button add-new-recipe"/>
+                            <Action btnTatile='GO TO AMOUNTS' styleing="button go-to-amounts"/>
                         </div>
                     <Viewport>
                         <RecipeTag/>

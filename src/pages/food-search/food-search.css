@@ -1,7 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,700;1,300&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,500;0,700;0,900;1,700;1,800&display=swap');
 .food-search {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'Rubik', sans-serif;
 }
 
 /* food search section */
@@ -9,26 +8,31 @@
     background: #2C3A42;
     height: 30px;
     display: grid;
-    grid-template-columns: 1fr auto;
-    grid-template-areas: 
-    "user-title menu-icon";
-    gap: 3px;
-    padding: 10px;
+    grid-template-columns: 1fr 2.2fr 1fr;
+
+    padding: 4px;
 }
-
-.food-search .menu-icon {
-    grid-area: menu-icon;
-    justify-self: end;
-    align-self: center;
-}
-
-
 .food-search #title {
-    grid-area: user-title;
     color: #F7FBFB;
-    justify-self: center;
-    align-self: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 } 
+.food-search .sign-out {
+    color: #a0aebd;
+    font-family: Roboto, sans-serif;
+    font-size: 12px;
+    border: none;
+    background: none;
+
+}
+.main-page {
+    border: 2px solid;
+    border-radius: 15px;
+    background: #f7fbfbd7;
+    color: #2C3A42;
+
+}
 
 /* creat recipe steps section */
 .food-search .bar-steps {
@@ -129,12 +133,12 @@
 
 .add-new-recipe {
     border-radius: 0 0 0px 9px;
-    background: #BF3A15;
+    background: #2C3A42;
     color: #F7FBFB;
 }
 
 .go-to-amounts {
     border-radius: 0 0 9px 0px;
-    border: 2px solid #BF3A15;
+    border: 2px solid #2C3A42;
     background: #F7FBFB;
 }
