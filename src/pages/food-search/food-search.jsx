@@ -23,12 +23,18 @@ class FoodSearchComponent extends Component {
             selection: []
         }
     }
+    
 
     componentDidMount = () => {
         const search = this.props.location.search;
         const params = new URLSearchParams(search);
         const recipeIds = params.get('recipe-ids'); 
         console.log(recipeIds)
+        fetch('/api/recipes/food-search?recipeIds=' + recipeIds)
+            .then(res => res.json())
+            .then(recipes => {
+        console.log({recipes, loading: false}) 
+    })
     }
     onSearchFetchResults = (event) => {
         const query = event.target.value;
@@ -39,28 +45,28 @@ class FoodSearchComponent extends Component {
                 query: "",
             });
         } else {
-            fetch(`https://api.nal.usda.gov/fdc/v1/foods/search?api_key=${FDC_API_KEY}&query=${encodeURIComponent(query)}&dataType=${datatype}&pageSize=10`)
-                .then(resp => resp.json())
-                .then(results => {const fdcIds = results.foods.map(food => food.fdcId).join(',');
-                    return fetch(`https://api.nal.usda.gov/fdc/v1/foods/?fdcIds=${fdcIds}&api_key=${FDC_API_KEY}`);})
-                        .then(resp => resp.json())
-                        .then(results => {
-                            const categoryMap = new Map();
-                            if (Array.isArray(results)) {
-                                for (const food of results) {
-                                    const category = food.wweiaFoodCategory.wweiaFoodCategoryDescription || 'Other';
-                                    let foods = categoryMap.get(category);                          
-                                    if (!foods) {
-                                        foods = new Map();
-                                        categoryMap.set(category, foods);
-                                    }
-                                    foods.set(food.description, food);
-                                }
-                                this.setState({results: categoryMap});
-                            } else {
-                                this.setState({results: new Map()});
-                            }
-                        });
+				fetch(`https://api.nal.usda.gov/fdc/v1/foods/search?api_key=${FDC_API_KEY}&query=${encodeURIComponent(query)}&dataType=${datatype}&pageSize=10`)
+					.then(resp => resp.json())
+					.then(results => {const fdcIds = results.foods.map(food => food.fdcId).join(',');
+						return fetch(`https://api.nal.usda.gov/fdc/v1/foods/?fdcIds=${fdcIds}&api_key=${FDC_API_KEY}`);})
+							.then(resp => resp.json())
+							.then(results => {
+								const categoryMap = new Map();
+								if (Array.isArray(results)) {
+									for (const food of results) {
+										const category = food.wweiaFoodCategory.wweiaFoodCategoryDescription || 'Other';
+										let foods = categoryMap.get(category);                          
+										if (!foods) {
+											foods = new Map();
+											categoryMap.set(category, foods);
+										}
+										foods.set(food.description, food);
+									}
+									this.setState({results: categoryMap});
+								} else {
+										this.setState({results: new Map()});
+								}
+						});
         }   
     }
 
