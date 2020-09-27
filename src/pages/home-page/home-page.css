@@ -1,49 +1,45 @@
 .home-page {
-    height: 100vh;
-    display: flex;
-    flex-direction: column;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 .home-page .login-content {
-    flex-grow: 1;
+  flex-grow: 1;
 }
 /* todo - make the buttom apper in the buttom of the page (make sceen fit to evrry page responsive) */
 .home-page .login-title {
-    background: #2C3A42;
-    height: 45px;
-    display: grid;
-    justify-content: center;
-    align-items: center;
+  background: #2c3a42;
+  height: 45px;
+  display: grid;
+  justify-content: center;
+  align-items: center;
 }
 
 .home-page .log-in-button {
-    background: #F7FBFB;
-    height: 30px;
-    width: 80px;
-    border-radius: 9px;
-    border: none;
+  background: #f7fbfb;
+  height: 30px;
+  width: 80px;
+  border-radius: 9px;
+  border: none;
 }
 
 /* כאן יש לי קושי להעביר את החלקים שלו למטה
  - אני חושב שהבעיה נמצאת בגלל ההורה מאין
  - ניסיתי לעשות כל מיני אופציות של אליין ולשנות את כמות המקום שלו
  */
- .home-page .login-content {
-    
-    display: grid;
-    grid-template-rows: 1fr 10px 50px 0.05fr;
-    justify-items: center;
-    align-items: center;
-
+.home-page .login-content {
+  display: grid;
+  grid-template-rows: 1fr 10px 50px 0.05fr;
+  justify-items: center;
+  align-items: center;
 }
-
 
 .home-page .register {
-    background-color: #E75027;
-    border: none;
-    height: 40px;
-    width: 180px;
-    border-radius: 15px;
-    color: beige;
+  background-color: #e75027;
+  border: none;
+  height: 40px;
+  width: 180px;
+  border-radius: 15px;
+  color: beige;
 }
-
