@@ -1,144 +1,140 @@
-@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,500;0,700;0,900;1,700;1,800&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,500;0,700;0,900;1,700;1,800&display=swap");
 .food-search {
-    font-family: 'Rubik', sans-serif;
+  font-family: "Rubik", sans-serif;
 }
 
 /* food search section */
 .food-search .user-nav {
-    background: #2C3A42;
-    height: 30px;
-    display: grid;
-    grid-template-columns: 1fr 2.2fr 1fr;
+  background: #2c3a42;
+  height: 30px;
+  display: grid;
+  grid-template-columns: 1fr 2.2fr 1fr;
 
-    padding: 4px;
+  padding: 4px;
 }
 .food-search #title {
-    color: #F7FBFB;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-} 
+  color: #f7fbfb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 .food-search .sign-out {
-    color: #a0aebd;
-    font-family: Roboto, sans-serif;
-    font-size: 12px;
-    border: none;
-    background: none;
-
+  color: #a0aebd;
+  font-family: Roboto, sans-serif;
+  font-size: 12px;
+  border: none;
+  background: none;
 }
 .main-page {
-    border: 2px solid;
-    border-radius: 15px;
-    background: #f7fbfbd7;
-    color: #2C3A42;
-
+  border: 2px solid;
+  border-radius: 15px;
+  background: #f7fbfbd7;
+  color: #2c3a42;
 }
 
 /* creat recipe steps section */
 .food-search .bar-steps {
-    background: #92A3B5;
-    display: grid;
-    justify-items: center;
-    align-items: center;
-    color: #2C3A42;
-    height: 30px;
+  background: #92a3b5;
+  display: grid;
+  justify-items: center;
+  align-items: center;
+  color: #2c3a42;
+  height: 30px;
 }
 
 .food-search .food-search-bar {
-    background-color: #92A3B5;
-    padding: 10px;
-    height: 30px;    
+  background-color: #92a3b5;
+  padding: 10px;
+  height: 30px;
 }
 
 .food-search .input-container {
-    height: 30px;
-    background-color: #f7fbfb;
-    border-radius: 15px;    
-    display: grid;
-    align-content: center;
+  height: 30px;
+  background-color: #f7fbfb;
+  border-radius: 15px;
+  display: grid;
+  align-content: center;
 }
 
 .food-search #has-text {
-    display: grid;
-    height: 30px;
-    background-color: #f7fbfb;
-    border-radius: 15px 15px 0px 0px;
-    border: 1px solid #BF3A15;
-    align-content: center;
+  display: grid;
+  height: 30px;
+  background-color: #f7fbfb;
+  border-radius: 15px 15px 0px 0px;
+  border: 1px solid #bf3a15;
+  align-content: center;
 }
 
 .food-search .food-search-bar input {
-    background: transparent;
-    border: none;
-    height: 30px;
-    left: 10px;
-    position: relative;
+  background: transparent;
+  border: none;
+  height: 30px;
+  left: 10px;
+  position: relative;
 }
 
-.food-search .food-search-bar input:focus{
-    outline: none;
+.food-search .food-search-bar input:focus {
+  outline: none;
 }
 
 .food-search .result-list {
-    background-color: #F7FBFB;
-    padding: 12px;
-    border-radius: 0px 0px 15px 15px;
-    position: relative;
-    border-left: solid 1px  #BF3A15;
-    border-right: solid 1px  #BF3A15;
-    border-bottom: solid 1px  #BF3A15;
+  background-color: #f7fbfb;
+  padding: 12px;
+  border-radius: 0px 0px 15px 15px;
+  position: relative;
+  border-left: solid 1px #bf3a15;
+  border-right: solid 1px #bf3a15;
+  border-bottom: solid 1px #bf3a15;
 }
 
 .food-search .category {
-    color: #92A3B5;
-    line-height: 2;
+  color: #92a3b5;
+  line-height: 2;
 }
 
 .food-search .description {
-    text-indent: 1em;
-    line-height: 2;
+  text-indent: 1em;
+  line-height: 2;
 }
 
 .food-search .description:hover {
-    
-    background-color:#8f9eaf3b;
-    border-radius: 9px;
+  background-color: #8f9eaf3b;
+  border-radius: 9px;
 }
 
 .food-search .description.description:active {
-    background-color:#5d705eb0;
-    border-radius: 9px;
+  background-color: #5d705eb0;
+  border-radius: 9px;
 }
 
-
 .search-input {
-    border-radius: 10px;
-    border-style: none;
-    width: 90vw;
-    height: 30px;
+  border-radius: 10px;
+  border-style: none;
+  width: 90vw;
+  height: 30px;
 }
 
 .buttons {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: none;
 }
 
 .button {
-    border: none;
-    width: 100vw;
-    height: 45px;
+  border: none;
+  width: 100vw;
+  height: 45px;
 }
 
 .add-new-recipe {
-    border-radius: 0 0 0px 9px;
-    background: #2C3A42;
-    color: #F7FBFB;
+  border-radius: 0 0 0px 9px;
+  background: #2c3a42;
+  color: #f7fbfb;
 }
 
 .go-to-amounts {
-    border-radius: 0 0 9px 0px;
-    border: 2px solid #2C3A42;
-    background: #F7FBFB;
+  border-radius: 0 0 9px 0px;
+  border: 2px solid #2c3a42;
+  background: #f7fbfb;
 }

@@ -1,0 +1,8 @@
+# Ignore artifacts:
+build
+coverage
+public
+server/bin
+server/public
+server/schema
+server/views
