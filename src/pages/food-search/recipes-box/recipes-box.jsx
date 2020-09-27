@@ -44,21 +44,6 @@ class RecipesBox extends React.Component {
                         <div className="food-description">melon</div>
                     </div>
                 </div>
-                    {/* <div className="box-skeleton">hihi</div>
-                    <div className="selection">
-                        {props.state.selection.map(food => (
-                        <div className="result">
-                            <div className="category">{food.brandedFoodCategory || 'Other'}</div>
-                            <div className="description">{food.description}</div>
-                        </div>
-                        ))}
-                    </div>
-                        {!props.state.selection.length && (
-                            <div className="instructions">
-                                <div className="primary">search food items to add in the list</div>
-                                <div className="secondary">dfldjafter search it appere items on the screen that you cen chose from</div>
-                            </div>
-                    )} */}
             </div>
         );   
     }

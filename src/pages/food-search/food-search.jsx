@@ -21,41 +21,41 @@ class FoodSearchComponent extends Component {
 				query: '',
 				results: null,
 				selection: []
-        }
-    }
+      }
+  }
 
-    componentDidMount = () => {
-        const search = this.props.location.search;
-        const params = new URLSearchParams(search);
-        const recipeIds = params.get('recipe-ids'); 
-        console.log(recipeIds)
-    }
-    // hi this is my chenge for this pull requst we cen feel free to delate me (the message)
-    onSearchFetchResults = (event) => {
-        const query = event.target.value;
-        const datatype = "Survey%20(FNDDS)";
-        this.setState({query});
-        if (!query) {
-            this.setState({
-                query: "",
-                
-            });
-        } else {
-            fetch(`https://api.nal.usda.gov/fdc/v1/foods/search?api_key=${FDC_API_KEY}&query=${encodeURIComponent(query)}&dataType=${datatype}&pageSize=10`)
-                .then(resp => resp.json())
-                .then(results => {const fdcIds = results.foods.map(food => food.fdcId).join(',');
-                    return fetch(`https://api.nal.usda.gov/fdc/v1/foods/?fdcIds=${fdcIds}&api_key=${FDC_API_KEY}`);})
-                        .then(resp => resp.json())
-                        .then(results => {
-                            const categoryMap = new Map();
-                            if (Array.isArray(results)) {
-                                for (const food of results) {
-                                    const category = food.wweiaFoodCategory.wweiaFoodCategoryDescription || 'Other';
-                                    let foods = categoryMap.get(category);                          
-                                    if (!foods) {
-                                        foods = new Map();
-                                        categoryMap.set(category, foods);
-                                    }
+  componentDidMount = () => {
+		const search = this.props.location.search;
+		const params = new URLSearchParams(search);
+		const recipeIds = params.get('recipe-ids'); 
+		console.log(recipeIds)
+	}
+	// hi this is my chenge for this pull requst we cen feel free to delate me (the message)
+	onSearchFetchResults = (event) => {
+		const query = event.target.value;
+		const datatype = "Survey%20(FNDDS)";
+		this.setState({query});
+		if (!query) {
+		this.setState({
+				query: "",
+						
+				});
+		} else {
+				fetch(`https://api.nal.usda.gov/fdc/v1/foods/search?api_key=${FDC_API_KEY}&query=${encodeURIComponent(query)}&dataType=${datatype}&pageSize=10`)
+						.then(resp => resp.json())
+						.then(results => {const fdcIds = results.foods.map(food => food.fdcId).join(',');
+								return fetch(`https://api.nal.usda.gov/fdc/v1/foods/?fdcIds=${fdcIds}&api_key=${FDC_API_KEY}`);})
+										.then(resp => resp.json())
+										.then(results => {
+												const categoryMap = new Map();
+												if (Array.isArray(results)) {
+														for (const food of results) {
+																const category = food.wweiaFoodCategory.wweiaFoodCategoryDescription || 'Other';
+																let foods = categoryMap.get(category);                          
+																if (!foods) {
+																		foods = new Map();
+																		categoryMap.set(category, foods);
+																}
                                     foods.set(food.description, food);
                                 }
                                 this.setState({results: categoryMap});
