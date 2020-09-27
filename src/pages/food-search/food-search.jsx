@@ -14,13 +14,13 @@ import Action from '../../components/buttons/back-to/action';
 const FDC_API_KEY = process.env.REACT_APP_FDC_API_KEY;
 
 class FoodSearchComponent extends Component {
-    timeout = null; // אני לא מבין למה בעצם ? להבין
-    constructor(props) {
-        super(); 
-        this.state = {
-            query: '',
-            results: null,
-            selection: []
+  timeout = null; // אני לא מבין למה בעצם ? להבין
+  constructor(props) {
+    super(); 
+      this.state = {
+				query: '',
+				results: null,
+				selection: []
         }
     }
 
@@ -92,9 +92,9 @@ class FoodSearchComponent extends Component {
 
                     <section className="user-nav"> 
 
-                          <Action btnTatile='main page' styleing="main-page"/>
+                          <Action btnTatile='main page' className="main-page"/>
                           <div className="title" id='title'>welcome Ron Levi</div>
-                          <Action btnTatile='sign out' styleing="sign-out"/>
+                          <Action btnTatile='sign out' className="sign-out"/>
                     </section>
                     <section className='bar-steps'>
                         <div className="bar-steps-title" id="bar-steps">step 1: search and chose foods items</div>
@@ -130,8 +130,8 @@ class FoodSearchComponent extends Component {
                         )}
                     </section>
                         <div class="buttons clickable font">
-                            <Action btnTatile='ADD NEW RECIPE' styleing="button add-new-recipe"/>
-                            <Action btnTatile='GO TO AMOUNTS' styleing="button go-to-amounts"/>
+                            <Action btnTatile='ADD NEW RECIPE' className="button add-new-recipe"/>
+                            <Action btnTatile='GO TO AMOUNTS' className="button go-to-amounts"/>
                         </div>
                     <Viewport>
                         <RecipeTag/>
