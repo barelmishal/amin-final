@@ -1,8 +1,15 @@
 import React, { Component } from 'react';
+// style
 import './food-search.css';
 // photo
 import hamburgerIcon from '../../pic/hamburger-icon.svg';
+// files
+import RecipesBox from './recipes-box/recipes-box.jsx';
+import Viewport from './viewport/viewport';
+import RecipeTag from './recipe-tag/recipe-tag';
+import Scrollbele from './Scrollbele/Scrollbele';
 import { withRouter } from 'react-router-dom';
+import Action from '../../components/buttons/back-to/action';
 
 const FDC_API_KEY = process.env.REACT_APP_FDC_API_KEY;
 
@@ -61,7 +68,7 @@ class FoodSearchComponent extends Component {
         const selection = this.state.selection;
         selection.splice(0, 0, food);
         this.setState({
-          selection, 
+          selection,
           results: null, 
           query: ''
         }); 
@@ -82,11 +89,10 @@ class FoodSearchComponent extends Component {
             <div className="food-search">
 
                     <section className="user-nav"> 
-                    {/* אני מנסה להבין כיצד עושים אקורדיון */}
-                          {/* <button className="back-main-page" id='back-btn-main-page'>BACK TO MAIN PAGE</button> */}
+
+                          <Action btnTatile='main page' className="main-page"/>
                           <div className="title" id='title'>welcome Ron Levi</div>
-                          {/* <button className="logout" id='log-out'>log out</button> */}
-                          <img className="menu-icon" alt='' src={hamburgerIcon} />
+                          <Action btnTatile='sign out' className="sign-out"/>
                     </section>
                     <section className='bar-steps'>
                         <div className="bar-steps-title" id="bar-steps">step 1: search and chose foods items</div>
@@ -121,22 +127,16 @@ class FoodSearchComponent extends Component {
                             </div>
                         )}
                     </section>
-                    <main className="main">
-                                    <div className="selection">
-                            {this.state.selection.map(food => (
-                            <div className="result">
-                                <div className="category">{food.brandedFoodCategory || 'Other'}</div>
-                                <div className="description">{food.description}</div>
-                            </div>
-                            ))}
+                        <div class="buttons clickable font">
+                            <Action btnTatile='ADD NEW RECIPE' className="button add-new-recipe"/>
+                            <Action btnTatile='GO TO AMOUNTS' className="button go-to-amounts"/>
                         </div>
-                        {!this.state.selection.length && (
-                            <div className="instructions">
-                            <div className="primary">search food items to add in the list</div>
-                            <div className="secondary">after search it appere items on the screen that you cen chose from</div>
-                            </div>
-                        )}
-                    </main>
+                    <Viewport>
+                        <RecipeTag/>
+                        <Scrollbele>
+                            <RecipesBox className="main"/>
+                        </Scrollbele>
+                    </Viewport>
             </div>
         )
     }
