@@ -103,6 +103,8 @@ class FoodSearchComponent extends Component {
         foodChosen: food,
         recipeId: this.state.recipeIds[0],
       }),
+    }).then((res) => {
+      this.fetchRcipeFromServer(this.state.recipeIds);
     });
   };
 
@@ -115,7 +117,6 @@ class FoodSearchComponent extends Component {
             step 1: search and chose foods items
           </div>
         </section>
-
         <section className="food-search-bar">
           <div
             className="input-container"

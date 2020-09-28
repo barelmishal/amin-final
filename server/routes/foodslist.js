@@ -12,10 +12,11 @@ router.post("/id", async (req, res, next) => {
   try {
     const fdcFoodId = req.body.foodChosen;
     const checkFdcFoodIdInDb = await db("foods").where("fdc_id", fdcFoodId);
+    trx = await db.transaction();
+    let foodId;
     if (checkFdcFoodIdInDb.length) {
-      res.json(checkFdcFoodIdInDb[0].id);
+      foodId = checkFdcFoodIdInDb[0].id;
     } else {
-      trx = await db.transaction();
       const FoodData = await axios
         .get(
           `https://api.nal.usda.gov/fdc/v1/foods/?fdcIds=${fdcFoodId}&api_key=${FDC_API_KEY}`
@@ -119,15 +120,15 @@ router.post("/id", async (req, res, next) => {
         "id"
       );
 
-      await trx("recipe_foods").insert({
-        food_id: insertfood[0],
-        recipe_id: req.body.recipeId,
-      });
-
-      // commit db to make sure that the data is pass
-      await trx.commit();
-      res.json(insertfood[0]);
+      foodId = insertfood[0];
     }
+    await trx("recipe_foods").insert({
+      food_id: foodId,
+      recipe_id: req.body.recipeId,
+    });
+    // commit db to make sure that the data is pass
+    await trx.commit();
+    res.json(foodId);
   } catch (err) {
     if (trx) {
       await trx.rollback(err);
