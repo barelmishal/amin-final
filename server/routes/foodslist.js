@@ -118,14 +118,17 @@ router.post("/id", async (req, res, next) => {
         fdcNutreintIds,
         "id"
       );
-      console.log(insertDbN);
+
+      await trx("recipe_foods").insert({
+        food_id: insertfood[0],
+        recipe_id: req.body.recipeId,
+      });
 
       // commit db to make sure that the data is pass
       await trx.commit();
       res.json(insertfood[0]);
     }
   } catch (err) {
-    console.error(err);
     if (trx) {
       await trx.rollback(err);
     }
