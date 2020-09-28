@@ -42,9 +42,6 @@ router.get("/me", async function (req, res, next) {
         } catch (err) {
           next(err);
         }
-
-        delete userInfo.iat;
-        res.json(userInfo);
       });
     } catch (err) {
       next(err);
