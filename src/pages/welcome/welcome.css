@@ -1,0 +1,29 @@
+.welcome-container .button-container {
+  height: 50vh;
+  display: grid;
+  align-items: center;
+  justify-items: center;
+}
+
+.welcome-container .text {
+  text-align: center;
+  color: #2c3a42;
+}
+
+.welcome-container .create-recipes {
+  border: none;
+  background: #bf3a15;
+  color: #f7fbfb;
+  border-radius: 15px;
+  padding: 20px;
+  width: 50%;
+}
+
+.welcome-container .creat-new-client {
+  border: none;
+  background: #fee7d6;
+  color: #2c3a42;
+  border-radius: 15px;
+  padding: 20px;
+  width: 50%;
+}
