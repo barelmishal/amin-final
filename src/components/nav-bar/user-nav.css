@@ -1,0 +1,29 @@
+@import url("https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,500;0,700;0,900;1,700;1,800&display=swap");
+
+/* food search section */
+.user-nav {
+  background: #2c3a42;
+  height: 30px;
+  display: grid;
+  grid-template-columns: 1fr 2.2fr 1fr;
+  padding: 4px;
+}
+.user-nav #title {
+  color: #f7fbfb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.user-nav .sign-out {
+  color: #a0aebd;
+  font-family: Roboto, sans-serif;
+  font-size: 12px;
+  border: none;
+  background: none;
+}
+.user-nav .main-page {
+  border: 2px solid;
+  border-radius: 15px;
+  background: #f7fbfbd7;
+  color: #2c3a42;
+}

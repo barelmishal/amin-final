@@ -10,6 +10,7 @@ import RecipeTag from "./recipe-tag/recipe-tag";
 import Scrollbele from "./Scrollbele/Scrollbele";
 import { withRouter } from "react-router-dom";
 import Action from "../../components/buttons/back-to/action";
+import UserNav from "../../components/nav-bar/user-nav";
 
 const FDC_API_KEY = process.env.REACT_APP_FDC_API_KEY;
 
@@ -112,13 +113,7 @@ class FoodSearchComponent extends Component {
   render() {
     return (
       <div className="food-search">
-        <section className="user-nav">
-          <Action btnTatile="main page" className="main-page" />
-          <div className="title" id="title">
-            welcome Ron Levi
-          </div>
-          <Action btnTatile="sign out" className="sign-out" />
-        </section>
+        <UserNav>{this.props.children}</UserNav>
         <section className="bar-steps">
           <div className="bar-steps-title" id="bar-steps">
             step 1: search and chose foods items

@@ -3,35 +3,6 @@
   font-family: "Rubik", sans-serif;
 }
 
-/* food search section */
-.food-search .user-nav {
-  background: #2c3a42;
-  height: 30px;
-  display: grid;
-  grid-template-columns: 1fr 2.2fr 1fr;
-
-  padding: 4px;
-}
-.food-search #title {
-  color: #f7fbfb;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.food-search .sign-out {
-  color: #a0aebd;
-  font-family: Roboto, sans-serif;
-  font-size: 12px;
-  border: none;
-  background: none;
-}
-.main-page {
-  border: 2px solid;
-  border-radius: 15px;
-  background: #f7fbfbd7;
-  color: #2c3a42;
-}
-
 /* creat recipe steps section */
 .food-search .bar-steps {
   background: #92a3b5;
