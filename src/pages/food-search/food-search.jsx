@@ -97,9 +97,16 @@ class FoodSearchComponent extends Component {
     fetch("/api/foodslist/id", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-
       body: JSON.stringify({ foodChosen: food }),
     });
+  };
+
+  PostSelectFood = () => {
+    // fetch("/api/foodslist/id", {
+    //   method: "POST",
+    //   headers: { "Content-Type": "application/json" },
+    //   body: JSON.stringify({ foodChosen: food }),
+    // });
   };
 
   render() {
