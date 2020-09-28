@@ -23,6 +23,7 @@ class FoodSearchComponent extends Component {
       results: null,
       selection: [],
       recipes: [],
+      recipeIds: [],
     };
   }
 
@@ -30,7 +31,7 @@ class FoodSearchComponent extends Component {
     const search = this.props.location.search;
     const params = new URLSearchParams(search);
     const recipeIds = params.get("recipe-ids");
-
+    this.setState({ recipeIds: recipeIds.split(",") });
     this.fetchRcipeFromServer(recipeIds);
   };
   fetchRcipeFromServer = (recipeIds) => {
@@ -100,7 +101,7 @@ class FoodSearchComponent extends Component {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         foodChosen: food,
-        recipeId: 4,
+        recipeId: this.state.recipeIds[0],
       }),
     });
   };
