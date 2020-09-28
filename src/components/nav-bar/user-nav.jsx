@@ -7,7 +7,7 @@ const UserNav = (props) => {
     <div className="user-nav">
       <Action btnTatile="main page" className="main-page" />
       <div className="title" id="title">
-        welcome Ron Levi
+        Welcome Ron Levi
       </div>
       <Action btnTatile="sign out" className="sign-out" />
     </div>
