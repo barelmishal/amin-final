@@ -1,15 +1,23 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import Action from "../buttons/back-to/action";
 import "./user-nav.css";
 
 const UserNav = (props) => {
+  const { userInfo, onLogout } = props;
   return (
     <div className="user-nav">
-      <Action btnTatile="main page" className="main-page" />
+      <Link to="/" className="main-page">
+        Main page
+      </Link>
       <div className="title" id="title">
-        Welcome Ron Levi
+        {userInfo && (
+          <>
+            Welcome {userInfo.first_name} {props.userInfo.last_name}
+          </>
+        )}
       </div>
-      <Action btnTatile="sign out" className="sign-out" />
+      <Action onClick={onLogout} btnTatile="sign out" className="sign-out" />
     </div>
   );
 };
