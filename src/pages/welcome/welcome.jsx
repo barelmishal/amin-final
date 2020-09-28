@@ -10,9 +10,9 @@ const Welcome = (props) => {
       <UserNav />
       <br />
       <div className="text">
-        click one of the
+        Click one of the
         <br />
-        buttons to fit a menu{" "}
+        buttons to get started{" "}
       </div>
       <div className="button-container">
         <Action
