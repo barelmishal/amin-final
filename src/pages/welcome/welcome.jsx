@@ -12,7 +12,7 @@ const Welcome = (props) => {
       <div className="text">
         Click one of the
         <br />
-        buttons to get started{" "}
+        buttons to get started
       </div>
       <div className="button-container">
         <Action
