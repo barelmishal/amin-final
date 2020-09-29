@@ -4,9 +4,10 @@ import Action from "../../components/buttons/back-to/action";
 import "./welcome.css";
 
 const Welcome = (props) => {
+  const { userInfo, onLogout } = props;
   return (
     <div className="welcome-container">
-      <UserNav />
+      <UserNav userInfo={userInfo} onLogout={onLogout} />
       <br />
       <div className="text">
         Click one of the

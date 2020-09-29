@@ -66,10 +66,14 @@ export default class App extends React.Component {
         <Router>
           <Switch>
             <Route path="/food-search">
-              <FoodSearch />
+              <FoodSearch userInfo={userInfo} onLogout={this.logout} />
             </Route>
             <Route path="/">
-              <HomePage onLogin={this.onLogin} userInfo={userInfo} />
+              <HomePage
+                userInfo={userInfo}
+                onLogin={this.onLogin}
+                onLogout={this.logout}
+              />
             </Route>
           </Switch>
         </Router>

@@ -107,9 +107,10 @@ class FoodSearchComponent extends Component {
   };
 
   render() {
+    const { userInfo, onLogout } = this.props;
     return (
       <div className="food-search">
-        <UserNav>{this.props.children}</UserNav>
+        <UserNav userInfo={userInfo} onLogout={onLogout} />
         <section className="bar-steps">
           <div className="bar-steps-title" id="bar-steps">
             step 1: search and chose foods items
