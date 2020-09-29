@@ -1,7 +1,5 @@
 import React, { Component } from "react";
-// style
 import "./food-search.css";
-// files
 import RecipesItems from "./recipes-box/recipes-box.jsx";
 import Viewport from "./viewport/viewport";
 import RecipeTag from "./recipe-tag/recipe-tag";
@@ -124,7 +122,6 @@ class FoodSearchComponent extends Component {
             >
               <input
                 type="text"
-                // value={this.state.query}
                 onChange={this.onSearchFetchResults}
                 name="items"
                 id="items"
