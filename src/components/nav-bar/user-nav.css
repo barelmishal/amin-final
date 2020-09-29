@@ -4,26 +4,40 @@
 .user-nav {
   background: #2c3a42;
   height: 30px;
-  display: grid;
-  grid-template-columns: 1fr 2.2fr 1fr;
+  display: flex;
   padding: 4px;
 }
+
 .user-nav #title {
+  flex-grow: 1;
+  line-height: 2;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   color: #f7fbfb;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
+
 .user-nav .sign-out {
   color: #a0aebd;
   font-family: Roboto, sans-serif;
   font-size: 12px;
   border: none;
   background: none;
+  margin-left: 0.3rem;
+  min-width: 4rem;
 }
 .user-nav .main-page {
   border: 2px solid;
   border-radius: 15px;
   background: #f7fbfbd7;
   color: #2c3a42;
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-self: center;
+  text-decoration: none;
+  padding: 0.2rem 0.4rem;
+  margin-right: 0.3rem;
+  min-width: 5.2rem;
 }

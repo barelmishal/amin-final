@@ -29,12 +29,14 @@ class HomePageComponent extends Component {
   };
 
   render() {
-    const { onLogin, userInfo } = this.props;
+    const { onLogin, onLogout, userInfo } = this.props;
 
     return (
       <div className="home-page main">
         {userInfo ? (
           <Welcome
+            userInfo={userInfo}
+            onLogout={onLogout}
             className="login-page"
             onCreateRecipeClick={this.onCreateRecipeClick}
           >
