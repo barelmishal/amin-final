@@ -1,5 +1,4 @@
 import React from "react";
-import { Route, Link } from "react-router-dom";
 import UserNav from "../../components/nav-bar/user-nav";
 import Action from "../../components/buttons/back-to/action";
 import "./welcome.css";

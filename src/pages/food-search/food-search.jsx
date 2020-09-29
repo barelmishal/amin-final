@@ -1,10 +1,8 @@
 import React, { Component } from "react";
 // style
 import "./food-search.css";
-// photo
-import hamburgerIcon from "../../pic/hamburger-icon.svg";
 // files
-import RecipesBox from "./recipes-box/recipes-box.jsx";
+import RecipesItems from "./recipes-box/recipes-box.jsx";
 import Viewport from "./viewport/viewport";
 import RecipeTag from "./recipe-tag/recipe-tag";
 import Scrollbele from "./Scrollbele/Scrollbele";
@@ -162,14 +160,14 @@ class FoodSearchComponent extends Component {
           />
           <Action btnTatile="GO TO AMOUNTS" className="button go-to-amounts" />
         </div>
-        {this.state.recipes.map((r) => (
-          <Viewport>
-            <RecipeTag description={r.recipe_description} />
-            <Scrollbele>
-              <RecipesBox foods={r.foods} className="main" />
-            </Scrollbele>
-          </Viewport>
-        ))}
+        <Scrollbele>
+          {this.state.recipes.map((r) => (
+            <Viewport>
+              <RecipeTag description={r.recipe_description} />
+              <RecipesItems foods={r.foods} className="main" />
+            </Viewport>
+          ))}
+        </Scrollbele>
       </div>
     );
   }

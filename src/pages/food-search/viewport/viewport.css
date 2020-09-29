@@ -1,6 +1,7 @@
 .viewport {
+  bottom: 0;
   border: 10px solid #f7fbfb;
   border-radius: 20px;
-  height: 370px;
   background: #f5b5a3;
 }
+/* 162.98 */
