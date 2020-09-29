@@ -110,56 +110,62 @@ class FoodSearchComponent extends Component {
     const { userInfo, onLogout } = this.props;
     return (
       <div className="food-search">
-        <UserNav userInfo={userInfo} onLogout={onLogout} />
-        <section className="bar-steps">
-          <div className="bar-steps-title" id="bar-steps">
-            step 1: search and chose foods items
-          </div>
-        </section>
-        <section className="food-search-bar">
-          <div
-            className="input-container"
-            id={this.state.results && "has-text"}
-          >
-            <input
-              type="text"
-              // value={this.state.query}
-              onChange={this.onSearchFetchResults}
-              name="items"
-              id="items"
-              placeholder="search foods items"
+        <div className="fixed-nav">
+          <UserNav userInfo={userInfo} onLogout={onLogout} />
+          <section className="bar-steps">
+            <div className="bar-steps-title" id="bar-steps">
+              step 1: search and chose foods items
+            </div>
+          </section>
+          <section className="food-search-bar">
+            <div
+              className="input-container"
+              id={this.state.results && "has-text"}
+            >
+              <input
+                type="text"
+                // value={this.state.query}
+                onChange={this.onSearchFetchResults}
+                name="items"
+                id="items"
+                placeholder="search foods items"
+              />
+            </div>
+            {this.state.results && (
+              <div className="result-list">
+                {Array.from(this.state.results.entries()).map((entry) => {
+                  const category = entry[0];
+                  const foods = entry[1];
+                  return (
+                    <div key={category} className="result">
+                      <div className="category">{category}</div>
+                      {Array.from(foods.values()).map((food) => (
+                        <div
+                          onClick={() => this.select(food)}
+                          key={food.fdcId}
+                          className="description"
+                        >
+                          {food.description}
+                        </div>
+                      ))}
+                    </div>
+                  );
+                })}
+                {!this.state.results.size && <div>לא נמצאו תוצאות</div>}
+              </div>
+            )}
+          </section>
+
+          <div class="buttons clickable font">
+            <Action
+              btnTatile="ADD NEW RECIPE"
+              className="button add-new-recipe"
+            />
+            <Action
+              btnTatile="GO TO AMOUNTS"
+              className="button go-to-amounts"
             />
           </div>
-          {this.state.results && (
-            <div className="result-list">
-              {Array.from(this.state.results.entries()).map((entry) => {
-                const category = entry[0];
-                const foods = entry[1];
-                return (
-                  <div key={category} className="result">
-                    <div className="category">{category}</div>
-                    {Array.from(foods.values()).map((food) => (
-                      <div
-                        onClick={() => this.select(food)}
-                        key={food.fdcId}
-                        className="description"
-                      >
-                        {food.description}
-                      </div>
-                    ))}
-                  </div>
-                );
-              })}
-              {!this.state.results.size && <div>לא נמצאו תוצאות</div>}
-            </div>
-          )}
-        </section>
-        <div class="buttons clickable font">
-          <Action
-            btnTatile="ADD NEW RECIPE"
-            className="button add-new-recipe"
-          />
-          <Action btnTatile="GO TO AMOUNTS" className="button go-to-amounts" />
         </div>
         <Scrollbele>
           {this.state.recipes.map((r) => (
