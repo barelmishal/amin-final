@@ -95,6 +95,20 @@ class FoodSearchComponent extends Component {
     this.dbSelection(food.fdcId);
   };
 
+  onCreateRecipeClick = () => {
+    fetch("/api/recipes", {
+      method: "POST",
+    })
+      .then((response) => response.json())
+      .then((info) => {
+        this.props.history.push(
+          "/food-search?recipe-ids=" +
+            [info.IdRecipe, ...this.state.recipeIds].join(",")
+        );
+        this.componentDidMount();
+      });
+  };
+
   dbSelection = (food) => {
     fetch("/api/foodslist/id", {
       method: "POST",
@@ -158,6 +172,7 @@ class FoodSearchComponent extends Component {
         </section>
         <div class="buttons clickable font">
           <Action
+            onClick={this.onCreateRecipeClick}
             btnTatile="ADD NEW RECIPE"
             className="button add-new-recipe"
           />
