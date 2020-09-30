@@ -27,7 +27,10 @@ router.post("/", async (req, res, next) => {
 router.get("/food-search", async (req, res, next) => {
   try {
     const recipeIds = req.query.recipeIds.split(",");
-    const recipes = await db("recipes").select().whereIn("id", recipeIds);
+    const recipes = await db("recipes")
+      .select()
+      .whereIn("id", recipeIds)
+      .orderBy("created", "desc");
     const foods = await db("recipe_foods")
       .join("foods", "foods.id", "=", "recipe_foods.food_id")
       .select(
