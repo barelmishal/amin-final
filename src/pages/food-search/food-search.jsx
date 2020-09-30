@@ -125,7 +125,6 @@ class FoodSearchComponent extends Component {
           >
             <input
               type="text"
-              // value={this.state.query}
               onChange={this.onSearchFetchResults}
               name="items"
               id="items"
