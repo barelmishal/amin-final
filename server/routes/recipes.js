@@ -66,9 +66,8 @@ router.get("/food-search", async (req, res, next) => {
         "nutrients.nutrient_name",
         "nutrients.unit_name"
       )
-      .whereIn("food_nutrients.food_id", foodsIds);
-
-    console.log(foodNutrients);
+      .whereIn("food_nutrients.food_id", foodsIds)
+      .where("nutrients.id", "=", 1);
 
     res.json(
       recipes.map((r) => ({
