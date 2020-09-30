@@ -1,10 +1,6 @@
 import React, { Component } from "react";
-// style
 import "./food-search.css";
-// photo
-import hamburgerIcon from "../../pic/hamburger-icon.svg";
-// files
-import RecipesBox from "./recipes-box/recipes-box.jsx";
+import RecipesItems from "./recipes-box/recipes-box.jsx";
 import Viewport from "./viewport/viewport";
 import RecipeTag from "./recipe-tag/recipe-tag";
 import Scrollbele from "./Scrollbele/Scrollbele";
@@ -126,66 +122,71 @@ class FoodSearchComponent extends Component {
     const { userInfo, onLogout } = this.props;
     return (
       <div className="food-search">
-        <UserNav userInfo={userInfo} onLogout={onLogout} />
-        <section className="bar-steps">
-          <div className="bar-steps-title" id="bar-steps">
-            step 1: search and chose foods items
-          </div>
-        </section>
-        <section className="food-search-bar">
-          <div
-            className="input-container"
-            id={this.state.results && "has-text"}
-          >
-            <input
-              type="text"
-              // value={this.state.query}
-              onChange={this.onSearchFetchResults}
-              name="items"
-              id="items"
-              placeholder="search foods items"
+        <div className="fixed-nav">
+          <UserNav userInfo={userInfo} onLogout={onLogout} />
+          <section className="bar-steps">
+            <div className="bar-steps-title" id="bar-steps">
+              step 1: search and chose foods items
+            </div>
+          </section>
+          <section className="food-search-bar">
+            <div
+              className="input-container"
+              id={this.state.results && "has-text"}
+            >
+              <input
+                type="text"
+                onChange={this.onSearchFetchResults}
+                name="items"
+                id="items"
+                placeholder="search foods items"
+              />
+            </div>
+            {this.state.results && (
+              <div className="result-list">
+                {Array.from(this.state.results.entries()).map((entry) => {
+                  const category = entry[0];
+                  const foods = entry[1];
+                  return (
+                    <div key={category} className="result">
+                      <div className="category">{category}</div>
+                      {Array.from(foods.values()).map((food) => (
+                        <div
+                          onClick={() => this.select(food)}
+                          key={food.fdcId}
+                          className="description"
+                        >
+                          {food.description}
+                        </div>
+                      ))}
+                    </div>
+                  );
+                })}
+                {!this.state.results.size && <div>לא נמצאו תוצאות</div>}
+              </div>
+            )}
+          </section>
+
+          <div class="buttons clickable font">
+            <Action
+              onClick={this.onCreateRecipeClick}
+              btnTatile="ADD NEW RECIPE"
+              className="button add-new-recipe"
+            />
+            <Action
+              btnTatile="GO TO AMOUNTS"
+              className="button go-to-amounts"
             />
           </div>
-          {this.state.results && (
-            <div className="result-list">
-              {Array.from(this.state.results.entries()).map((entry) => {
-                const category = entry[0];
-                const foods = entry[1];
-                return (
-                  <div key={category} className="result">
-                    <div className="category">{category}</div>
-                    {Array.from(foods.values()).map((food) => (
-                      <div
-                        onClick={() => this.select(food)}
-                        key={food.fdcId}
-                        className="description"
-                      >
-                        {food.description}
-                      </div>
-                    ))}
-                  </div>
-                );
-              })}
-              {!this.state.results.size && <div>לא נמצאו תוצאות</div>}
-            </div>
-          )}
-        </section>
-        <div class="buttons clickable font">
-          <Action
-            onClick={this.onCreateRecipeClick}
-            btnTatile="ADD NEW RECIPE"
-            className="button add-new-recipe"
-          />
-          <Action btnTatile="GO TO AMOUNTS" className="button go-to-amounts" />
         </div>
-        {this.state.recipes.map((r) => (
-          <Viewport>
-            <RecipeTag description={r.recipe_description} />
-            <Scrollbele>
-              <RecipesBox foods={r.foods} className="main" />
-            </Scrollbele>
-          </Viewport>
-        ))}
+        <Scrollbele>
+          {this.state.recipes.map((r) => (
+            <Viewport>
+              <RecipeTag description={r.recipe_description} />
+              <RecipesItems foods={r.foods} className="main" />
+            </Viewport>
+          ))}
+        </Scrollbele>
       </div>
     );
   }

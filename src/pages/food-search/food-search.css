@@ -1,4 +1,9 @@
 /* creat recipe steps section */
+.food-search {
+  display: flex;
+  flex-direction: column;
+}
+
 .food-search .bar-steps {
   background: #92a3b5;
   display: grid;
