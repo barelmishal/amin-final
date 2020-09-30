@@ -34,16 +34,38 @@ router.get("/food-search", async (req, res, next) => {
     const foods = await db("recipe_foods")
       .join("foods", "foods.id", "=", "recipe_foods.food_id")
       .select(
+        "foods.id",
         "foods.food_description",
         "recipe_foods.amount",
         "recipe_foods.recipe_id"
       )
       .whereIn("recipe_foods.recipe_id", recipeIds);
 
+    const foodsIds = foods.map((f) => f.id);
+    const foodPortions = await db("food_portions")
+      .join(
+        "measure_units",
+        "measure_units.id",
+        "=",
+        "food_portions.measure_unit_id"
+      )
+      .select(
+        "food_portions.gram_weight",
+        "measure_units.measure_unit_name",
+        "food_portions.food_id"
+      )
+      .whereIn("food_portions.food_id", foodsIds)
+      .orderBy("sequence_number");
+
     res.json(
       recipes.map((r) => ({
         ...r,
-        foods: foods.filter((f) => f.recipe_id === r.id),
+        foods: foods
+          .filter((f) => f.recipe_id === r.id)
+          .map((f) => ({
+            ...f,
+            foodPortions: foodPortions.filter((p) => p.food_id === f.id),
+          })),
       }))
     );
   } catch (err) {
