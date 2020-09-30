@@ -118,6 +118,21 @@ class FoodSearchComponent extends Component {
     });
   };
 
+  saveRecipeName = (event) => {
+    fetch("/api/recipes/" + this.state.recipeIds[0], {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        recipe_description: event.target.value,
+      }),
+    }).catch((err) => {
+      console.error(err);
+      alert(
+        "Unable to save recipe name, please check your internet connection and try again"
+      );
+    });
+  };
+
   render() {
     const { userInfo, onLogout } = this.props;
     return (
@@ -181,8 +196,11 @@ class FoodSearchComponent extends Component {
         </div>
         <Scrollbele>
           {this.state.recipes.map((r) => (
-            <Viewport>
-              <RecipeTag description={r.recipe_description} />
+            <Viewport key={r.id}>
+              <RecipeTag
+                onBlur={this.saveRecipeName}
+                description={r.recipe_description}
+              />
               <RecipesItems foods={r.foods} className="main" />
             </Viewport>
           ))}
