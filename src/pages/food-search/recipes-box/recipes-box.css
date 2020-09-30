@@ -20,7 +20,7 @@
 
 .food-items {
   height: 50px;
-  background-color: #f5c2b5b0;
+  border-radius: 15px;
   display: grid;
   align-items: center;
 }
