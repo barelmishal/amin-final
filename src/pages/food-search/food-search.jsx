@@ -118,12 +118,12 @@ class FoodSearchComponent extends Component {
     });
   };
 
-  saveRecipeName = (event) => {
-    fetch("/api/recipes/" + this.state.recipeIds[0], {
+  saveRecipeName = (recipeId, name) => {
+    fetch("/api/recipes/" + recipeId, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        recipe_description: event.target.value,
+        recipe_description: name,
       }),
     }).catch((err) => {
       console.error(err);
@@ -198,7 +198,7 @@ class FoodSearchComponent extends Component {
           {this.state.recipes.map((r) => (
             <Viewport key={r.id}>
               <RecipeTag
-                onBlur={this.saveRecipeName}
+                onBlur={(e) => this.saveRecipeName(r.id, e.target.value)}
                 description={r.recipe_description}
               />
               <RecipesItems foods={r.foods} className="main" />
