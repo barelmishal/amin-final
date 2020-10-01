@@ -51,6 +51,7 @@ router.get("/food-search", async (req, res, next) => {
       )
       .select(
         "food_portions.gram_weight",
+        "food_portions.id",
         "measure_units.measure_unit_name",
         "food_portions.food_id"
       )
