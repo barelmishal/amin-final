@@ -1,11 +1,13 @@
 import React, { Component } from "react";
+import { withRouter } from "react-router-dom";
 // import NavBar from
 
-class foodsAmounts extends Component {
+class FoodsAmounts extends Component {
   constructor() {
     super();
     this.state = {
       items: {},
+      recipes: [],
     };
   }
   componentDidMount = () => {
@@ -33,7 +35,11 @@ class foodsAmounts extends Component {
               <div>
                 <span>{f.food_description}</span>
                 <select name="" id="">
-                  {f.foodPortions}
+                  {f.foodPortions.map((p) => (
+                    <option value="">
+                      {p.gram_weight + " " + p.measure_unit_name}
+                    </option>
+                  ))}
                 </select>
               </div>
             ))}
@@ -43,3 +49,5 @@ class foodsAmounts extends Component {
     );
   }
 }
+
+export default withRouter(FoodsAmounts);

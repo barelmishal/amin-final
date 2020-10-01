@@ -7,6 +7,7 @@ import "./App.css";
 // PAGES
 import FoodSearch from "./pages/food-search/food-search";
 import HomePage from "./pages/home-page/home-page";
+import FoodAmounts from "./pages/amounts/foods-amount";
 
 export default class App extends React.Component {
   constructor(props) {
@@ -67,6 +68,9 @@ export default class App extends React.Component {
           <Switch>
             <Route path="/food-search">
               <FoodSearch userInfo={userInfo} onLogout={this.logout} />
+            </Route>
+            <Route path="/food-amounts">
+              <FoodAmounts userInfo={userInfo} onLogout={this.logout} />
             </Route>
             <Route path="/">
               <HomePage
