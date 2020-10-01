@@ -4,6 +4,7 @@ var path = require("path");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 
+const amountsRouter = require("./routes/amounts");
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 var foodslistRouter = require("./routes/foodslist");
@@ -22,6 +23,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 app.use(express.static(path.join(__dirname, "../build")));
 
+app.use("/api/amounts", amountsRouter);
 app.use("/api/users", usersRouter);
 app.use("/api/foodslist", foodslistRouter);
 app.use("/api/recipes", recipesRouter);
