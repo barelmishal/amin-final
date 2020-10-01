@@ -3,7 +3,7 @@ import React from "react";
 import "./recipe-tag.css";
 
 class RecipeTag extends React.Component {
-  constructor(props) {
+  constructor() {
     super();
     this.state = {};
   }
@@ -13,6 +13,7 @@ class RecipeTag extends React.Component {
         <div class="recipe-details">
           <input
             class="recipe-tag input"
+            onBlur={this.props.onBlur}
             defaultValue={this.props.description}
             type="text"
             name="name recipe"
