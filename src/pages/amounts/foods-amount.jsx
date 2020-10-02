@@ -31,6 +31,16 @@ class FoodsAmounts extends Component {
   };
 
   render() {
+    const search = this.props.location.search;
+    const params = new URLSearchParams(search);
+    const recipeId = Number(params.get("recipe"));
+    const foodId = Number(params.get("food"));
+    const recipe = this.state.recipes.find((r) => r.id === recipeId);
+    let food;
+    if (recipe) {
+      food = recipe.foods.find((f) => f.id === foodId);
+    }
+
     const { userInfo, onLogout } = this.props;
     return (
       <div className="foods-amounts">
@@ -46,12 +56,18 @@ class FoodsAmounts extends Component {
             className="selecting-specipfic-food"
           />
           <DynamicText dynamicText="20 ITEMS AND 2" className="items-left" />
-          <DynamicText dynamicText="RECIPE ARTICHOK" className="recipe-name" />
-          <DynamicText dynamicText="FOOD: ARTICHOKE" className="food-name" />
+          <DynamicText
+            dynamicText={recipe && recipe.recipe_description}
+            className="recipe-name"
+          />
+          <DynamicText
+            dynamicText={food && food.food_description}
+            className="food-name"
+          />
         </div>
         <div className="titles-of-btn">
-          <div className="units">units</div>
           <div className="amounts">amounts</div>
+          <div className="units">units</div>
           <div className="clories">clories</div>
           <Action
             // onClick={}
@@ -78,7 +94,7 @@ class FoodsAmounts extends Component {
           />
         </div>
 
-        {/* {this.state.recipes.map((r) => (
+        {this.state.recipes.map((r) => (
           <div>
             <div className="recipe-title">{r.recipe_description}</div>
             {r.foods.map((f) => (
@@ -94,7 +110,7 @@ class FoodsAmounts extends Component {
               </div>
             ))}
           </div>
-        ))} */}
+        ))}
       </div>
     );
   }
