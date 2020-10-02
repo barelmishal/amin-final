@@ -1,0 +1,10 @@
+.bar-steps {
+  background: #92a3b5;
+  display: grid;
+  justify-items: center;
+  align-items: center;
+  color: #2c3a42;
+  height: 30px;
+}
+.selecting-specipfic-food {
+}

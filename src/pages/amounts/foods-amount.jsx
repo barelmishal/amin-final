@@ -1,5 +1,10 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router-dom";
+import UserNav from "../../components/nav-bar/user-nav";
+import Titles from "../../components/title-stpes/title-steps";
+import Action from "../../components/buttons/back-to/action";
+import DynamicText from "../../components/dynamic-text/dynamic-text";
+
 // import NavBar from
 
 class FoodsAmounts extends Component {
@@ -26,9 +31,54 @@ class FoodsAmounts extends Component {
   };
 
   render() {
+    const { userInfo, onLogout } = this.props;
     return (
       <div className="foods-amounts">
-        {this.state.recipes.map((r) => (
+        <UserNav userInfo={userInfo} onLogout={onLogout} />
+        <Titles
+          Bartitle="step 2: selecting AMOUNTs"
+          className="bar-steps-title"
+        />
+        <div className="center-it">
+          <Action
+            // onClick={}
+            btnTatile="selecting SPECIPFIC FOOD"
+            className="selecting-specipfic-food"
+          />
+          <DynamicText dynamicText="20 ITEMS AND 2" className="items-left" />
+          <DynamicText dynamicText="RECIPE ARTICHOK" className="recipe-name" />
+          <DynamicText dynamicText="FOOD: ARTICHOKE" className="food-name" />
+        </div>
+        <div className="titles-of-btn">
+          <div className="units">units</div>
+          <div className="amounts">amounts</div>
+          <div className="clories">clories</div>
+          <Action
+            // onClick={}
+            btnTatile="amount"
+            className="btn btn-amount"
+          />
+          <Action
+            // onClick={}
+            btnTatile="gr"
+            className="btn btn-units"
+          />
+          <Action
+            // onClick={}
+            btnTatile="50 kcal"
+            className="btn btn-calories"
+          />
+        </div>
+        <div></div>
+        <div className="center-it">
+          <Action
+            // onClick={}
+            btnTatile="NEXT FOOD"
+            className="next-food"
+          />
+        </div>
+
+        {/* {this.state.recipes.map((r) => (
           <div>
             <div className="recipe-title">{r.recipe_description}</div>
             {r.foods.map((f) => (
@@ -44,7 +94,7 @@ class FoodsAmounts extends Component {
               </div>
             ))}
           </div>
-        ))}
+        ))} */}
       </div>
     );
   }
