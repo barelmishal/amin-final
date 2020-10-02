@@ -41,6 +41,13 @@ class FoodSearchComponent extends Component {
     const query = event.target.value;
     const datatype = "Survey%20(FNDDS)";
     this.setState({ query });
+    if (this.abortController) {
+      this.abortController.abort();
+    }
+
+    this.abortController = new AbortController();
+    const signal = this.abortController.signal;
+
     if (!query) {
       this.setState({
         query: "",
@@ -49,13 +56,15 @@ class FoodSearchComponent extends Component {
       fetch(
         `https://api.nal.usda.gov/fdc/v1/foods/search?api_key=${FDC_API_KEY}&query=${encodeURIComponent(
           query
-        )}&dataType=${datatype}&pageSize=10`
+        )}&dataType=${datatype}&pageSize=10`,
+        { signal }
       )
         .then((resp) => resp.json())
         .then((results) => {
           const fdcIds = results.foods.map((food) => food.fdcId).join(",");
           return fetch(
-            `https://api.nal.usda.gov/fdc/v1/foods/?fdcIds=${fdcIds}&api_key=${FDC_API_KEY}`
+            `https://api.nal.usda.gov/fdc/v1/foods/?fdcIds=${fdcIds}&api_key=${FDC_API_KEY}`,
+            { signal }
           );
         })
         .then((resp) => resp.json())
