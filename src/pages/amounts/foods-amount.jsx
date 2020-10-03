@@ -29,6 +29,39 @@ class FoodsAmounts extends Component {
         this.setState({ recipes, loading: false });
       });
   };
+  nextFood = () => {
+    // current page
+    const search = this.props.location.search;
+    const params = new URLSearchParams(search);
+    const recipeId = Number(params.get("recipe"));
+    const recipeIds = params.get("recipe-ids");
+    const foodId = Number(params.get("food"));
+    const IndexRecipe = (r) => r.id === recipeId;
+    let nRecipe = this.state.recipes.findIndex(IndexRecipe);
+    const IndexFood = (f) => f.id === foodId;
+    let nFood = this.state.recipes[nRecipe].foods.findIndex(IndexFood);
+    const sumRecipe = this.state.recipes.length;
+    const sumfoods = this.state.recipes[nRecipe].foods.length;
+    nFood = nFood + 1;
+    if (sumfoods <= nFood) {
+      nRecipe = nRecipe + 1;
+      nFood = 0;
+    }
+    if (sumRecipe <= nRecipe) {
+      nFood = 0;
+      nRecipe = 0;
+    }
+    const nextRecipe = this.state.recipes[nRecipe];
+    const nextFood = this.state.recipes[nRecipe].foods[nFood];
+    this.props.history.push(
+      "/food-amounts?recipe-ids=" +
+        recipeIds +
+        "&recipe=" +
+        nextRecipe.id +
+        "&food=" +
+        nextFood.id
+    );
+  };
 
   render() {
     const search = this.props.location.search;
@@ -74,11 +107,15 @@ class FoodsAmounts extends Component {
             btnTatile="amount"
             className="btn btn-amount"
           />
-          <Action
-            // onClick={}
-            btnTatile="gr"
-            className="btn btn-units"
-          />
+          <select name="" id="">
+            {food &&
+              food.foodPortions.map((p) => (
+                <option value="">
+                  {p.measure_unit_name + " (" + p.gram_weight + " g)"}
+                </option>
+              ))}
+          </select>
+
           <Action
             // onClick={}
             btnTatile="50 kcal"
@@ -88,7 +125,7 @@ class FoodsAmounts extends Component {
         <div></div>
         <div className="center-it">
           <Action
-            // onClick={}
+            onClick={this.nextFood}
             btnTatile="NEXT FOOD"
             className="next-food"
           />
