@@ -130,24 +130,6 @@ class FoodsAmounts extends Component {
             className="next-food"
           />
         </div>
-
-        {this.state.recipes.map((r) => (
-          <div>
-            <div className="recipe-title">{r.recipe_description}</div>
-            {r.foods.map((f) => (
-              <div>
-                <span>{f.food_description}</span>
-                <select name="" id="">
-                  {f.foodPortions.map((p) => (
-                    <option value="">
-                      {p.gram_weight + " " + p.measure_unit_name}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            ))}
-          </div>
-        ))}
       </div>
     );
   }
