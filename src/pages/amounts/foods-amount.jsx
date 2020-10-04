@@ -4,6 +4,7 @@ import UserNav from "../../components/nav-bar/user-nav";
 import Titles from "../../components/title-stpes/title-steps";
 import Action from "../../components/buttons/back-to/action";
 import DynamicText from "../../components/dynamic-text/dynamic-text";
+import "./foods-amount.css";
 
 // import NavBar from
 
