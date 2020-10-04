@@ -108,10 +108,10 @@ class FoodsAmounts extends Component {
             btnTatile="amount"
             className="btn btn-amount"
           />
-          <select className="btn " name="" id="">
+          <select className="btn-select" name="" id="">
             {food &&
               food.foodPortions.map((p) => (
-                <option value="">
+                <option key={p.id} value="">
                   {p.measure_unit_name + " (" + p.gram_weight + " g)"}
                 </option>
               ))}

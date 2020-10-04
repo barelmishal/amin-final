@@ -51,6 +51,15 @@
   color: #bf3a15;
 }
 
+.foods-amounts .btn-select {
+  background: #f7fbfb;
+  border: 1px solid #bf3a15;
+  border-radius: 22px;
+  text-align: center;
+  color: #bf3a15;
+  max-width: 150px;
+}
+
 .foods-amounts .next-food {
   grid-column: 2;
   grid-row: 2;
