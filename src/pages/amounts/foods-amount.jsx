@@ -107,7 +107,7 @@ class FoodsAmounts extends Component {
             btnTatile="amount"
             className="btn btn-amount"
           />
-          <select name="" id="">
+          <select className="btn " name="" id="">
             {food &&
               food.foodPortions.map((p) => (
                 <option value="">
