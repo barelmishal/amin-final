@@ -58,6 +58,7 @@ router.get("/food-search", async (req, res, next) => {
       .join("foods", "foods.id", "=", "recipe_foods.food_id")
       .select(
         "foods.id",
+        { recipe_foods_id: "recipe_foods.id" },
         "recipe_foods.food_portion_id",
         "foods.food_description",
         "recipe_foods.amount",

@@ -36,10 +36,10 @@ class FoodsAmounts extends Component {
     const params = new URLSearchParams(search);
     const recipeId = Number(params.get("recipe"));
     const recipeIds = params.get("recipe-ids");
-    const foodId = Number(params.get("food"));
+    const recipeFoodId = Number(params.get("recipe_foods_id"));
     const IndexRecipe = (r) => r.id === recipeId;
     let nRecipe = this.state.recipes.findIndex(IndexRecipe);
-    const IndexFood = (f) => f.id === foodId;
+    const IndexFood = (f) => f.recipe_foods_id === recipeFoodId;
     let nFood = this.state.recipes[nRecipe].foods.findIndex(IndexFood);
     const sumRecipe = this.state.recipes.length;
     const sumfoods = this.state.recipes[nRecipe].foods.length;
@@ -59,8 +59,8 @@ class FoodsAmounts extends Component {
         recipeIds +
         "&recipe=" +
         nextRecipe.id +
-        "&food=" +
-        nextFood.id
+        "&recipe_foods_id=" +
+        nextFood.recipe_foods_id
     );
   };
 
@@ -68,11 +68,11 @@ class FoodsAmounts extends Component {
     const search = this.props.location.search;
     const params = new URLSearchParams(search);
     const recipeId = Number(params.get("recipe"));
-    const foodId = Number(params.get("food"));
+    const recipeFoodId = Number(params.get("recipe_foods_id"));
     const recipe = this.state.recipes.find((r) => r.id === recipeId);
     let food;
     if (recipe) {
-      food = recipe.foods.find((f) => f.id === foodId);
+      food = recipe.foods.find((f) => f.recipe_foods_id === recipeFoodId);
     }
 
     const { userInfo, onLogout } = this.props;
