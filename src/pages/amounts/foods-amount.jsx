@@ -85,7 +85,6 @@ class FoodsAmounts extends Component {
         />
         <div className="center-it">
           <Action
-            // onClick={}
             btnTatile="selecting SPECIPFIC FOOD"
             className="selecting-specipfic-food"
           />
