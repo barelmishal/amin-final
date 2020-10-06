@@ -102,7 +102,7 @@ class FoodsAmounts extends Component {
           <div className="amounts">amounts</div>
           <div className="units">units</div>
           <div className="clories">clories</div>
-          <Action btnTatile="amount" className="btn btn-amount" />
+          <input placeholder="amount" className="btn btn-amount" />
           <select className="btn-select" name="" id="">
             {food &&
               food.foodPortions.map((p) => (
@@ -112,11 +112,7 @@ class FoodsAmounts extends Component {
               ))}
           </select>
 
-          <Action
-            // onClick={}
-            btnTatile="50 kcal"
-            className="btn btn-calories"
-          />
+          <input placeholder="50 kcal" className="btn btn-calories" />
         </div>
         <div></div>
         <div className="center-it">
