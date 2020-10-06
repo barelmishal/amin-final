@@ -22,21 +22,28 @@ class FoodsAmounts extends Component {
 
   componentDidUpdate(prevProps) {
     if (this.props.location.search !== prevProps.location.search) {
-      const search = this.props.location.search;
-      const params = new URLSearchParams(search);
-      const recipeId = Number(params.get("recipe"));
-      const recipeFoodId = Number(params.get("recipe_foods_id"));
-      const recipe = this.state.recipes.find((r) => r.id === recipeId);
-      let food;
-      if (recipe) {
-        food = recipe.foods.find((f) => f.recipe_foods_id === recipeFoodId);
-      }
-      this.setState({
-        amount: food.amount,
-        foodPortionId: food.food_protion_id,
-      });
+      this.updateState();
     }
   }
+
+  updateState = () => {
+    const search = this.props.location.search;
+    const params = new URLSearchParams(search);
+    const recipeId = Number(params.get("recipe"));
+    const recipeFoodId = Number(params.get("recipe_foods_id"));
+    const recipe = this.state.recipes.find((r) => r.id === recipeId);
+    let food;
+    if (recipe) {
+      food = recipe.foods.find((f) => f.recipe_foods_id === recipeFoodId);
+    }
+    this.setState({
+      amount: food.amount,
+      foodPortionId: food.food_protion_id,
+      kcal: 0,
+      food,
+      recipe,
+    });
+  };
 
   componentDidMount = () => {
     const search = this.props.location.search;
@@ -50,6 +57,7 @@ class FoodsAmounts extends Component {
       .then((res) => res.json())
       .then((recipes) => {
         this.setState({ recipes, loading: false });
+        this.updateState();
       });
   };
   nextFood = () => {
@@ -87,6 +95,7 @@ class FoodsAmounts extends Component {
   };
 
   render() {
+    const { amount, foodPortionId, kcal, recipe, food } = this.state;
     const { userInfo, onLogout } = this.props;
     return (
       <div className="foods-amounts">
@@ -114,17 +123,25 @@ class FoodsAmounts extends Component {
           <div className="amounts">amounts</div>
           <div className="units">units</div>
           <div className="clories">clories</div>
-          <input placeholder="amount" className="btn btn-amount" />
-          <select className="btn-select" name="" id="">
+          <input
+            value={amount}
+            placeholder="amount"
+            className="btn btn-amount"
+          />
+          <select value={foodPortionId} className="btn-select" name="" id="">
             {food &&
               food.foodPortions.map((p) => (
-                <option key={p.id} value="">
+                <option key={p.id} value={p.id}>
                   {p.measure_unit_name + " (" + p.gram_weight + " g)"}
                 </option>
               ))}
           </select>
 
-          <input placeholder="50 kcal" className="btn btn-calories" />
+          <input
+            value={kcal}
+            placeholder="50 kcal"
+            className="btn btn-calories"
+          />
         </div>
         <div></div>
         <div className="center-it">
