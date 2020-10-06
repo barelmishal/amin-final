@@ -14,7 +14,7 @@ class FoodsAmounts extends Component {
     this.state = {
       items: {},
       recipes: [],
-      amount: 0,
+      amount: 100,
       foodPortionId: 0,
       kcal: 0,
     };
@@ -45,6 +45,26 @@ class FoodsAmounts extends Component {
     });
   };
 
+  handleAmountChange = (event) => {
+    const food = this.state.food;
+    const amount = () => {
+      return !!food.amount ? food.amount : 1;
+    };
+    let portionGram;
+    if (!!food.food_portion_id) {
+      portionGram = food.foodPortions.find((p) => p.id === food.food_portion_id)
+        .gram_weight;
+    } else {
+      portionGram = food.foodPortions[0].gram_weight;
+    }
+    const energy = food.foodNutrients[0].amount;
+    const calc = (energy / 100) * amount() * portionGram;
+    this.setState({ amount: Number(event.target.value), kcal: calc });
+  };
+  handleKcalChange = (event) => {
+    this.setState({ kcal: event.target.value });
+  };
+
   componentDidMount = () => {
     const search = this.props.location.search;
     const params = new URLSearchParams(search);
@@ -52,6 +72,7 @@ class FoodsAmounts extends Component {
     this.setState({ recipeIds: recipeIds.split(",") });
     this.fetchRcipeFromServer(recipeIds);
   };
+
   fetchRcipeFromServer = (recipeIds) => {
     fetch("/api/recipes/food-search?recipeIds=" + recipeIds)
       .then((res) => res.json())
@@ -60,8 +81,8 @@ class FoodsAmounts extends Component {
         this.updateState();
       });
   };
+
   nextFood = () => {
-    // current page
     const search = this.props.location.search;
     const params = new URLSearchParams(search);
     const recipeId = Number(params.get("recipe"));
@@ -125,10 +146,14 @@ class FoodsAmounts extends Component {
           <div className="clories">clories</div>
           <input
             value={amount}
+            onChange={this.handleAmountChange}
             placeholder="amount"
             className="btn btn-amount"
           />
           <select value={foodPortionId} className="btn-select" name="" id="">
+            <option key="0" value="0">
+              Gram
+            </option>
             {food &&
               food.foodPortions.map((p) => (
                 <option key={p.id} value={p.id}>
@@ -139,6 +164,7 @@ class FoodsAmounts extends Component {
 
           <input
             value={kcal}
+            onChange={this.handleKcalChange}
             placeholder="50 kcal"
             className="btn btn-calories"
           />
