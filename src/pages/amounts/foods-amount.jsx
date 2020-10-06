@@ -14,8 +14,30 @@ class FoodsAmounts extends Component {
     this.state = {
       items: {},
       recipes: [],
+      amount: 0,
+      foodPortionId: 0,
+      kcal: 0,
     };
   }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.location.search !== prevProps.location.search) {
+      const search = this.props.location.search;
+      const params = new URLSearchParams(search);
+      const recipeId = Number(params.get("recipe"));
+      const recipeFoodId = Number(params.get("recipe_foods_id"));
+      const recipe = this.state.recipes.find((r) => r.id === recipeId);
+      let food;
+      if (recipe) {
+        food = recipe.foods.find((f) => f.recipe_foods_id === recipeFoodId);
+      }
+      this.setState({
+        amount: food.amount,
+        foodPortionId: food.food_protion_id,
+      });
+    }
+  }
+
   componentDidMount = () => {
     const search = this.props.location.search;
     const params = new URLSearchParams(search);
@@ -65,16 +87,6 @@ class FoodsAmounts extends Component {
   };
 
   render() {
-    const search = this.props.location.search;
-    const params = new URLSearchParams(search);
-    const recipeId = Number(params.get("recipe"));
-    const recipeFoodId = Number(params.get("recipe_foods_id"));
-    const recipe = this.state.recipes.find((r) => r.id === recipeId);
-    let food;
-    if (recipe) {
-      food = recipe.foods.find((f) => f.recipe_foods_id === recipeFoodId);
-    }
-
     const { userInfo, onLogout } = this.props;
     return (
       <div className="foods-amounts">
