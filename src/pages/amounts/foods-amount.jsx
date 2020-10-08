@@ -12,7 +12,6 @@ class FoodsAmounts extends Component {
   constructor() {
     super();
     this.state = {
-      items: {},
       recipes: [],
       amount: 100,
       foodPortionId: 0,
@@ -44,26 +43,53 @@ class FoodsAmounts extends Component {
       recipe,
     });
   };
-
   handleAmountChange = (event) => {
+    const currentAmount = Number(event.target.value);
     const food = this.state.food;
-    const amount = () => {
-      return !!food.amount ? food.amount : 1;
-    };
-    let portionGram;
-    if (!!food.food_portion_id) {
-      portionGram = food.foodPortions.find((p) => p.id === food.food_portion_id)
-        .gram_weight;
+    const Portions = food.foodPortions; // arry of poritons objs
+    const currentUnit = food.food_portion_id; // null / 107
+    let gramOfUnit;
+    if (!!currentUnit) {
+      gramOfUnit = Portions.find((g) => g.id === currentUnit).gram_weight;
     } else {
-      portionGram = food.foodPortions[0].gram_weight;
+      gramOfUnit = 1;
     }
-    const energy = food.foodNutrients[0].amount;
-    const calc = (energy / 100) * amount() * portionGram;
-    this.setState({ amount: Number(event.target.value), kcal: calc });
+
+    const gram = currentAmount / gramOfUnit;
+    const calc = (food.foodNutrients[0].amount / 100) * gram;
+    this.setState({ amount: currentAmount, kcal: calc });
+  };
+  handleUnitChange = (event) => {
+    const food = this.state.food;
+    const gramWeight = food.foodPortions;
+    const currentUnit = Number(event.target.value); // היונט שבחר המשתמש
+    const gramOfUnit = gramWeight.find((g) => g.id === currentUnit).gram_weight;
+    // why number shote down button ?
+    const calc = (food.foodNutrients[0].amount / 100) * gramOfUnit;
+    this.setState({
+      amount: food.amount,
+      kcal: calc,
+      foodPortionId: currentUnit,
+    });
+    // const amount = () => {
+    //   return !!food.amount ? food.amount : 1;
+    // };
+    // let portionGram;
+    // if (!!food.food_portion_id) {
+    //   portionGram = food.foodPortions.find((p) => p.id === food.food_portion_id)
+    //     .gram_weight;
+    // } else {
+    //   portionGram = food.foodPortions[0].gram_weight;
+    // }
+    // const energy = food.foodNutrients[0].amount;
+    // const calc = (energy / 100) * amount() * portionGram;
+    // this.setState({ amount: Number(event.target.value), kcal: calc });
   };
   handleKcalChange = (event) => {
     this.setState({ kcal: event.target.value });
   };
+
+  handleCalcChange = () => {};
 
   componentDidMount = () => {
     const search = this.props.location.search;
@@ -150,9 +176,15 @@ class FoodsAmounts extends Component {
             placeholder="amount"
             className="btn btn-amount"
           />
-          <select value={foodPortionId} className="btn-select" name="" id="">
+          <select
+            onChange={this.handleUnitChange}
+            value={foodPortionId}
+            className="btn-select"
+            name=""
+            id=""
+          >
             <option key="0" value="0">
-              Gram
+              1 gram
             </option>
             {food &&
               food.foodPortions.map((p) => (
