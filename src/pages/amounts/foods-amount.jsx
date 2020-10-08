@@ -54,8 +54,7 @@ class FoodsAmounts extends Component {
     } else {
       gramOfUnit = 1;
     }
-
-    const gram = currentAmount / gramOfUnit;
+    const gram = currentAmount * gramOfUnit;
     const calc = (food.foodNutrients[0].amount / 100) * gram;
     this.setState({ amount: currentAmount, kcal: calc });
   };
