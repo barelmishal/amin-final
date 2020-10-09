@@ -36,7 +36,7 @@ class FoodsAmounts extends Component {
       food = recipe.foods.find((f) => f.recipe_foods_id === recipeFoodId);
     }
     this.setState({
-      amount: food.amount,
+      amount: food.amount || 100,
       foodPortionId: food.food_portion_id,
       kcal: 0,
       food,
