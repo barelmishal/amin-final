@@ -12,10 +12,85 @@ class FoodsAmounts extends Component {
   constructor() {
     super();
     this.state = {
-      items: {},
       recipes: [],
+      amount: 100,
+      foodPortionId: 0,
+      kcal: 0,
     };
   }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.location.search !== prevProps.location.search) {
+      this.updateState();
+    }
+  }
+
+  updateState = () => {
+    const search = this.props.location.search;
+    const params = new URLSearchParams(search);
+    const recipeId = Number(params.get("recipe"));
+    const recipeFoodId = Number(params.get("recipe_foods_id"));
+    const recipe = this.state.recipes.find((r) => r.id === recipeId);
+    let food;
+    if (recipe) {
+      food = recipe.foods.find((f) => f.recipe_foods_id === recipeFoodId);
+    }
+    this.setState({
+      amount: food.amount || 100,
+      foodPortionId: food.food_portion_id,
+      kcal: 0,
+      food,
+      recipe,
+    });
+  };
+
+  handleAmountChange = (event) => {
+    let currentAmount;
+    let gebrish;
+    if (!!Number(event.target.value) || 0 === !!Number(event.target.value)) {
+      currentAmount = Number(event.target.value);
+      const food = this.state.food;
+      const Portions = food.foodPortions; // arry of poritons objs
+      const currentUnit = food.food_portion_id; // null / 107
+      let gramOfUnit;
+      if (!!currentUnit) {
+        gramOfUnit = Portions.find((g) => g.id === currentUnit).gram_weight;
+      } else {
+        gramOfUnit = 1;
+      }
+      const gram = currentAmount * gramOfUnit;
+      const calc = (food.foodNutrients[0].amount / 100) * gram;
+      this.setState({
+        amount: currentAmount,
+        kcal: calc,
+        gebrish,
+      });
+    } else {
+      gebrish = "Amount must be a number";
+      this.setState({
+        amount: event.target.value,
+        gebrish,
+      });
+    }
+  };
+  handleUnitChange = (event) => {
+    const food = this.state.food;
+    const gramWeight = food.foodPortions;
+    const currentUnit = Number(event.target.value);
+    const gramOfUnit = gramWeight.find((g) => g.id === currentUnit).gram_weight;
+    const calc = (food.foodNutrients[0].amount / 100) * gramOfUnit;
+    this.setState({
+      amount: food.amount,
+      kcal: calc,
+      foodPortionId: currentUnit,
+    });
+  };
+  handleKcalChange = (event) => {
+    this.setState({ kcal: event.target.value });
+  };
+
+  handleCalcChange = () => {};
+
   componentDidMount = () => {
     const search = this.props.location.search;
     const params = new URLSearchParams(search);
@@ -23,15 +98,17 @@ class FoodsAmounts extends Component {
     this.setState({ recipeIds: recipeIds.split(",") });
     this.fetchRcipeFromServer(recipeIds);
   };
+
   fetchRcipeFromServer = (recipeIds) => {
     fetch("/api/recipes/food-search?recipeIds=" + recipeIds)
       .then((res) => res.json())
       .then((recipes) => {
         this.setState({ recipes, loading: false });
+        this.updateState();
       });
   };
+
   nextFood = () => {
-    // current page
     const search = this.props.location.search;
     const params = new URLSearchParams(search);
     const recipeId = Number(params.get("recipe"));
@@ -65,16 +142,7 @@ class FoodsAmounts extends Component {
   };
 
   render() {
-    const search = this.props.location.search;
-    const params = new URLSearchParams(search);
-    const recipeId = Number(params.get("recipe"));
-    const recipeFoodId = Number(params.get("recipe_foods_id"));
-    const recipe = this.state.recipes.find((r) => r.id === recipeId);
-    let food;
-    if (recipe) {
-      food = recipe.foods.find((f) => f.recipe_foods_id === recipeFoodId);
-    }
-
+    const { amount, foodPortionId, kcal, recipe, food } = this.state;
     const { userInfo, onLogout } = this.props;
     return (
       <div className="foods-amounts">
@@ -102,22 +170,41 @@ class FoodsAmounts extends Component {
           <div className="amounts">amounts</div>
           <div className="units">units</div>
           <div className="clories">clories</div>
-          <Action btnTatile="amount" className="btn btn-amount" />
-          <select className="btn-select" name="" id="">
+
+          <input
+            value={amount}
+            onChange={this.handleAmountChange}
+            placeholder="amount"
+            className="btn btn-amount"
+          />
+          <select
+            onChange={this.handleUnitChange}
+            value={foodPortionId}
+            className="btn-select"
+            name=""
+            id=""
+          >
+            <option key="0" value="0">
+              1 gram
+            </option>
             {food &&
               food.foodPortions.map((p) => (
-                <option key={p.id} value="">
+                <option key={p.id} value={p.id}>
                   {p.measure_unit_name + " (" + p.gram_weight + " g)"}
                 </option>
               ))}
           </select>
 
-          <Action
-            // onClick={}
-            btnTatile="50 kcal"
+          <input
+            value={kcal}
+            onChange={this.handleKcalChange}
+            placeholder="50 kcal"
             className="btn btn-calories"
           />
         </div>
+        {!!this.state.gebrish && (
+          <div className="red">{this.state.gebrish}</div>
+        )}
         <div></div>
         <div className="center-it">
           <Action

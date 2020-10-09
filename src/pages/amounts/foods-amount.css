@@ -52,6 +52,7 @@
   border-radius: 22px;
   text-align: center;
   color: #bf3a15;
+  max-width: 80px;
 }
 
 .foods-amounts .btn-select {
