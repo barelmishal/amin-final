@@ -37,7 +37,7 @@ class FoodsAmounts extends Component {
     }
     this.setState({
       amount: food.amount,
-      foodPortionId: food.food_protion_id,
+      foodPortionId: food.food_portion_id,
       kcal: 0,
       food,
       recipe,
