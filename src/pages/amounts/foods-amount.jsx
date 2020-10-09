@@ -43,46 +43,47 @@ class FoodsAmounts extends Component {
       recipe,
     });
   };
+
   handleAmountChange = (event) => {
-    const currentAmount = Number(event.target.value);
-    const food = this.state.food;
-    const Portions = food.foodPortions; // arry of poritons objs
-    const currentUnit = food.food_portion_id; // null / 107
-    let gramOfUnit;
-    if (!!currentUnit) {
-      gramOfUnit = Portions.find((g) => g.id === currentUnit).gram_weight;
+    let currentAmount;
+    let gebrish;
+    if (!!Number(event.target.value) || 0 === !!Number(event.target.value)) {
+      currentAmount = Number(event.target.value);
+      const food = this.state.food;
+      const Portions = food.foodPortions; // arry of poritons objs
+      const currentUnit = food.food_portion_id; // null / 107
+      let gramOfUnit;
+      if (!!currentUnit) {
+        gramOfUnit = Portions.find((g) => g.id === currentUnit).gram_weight;
+      } else {
+        gramOfUnit = 1;
+      }
+      const gram = currentAmount * gramOfUnit;
+      const calc = (food.foodNutrients[0].amount / 100) * gram;
+      this.setState({
+        amount: currentAmount,
+        kcal: calc,
+        gebrish,
+      });
     } else {
-      gramOfUnit = 1;
+      gebrish = "Amount must be a number";
+      this.setState({
+        amount: event.target.value,
+        gebrish,
+      });
     }
-    const gram = currentAmount * gramOfUnit;
-    const calc = (food.foodNutrients[0].amount / 100) * gram;
-    this.setState({ amount: currentAmount, kcal: calc });
   };
   handleUnitChange = (event) => {
     const food = this.state.food;
     const gramWeight = food.foodPortions;
-    const currentUnit = Number(event.target.value); // היונט שבחר המשתמש
+    const currentUnit = Number(event.target.value);
     const gramOfUnit = gramWeight.find((g) => g.id === currentUnit).gram_weight;
-    // why number shote down button ?
     const calc = (food.foodNutrients[0].amount / 100) * gramOfUnit;
     this.setState({
       amount: food.amount,
       kcal: calc,
       foodPortionId: currentUnit,
     });
-    // const amount = () => {
-    //   return !!food.amount ? food.amount : 1;
-    // };
-    // let portionGram;
-    // if (!!food.food_portion_id) {
-    //   portionGram = food.foodPortions.find((p) => p.id === food.food_portion_id)
-    //     .gram_weight;
-    // } else {
-    //   portionGram = food.foodPortions[0].gram_weight;
-    // }
-    // const energy = food.foodNutrients[0].amount;
-    // const calc = (energy / 100) * amount() * portionGram;
-    // this.setState({ amount: Number(event.target.value), kcal: calc });
   };
   handleKcalChange = (event) => {
     this.setState({ kcal: event.target.value });
@@ -169,6 +170,7 @@ class FoodsAmounts extends Component {
           <div className="amounts">amounts</div>
           <div className="units">units</div>
           <div className="clories">clories</div>
+
           <input
             value={amount}
             onChange={this.handleAmountChange}
@@ -200,6 +202,9 @@ class FoodsAmounts extends Component {
             className="btn btn-calories"
           />
         </div>
+        {!!this.state.gebrish && (
+          <div className="red">{this.state.gebrish}</div>
+        )}
         <div></div>
         <div className="center-it">
           <Action
