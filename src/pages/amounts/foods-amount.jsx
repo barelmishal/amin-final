@@ -46,8 +46,8 @@ class FoodsAmounts extends Component {
   };
 
   calcKcal(amount, food) {
-    const Portions = food.foodPortions; // arry of poritons objs
-    const currentUnit = food.food_portion_id; // null / 107
+    const Portions = food.foodPortions;
+    const currentUnit = food.food_portion_id;
     let gramOfUnit;
     if (!!currentUnit) {
       gramOfUnit = Portions.find((g) => g.id === currentUnit).gram_weight;
