@@ -24,7 +24,7 @@ class FoodsAmounts extends Component {
       this.updateState();
     }
   }
-
+  // ליצור לוגיקה שמחשבת את האמנות שכאשר אני משנה את היונט
   updateState = () => {
     const search = this.props.location.search;
     const params = new URLSearchParams(search);
@@ -37,8 +37,8 @@ class FoodsAmounts extends Component {
     }
     const amount = food.amount || 100;
     this.setState({
-      amount,
-      foodPortionId: food.food_portion_id,
+      amount: food.amount || 100,
+      foodPortionId: food.food_portion_id || 0,
       kcal: this.calcKcal(amount, food),
       food,
       recipe,
@@ -78,23 +78,33 @@ class FoodsAmounts extends Component {
       });
     }
   };
-  handleUnitChange = (event) => {
-    const food = this.state.food;
-    const gramWeight = food.foodPortions;
-    const currentUnit = Number(event.target.value);
-    const gramOfUnit = gramWeight.find((g) => g.id === currentUnit).gram_weight;
-    const calc = (food.foodNutrients[0].amount / 100) * gramOfUnit;
-    this.setState({
-      amount: food.amount,
-      kcal: calc,
-      foodPortionId: currentUnit,
-    });
+  newUnit = (gramPortion, food) => {
+    const calc =
+      (food.foodNutrients[0].amount / 100) * this.state.amount * gramPortion;
+    return calc;
   };
+  handleUnitChange = (event) => {
+    let food = this.state.food;
+    let newCurrentUnit = Number(event.target.value);
+    let gramPortion;
+    if (!!newCurrentUnit) {
+      gramPortion = food.foodPortions.find((p) => p.id === newCurrentUnit)
+        .gram_weight;
+      this.setState({
+        kcal: this.newUnit(gramPortion, food),
+        foodPortionId: newCurrentUnit,
+      });
+    } else {
+      this.setState({
+        kcal: this.newUnit(1, food),
+        foodPortionId: newCurrentUnit,
+      });
+    }
+  };
+
   handleKcalChange = (event) => {
     this.setState({ kcal: event.target.value });
   };
-
-  handleCalcChange = () => {};
 
   componentDidMount = () => {
     const search = this.props.location.search;
@@ -189,7 +199,7 @@ class FoodsAmounts extends Component {
             name=""
             id=""
           >
-            <option key="0" value="0">
+            <option key="0" value={0}>
               1 gram
             </option>
             {food &&
