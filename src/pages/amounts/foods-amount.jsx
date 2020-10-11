@@ -86,16 +86,13 @@ class FoodsAmounts extends Component {
       gramPortion = food.foodPortions.find((p) => p.id === newCurrentUnit)
         .gram_weight;
       this.setState({
-        amount: this.state.amount,
         kcal: this.newUnit(gramPortion, food),
         foodPortionId: newCurrentUnit,
       });
     } else {
       this.setState({
-        amount: food.amount,
         kcal: this.newUnit(1, food),
         foodPortionId: newCurrentUnit,
-        food,
       });
     }
   };
