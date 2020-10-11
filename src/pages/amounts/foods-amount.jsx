@@ -24,7 +24,7 @@ class FoodsAmounts extends Component {
       this.updateState();
     }
   }
-
+  // ליצור לוגיקה שמחשבת את האמנות שכאשר אני משנה את היונט
   updateState = () => {
     const search = this.props.location.search;
     const params = new URLSearchParams(search);
@@ -73,23 +73,36 @@ class FoodsAmounts extends Component {
       });
     }
   };
-  handleUnitChange = (event) => {
-    const food = this.state.food;
-    const gramWeight = food.foodPortions;
-    const currentUnit = Number(event.target.value);
-    const gramOfUnit = gramWeight.find((g) => g.id === currentUnit).gram_weight;
-    const calc = (food.foodNutrients[0].amount / 100) * gramOfUnit;
-    this.setState({
-      amount: food.amount,
-      kcal: calc,
-      foodPortionId: currentUnit,
-    });
+  newUnit = (gramPortion, food) => {
+    const calc =
+      (food.foodNutrients[0].amount / 100) * this.state.amount * gramPortion;
+    return calc;
   };
+  handleUnitChange = (event) => {
+    let food = this.state.food;
+    let newCurrentUnit = Number(event.target.value);
+    let gramPortion;
+    if (!!newCurrentUnit) {
+      gramPortion = food.foodPortions.find((p) => p.id === newCurrentUnit)
+        .gram_weight;
+      this.setState({
+        amount: this.state.amount,
+        kcal: this.newUnit(gramPortion, food),
+        foodPortionId: newCurrentUnit,
+      });
+    } else {
+      this.setState({
+        amount: food.amount,
+        kcal: this.newUnit(1, food),
+        foodPortionId: newCurrentUnit,
+        food,
+      });
+    }
+  };
+
   handleKcalChange = (event) => {
     this.setState({ kcal: event.target.value });
   };
-
-  handleCalcChange = () => {};
 
   componentDidMount = () => {
     const search = this.props.location.search;
