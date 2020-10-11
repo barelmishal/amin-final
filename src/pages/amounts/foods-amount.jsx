@@ -37,7 +37,7 @@ class FoodsAmounts extends Component {
     }
     this.setState({
       amount: food.amount || 100,
-      foodPortionId: food.food_portion_id,
+      foodPortionId: food.food_portion_id || 0,
       kcal: 0,
       food,
       recipe,
@@ -194,7 +194,7 @@ class FoodsAmounts extends Component {
             name=""
             id=""
           >
-            <option key="0" value="0">
+            <option key="0" value={0}>
               1 gram
             </option>
             {food &&
