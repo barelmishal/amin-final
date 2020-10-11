@@ -7,7 +7,7 @@ const recipeis = [
       {
         id: 90,
         recipe_foods_id: 15,
-        food_portion_id: null,
+        food_portion_id: 110,
         food_description:
           "Hot chocolate / Cocoa, made with no sugar added dry mix and low fat milk",
 
@@ -229,20 +229,25 @@ const recipeis = [
 
 // input list of obj output cal
 const food = recipeis[0].foods[0];
-
-const amount = () => {
-  return !!food.amount ? food.amount : 1;
-};
-
-let portionGram;
-if (!!food.food_portion_id) {
-  portionGram = food.foodPortions.find((p) => p.id === food.food_portion_id)
+const newUnit = 108;
+const inputUnit = food.food_portion_id;
+let calc;
+if (!!newUnit) {
+  const gramPortion = food.foodPortions.find((g) => g.id === newUnit)
     .gram_weight;
+  const amount = food.amount; // amount state
+  Calc = (food.foodNutrients[0].amount / 100) * amount * gramPortion;
 } else {
-  portionGram = food.foodPortions[0].gram_weight;
+  const oneGram = {
+    gram_weight: 1,
+    measure_unit_name: "1gr",
+    id: 0,
+    food_id: recipeis[0].foods[0].id,
+  };
+  calc =
+    (recipeis[0].foods[0].foodNutrients[0].amount / 100) *
+    amount *
+    oneGram.gram_weight;
 }
 
-const energy = food.foodNutrients[0].amount;
-
-const calc = (energy / 100) * amount() * portionGram;
-console.log(calc);
+console.log(Calc);
