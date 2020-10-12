@@ -103,7 +103,7 @@ class FoodsAmounts extends Component {
   handleKcalChange = (event) => {
     const kcal = Number(event.target.value);
     let food = this.state.food;
-    let gebrish = "Amount must be a number";
+    let gebrish = "Calories must be a number";
     let poriton = this.state.foodPortionId;
     let gramWeight;
     if (!!poriton) {
