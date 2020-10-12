@@ -111,7 +111,7 @@ class FoodsAmounts extends Component {
     } else {
       gramWeight = 1;
     }
-    if (!!kcal) {
+    if (!isNaN(kcal)) {
       this.setState({
         kcal: kcal,
         amount: this.KcalChange(food, kcal, gramWeight),
