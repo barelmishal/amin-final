@@ -115,6 +115,7 @@ class FoodsAmounts extends Component {
       this.setState({
         kcal: kcal,
         amount: this.KcalChange(food, kcal, gramWeight),
+        gebrish: ""
       });
     } else {
       this.setState({
