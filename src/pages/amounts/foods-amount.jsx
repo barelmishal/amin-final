@@ -44,7 +44,6 @@ class FoodsAmounts extends Component {
       recipe,
     });
   };
-
   calcKcal(amount, food) {
     const Portions = food.foodPortions;
     const currentUnit = food.food_portion_id;
@@ -58,15 +57,12 @@ class FoodsAmounts extends Component {
     const calc = (food.foodNutrients[0].amount / 100) * gram;
     return calc;
   }
-
   handleAmountChange = (event) => {
-    let currentAmount;
+    let currentAmount = Number(event.target.value);
     let gebrish;
-    if (!!Number(event.target.value) || 0 === !!Number(event.target.value)) {
-      currentAmount = Number(event.target.value);
-
+    if (!isNaN(currentAmount)) {
       this.setState({
-        amount: currentAmount,
+        amount: event.target.value,
         kcal: this.calcKcal(currentAmount, this.state.food),
         gebrish,
       });
@@ -103,7 +99,34 @@ class FoodsAmounts extends Component {
   };
 
   handleKcalChange = (event) => {
-    this.setState({ kcal: event.target.value });
+    const kcal = Number(event.target.value);
+    let food = this.state.food;
+    let gebrish = "Calories must be a number";
+    let poriton = this.state.foodPortionId;
+    let gramWeight;
+    if (!!poriton) {
+      gramWeight = food.foodPortions.find((p) => p.id === poriton).gram_weight;
+    } else {
+      gramWeight = 1;
+    }
+    if (!isNaN(kcal)) {
+      this.setState({
+        kcal: event.target.value,
+        amount: this.KcalChange(food, kcal, gramWeight),
+        gebrish: "",
+      });
+    } else {
+      this.setState({
+        kcal: event.target.value,
+        gebrish,
+      });
+    }
+  };
+
+  KcalChange = (food, kcal, gramWeight) => {
+    const amountCalc =
+      kcal / ((food.foodNutrients[0].amount / 100) * gramWeight);
+    return amountCalc;
   };
 
   componentDidMount = () => {

@@ -228,26 +228,14 @@ const recipeis = [
 ];
 
 // input list of obj output cal
-const food = recipeis[0].foods[0];
-const newUnit = 108;
-const inputUnit = food.food_portion_id;
-let calc;
-if (!!newUnit) {
-  const gramPortion = food.foodPortions.find((g) => g.id === newUnit)
-    .gram_weight;
-  const amount = food.amount; // amount state
-  Calc = (food.foodNutrients[0].amount / 100) * amount * gramPortion;
-} else {
-  const oneGram = {
-    gram_weight: 1,
-    measure_unit_name: "1gr",
-    id: 0,
-    food_id: recipeis[0].foods[0].id,
-  };
-  calc =
-    (recipeis[0].foods[0].foodNutrients[0].amount / 100) *
-    amount *
-    oneGram.gram_weight;
-}
+const numberOfItems = (recipeis) => {
+  const nRecipeFoods = recipeis.map((n) => n.foods.length);
+  const nFoods = nRecipeFoods.reduce((n1, n2) => n1 + n2, 0);
+  return `${nFoods} foods`;
+};
 
-console.log(Calc);
+const locationItems = () => {
+  const ids = recipeis.map((n) => (n, n.foods.map((f) => f)));
+};
+
+console.log();
