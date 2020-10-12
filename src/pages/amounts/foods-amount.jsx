@@ -119,7 +119,7 @@ class FoodsAmounts extends Component {
     } else {
       this.setState({
         kcal: event.target.value,
-        amount: gebrish,
+        gebrish,
       });
     }
   };
