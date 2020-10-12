@@ -47,6 +47,30 @@ router.put("/:id", async (req, res, next) => {
   }
 });
 
+router.put("/recipe-foods/:id", async (req, res, next) => {
+  let trx;
+  try {
+    trx = await db.transaction();
+
+    await trx("recipe_foods")
+      .update({
+        amount: req.body.amount,
+        food_portion_id: req.body.food_portion_id,
+      })
+      .where({ id: req.params.id });
+
+    await trx.commit();
+
+    res.sendStatus(200);
+  } catch (err) {
+    console.error(err);
+    if (trx) {
+      await trx.rollback(err);
+    }
+    next(err);
+  }
+});
+
 router.get("/food-search", async (req, res, next) => {
   try {
     const recipeIds = req.query.recipeIds.split(",");
