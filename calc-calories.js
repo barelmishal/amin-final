@@ -228,9 +228,14 @@ const recipeis = [
 ];
 
 // input list of obj output cal
-const food = recipeis[0].foods[0];
-const calories = 50;
-const portion = 199;
-const amountCalc = calories / ((food.foodNutrients[0].amount / 100) * portion);
+const numberOfItems = (recipeis) => {
+  const nRecipeFoods = recipeis.map((n) => n.foods.length);
+  const nFoods = nRecipeFoods.reduce((n1, n2) => n1 + n2, 0);
+  return `${nFoods} foods`;
+};
 
-console.log(amountCalc);
+const locationItems = () => {
+  const ids = recipeis.map((n) => (n, n.foods.map((f) => f)));
+};
+
+console.log();

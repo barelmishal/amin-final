@@ -58,13 +58,11 @@ class FoodsAmounts extends Component {
     return calc;
   }
   handleAmountChange = (event) => {
-    let currentAmount;
+    let currentAmount = Number(event.target.value);
     let gebrish;
-    if (!!Number(event.target.value) || 0 === !!Number(event.target.value)) {
-      currentAmount = Number(event.target.value);
-
+    if (!isNaN(currentAmount)) {
       this.setState({
-        amount: currentAmount,
+        amount: event.target.value,
         kcal: this.calcKcal(currentAmount, this.state.food),
         gebrish,
       });
@@ -113,9 +111,9 @@ class FoodsAmounts extends Component {
     }
     if (!isNaN(kcal)) {
       this.setState({
-        kcal: kcal,
+        kcal: event.target.value,
         amount: this.KcalChange(food, kcal, gramWeight),
-        gebrish: ""
+        gebrish: "",
       });
     } else {
       this.setState({
