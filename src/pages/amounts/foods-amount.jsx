@@ -182,6 +182,7 @@ class FoodsAmounts extends Component {
           return this.componentDidMount();
         })
         .then(() => {
+          this.setState({ gebrish: "" });
           const nextRecipe = this.state.recipes[nRecipe];
           const nextFood = this.state.recipes[nRecipe].foods[nFood];
           this.props.history.push(
