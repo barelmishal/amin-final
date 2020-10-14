@@ -171,7 +171,6 @@ class FoodsAmounts extends Component {
     const recipeIds = params.get("recipe-ids");
     const recipeFoodId = Number(params.get("recipe_foods_id"));
 
-    console.log(recipeFoodId);
     const IndexRecipe = (r) => r.id === recipeId;
     let nRecipe = this.state.recipes.findIndex(IndexRecipe);
     const IndexFood = (f) => f.recipe_foods_id === recipeFoodId;
