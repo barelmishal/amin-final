@@ -151,11 +151,11 @@ class FoodsAmounts extends Component {
     const params = new URLSearchParams(search);
     const recipeIds = params.get("recipe-ids");
     this.setState({ recipeIds: recipeIds.split(",") });
-    this.fetchRcipeFromServer(recipeIds);
+    return this.fetchRcipeFromServer(recipeIds);
   };
 
   fetchRcipeFromServer = (recipeIds) => {
-    fetch("/api/recipes/food-search?recipeIds=" + recipeIds)
+    return fetch("/api/recipes/food-search?recipeIds=" + recipeIds)
       .then((res) => res.json())
       .then((recipes) => {
         this.setState({ recipes, loading: false });
@@ -164,7 +164,8 @@ class FoodsAmounts extends Component {
   };
 
   nextFood = () => {
-    const search = this.props.location.search; // url - ids=54&recipe=54&recipe_foods_id=17
+    const { amount, foodPortionId } = this.state;
+    const search = this.props.location.search;
     const params = new URLSearchParams(search);
     const recipeId = Number(params.get("recipe"));
     const recipeIds = params.get("recipe-ids");
@@ -186,16 +187,41 @@ class FoodsAmounts extends Component {
       nFood = 0;
       nRecipe = 0;
     }
-    const nextRecipe = this.state.recipes[nRecipe];
-    const nextFood = this.state.recipes[nRecipe].foods[nFood];
-    this.props.history.push(
-      "/food-amounts?recipe-ids=" +
-        recipeIds +
-        "&recipe=" +
-        nextRecipe.id +
-        "&recipe_foods_id=" +
-        nextFood.recipe_foods_id
-    );
+    const nAamount = Number(amount);
+    if (!isNaN(nAamount) && amount) {
+      fetch("/api/recipes/recipe-foods/" + recipeFoodId, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          amount: nAamount,
+          food_portion_id: foodPortionId || null,
+        }),
+      })
+        .then(() => {
+          return this.componentDidMount();
+        })
+        .then(() => {
+          this.setState({ gebrish: "" });
+          const nextRecipe = this.state.recipes[nRecipe];
+          const nextFood = this.state.recipes[nRecipe].foods[nFood];
+          this.props.history.push(
+            "/food-amounts?recipe-ids=" +
+              recipeIds +
+              "&recipe=" +
+              nextRecipe.id +
+              "&recipe_foods_id=" +
+              nextFood.recipe_foods_id
+          );
+        })
+        .catch((err) => {
+          console.error(err);
+          alert(
+            "Unable to save food amount, please check your internet connection and try again"
+          );
+        });
+    } else {
+      alert("amount must be a number");
+    }
   };
 
   render() {
