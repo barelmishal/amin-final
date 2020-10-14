@@ -31,17 +31,34 @@ class FoodsAmounts extends Component {
     const recipeId = Number(params.get("recipe"));
     const recipeFoodId = Number(params.get("recipe_foods_id"));
     const recipe = this.state.recipes.find((r) => r.id === recipeId);
+    const recipes = this.state.recipes;
+    const foods = [].concat(...recipes.map((i) => i.foods));
+    const mapFoods = new Map();
+    foods.forEach((e, i) => {
+      mapFoods.set(e.recipe_foods_id, i + 1);
+    });
+    let btnFinish = mapFoods.get(recipeFoodId) === foods.length;
+    let itemLast;
+    if (btnFinish) {
+      itemLast = `last food`;
+    } else {
+      itemLast = `${1 + foods.length - mapFoods.get(recipeFoodId)} out of ${
+        foods.length
+      } foods`;
+    }
     let food;
     if (recipe) {
       food = recipe.foods.find((f) => f.recipe_foods_id === recipeFoodId);
     }
     const amount = food.amount || 100;
     this.setState({
-      amount: food.amount || 100,
+      amount,
       foodPortionId: food.food_portion_id || 0,
       kcal: this.calcKcal(amount, food),
       food,
       recipe,
+      itemLast,
+      btnFinish,
     });
   };
   calcKcal(amount, food) {
@@ -153,6 +170,7 @@ class FoodsAmounts extends Component {
     const recipeId = Number(params.get("recipe"));
     const recipeIds = params.get("recipe-ids");
     const recipeFoodId = Number(params.get("recipe_foods_id"));
+
     const IndexRecipe = (r) => r.id === recipeId;
     let nRecipe = this.state.recipes.findIndex(IndexRecipe);
     const IndexFood = (f) => f.recipe_foods_id === recipeFoodId;
@@ -206,7 +224,15 @@ class FoodsAmounts extends Component {
   };
 
   render() {
-    const { amount, foodPortionId, kcal, recipe, food } = this.state;
+    const {
+      amount,
+      foodPortionId,
+      kcal,
+      recipe,
+      food,
+      itemLast,
+      btnFinish,
+    } = this.state;
     const { userInfo, onLogout } = this.props;
     return (
       <div className="foods-amounts">
@@ -220,7 +246,7 @@ class FoodsAmounts extends Component {
             btnTatile="selecting SPECIPFIC FOOD"
             className="selecting-specipfic-food"
           />
-          <DynamicText dynamicText="20 ITEMS AND 2" className="items-left" />
+          <DynamicText dynamicText={itemLast} className="items-left" />
           <DynamicText
             dynamicText={recipe && recipe.recipe_description}
             className="recipe-name"
@@ -273,7 +299,7 @@ class FoodsAmounts extends Component {
         <div className="center-it">
           <Action
             onClick={this.nextFood}
-            btnTatile="NEXT FOOD"
+            btnTatile={btnFinish ? "FINISH" : "NEXT FOOD"}
             className="next-food"
           />
         </div>

@@ -234,8 +234,23 @@ const numberOfItems = (recipeis) => {
   return `${nFoods} foods`;
 };
 
-const locationItems = () => {
-  const ids = recipeis.map((n) => (n, n.foods.map((f) => f)));
+const locationItems = (recipeis) => {
+  const recipeFoodsId = recipeis[1].foods[0].recipe_foods_id;
+  const foods = [].concat(...recipeis.map((i) => i.foods));
+  const mapFoods = new Map();
+  foods.forEach((e, i) => {
+    mapFoods.set(e.recipe_foods_id, i + 1);
+  });
+  if (mapFoods.get(recipeFoodsId) === 1) {
+    return `${foods.length} foods`;
+  } else if (mapFoods.get(recipeFoodsId) === foods.length) {
+    const button = "finish";
+    return `you check all amount of foods vary good`;
+  } else {
+    return `${foods.length - mapFoods.get(recipeFoodsId)} food left from ${
+      foods.length
+    } foods`;
+  }
 };
 
-console.log();
+console.log(locationItems(recipeis));
