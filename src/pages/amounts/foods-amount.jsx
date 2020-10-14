@@ -24,7 +24,7 @@ class FoodsAmounts extends Component {
       this.updateState();
     }
   }
-  // ליצור לוגיקה שמחשבת את האמנות שכאשר אני משנה את היונט
+
   updateState = () => {
     const search = this.props.location.search;
     const params = new URLSearchParams(search);
