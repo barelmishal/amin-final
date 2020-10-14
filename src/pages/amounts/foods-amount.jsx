@@ -169,7 +169,7 @@ class FoodsAmounts extends Component {
       nRecipe = 0;
     }
     const nAamount = Number(amount);
-    if (!isNaN(nAamount)) {
+    if (!isNaN(nAamount) && amount) {
       fetch("/api/recipes/recipe-foods/" + recipeFoodId, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
