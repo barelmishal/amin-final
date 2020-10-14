@@ -42,7 +42,7 @@ class FoodsAmounts extends Component {
     if (btnFinish) {
       itemLast = `last food`;
     } else {
-      itemLast = `${1 + foods.length - mapFoods.get(recipeFoodId)} outs of ${
+      itemLast = `${1 + foods.length - mapFoods.get(recipeFoodId)} out of ${
         foods.length
       } foods`;
     }
