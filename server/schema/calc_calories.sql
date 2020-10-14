@@ -49,7 +49,7 @@ SELECT * FROM users;
 
 select * from users join user_menus on users.id = user_menus.user_id;
 select * from menus join user_menus on menus.id = user_menus.menu_id;
-
+select * from foods join recipe_foods on food.id = recipe_foods.food_id
 
 select 
   * 
@@ -67,3 +67,5 @@ from
 
 
 SELECT * FROM measure_units;
+
+UPDATE recipe_foods SET food_portion_id = 31 WHERE recipe_id=1;

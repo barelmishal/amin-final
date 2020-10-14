@@ -31,17 +31,32 @@ class FoodsAmounts extends Component {
     const recipeId = Number(params.get("recipe"));
     const recipeFoodId = Number(params.get("recipe_foods_id"));
     const recipe = this.state.recipes.find((r) => r.id === recipeId);
+    const recipes = this.state.recipes;
+    const foods = [].concat(...recipes.map((i) => i.foods));
+    const mapFoods = new Map();
+    foods.forEach((e, i) => {
+      mapFoods.set(e.recipe_foods_id, i + 1);
+    });
+    let itemLast;
+    if (mapFoods.get(recipeFoodId) === foods.length) {
+      itemLast = `last food`;
+    } else {
+      itemLast = `${foods.length - mapFoods.get(recipeFoodId)} outs of ${
+        foods.length
+      } foods`;
+    }
     let food;
     if (recipe) {
       food = recipe.foods.find((f) => f.recipe_foods_id === recipeFoodId);
     }
     const amount = food.amount || 100;
     this.setState({
-      amount: food.amount || 100,
+      amount,
       foodPortionId: food.food_portion_id || 0,
       kcal: this.calcKcal(amount, food),
       food,
       recipe,
+      ItemLast: itemLast,
     });
   };
   calcKcal(amount, food) {
@@ -147,11 +162,13 @@ class FoodsAmounts extends Component {
   };
 
   nextFood = () => {
-    const search = this.props.location.search;
+    const search = this.props.location.search; // url - ids=54&recipe=54&recipe_foods_id=17
     const params = new URLSearchParams(search);
     const recipeId = Number(params.get("recipe"));
     const recipeIds = params.get("recipe-ids");
     const recipeFoodId = Number(params.get("recipe_foods_id"));
+
+    console.log(recipeFoodId);
     const IndexRecipe = (r) => r.id === recipeId;
     let nRecipe = this.state.recipes.findIndex(IndexRecipe);
     const IndexFood = (f) => f.recipe_foods_id === recipeFoodId;
@@ -180,7 +197,7 @@ class FoodsAmounts extends Component {
   };
 
   render() {
-    const { amount, foodPortionId, kcal, recipe, food } = this.state;
+    const { amount, foodPortionId, kcal, recipe, food, ItemLast } = this.state;
     const { userInfo, onLogout } = this.props;
     return (
       <div className="foods-amounts">
@@ -194,7 +211,7 @@ class FoodsAmounts extends Component {
             btnTatile="selecting SPECIPFIC FOOD"
             className="selecting-specipfic-food"
           />
-          <DynamicText dynamicText="20 ITEMS AND 2" className="items-left" />
+          <DynamicText dynamicText={ItemLast} className="items-left" />
           <DynamicText
             dynamicText={recipe && recipe.recipe_description}
             className="recipe-name"
