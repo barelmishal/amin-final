@@ -37,11 +37,13 @@ class FoodsAmounts extends Component {
     foods.forEach((e, i) => {
       mapFoods.set(e.recipe_foods_id, i + 1);
     });
+    let btnFinish = false;
     let itemLast;
     if (mapFoods.get(recipeFoodId) === foods.length) {
       itemLast = `last food`;
+      btnFinish = true;
     } else {
-      itemLast = `${foods.length - mapFoods.get(recipeFoodId)} outs of ${
+      itemLast = `${1 + foods.length - mapFoods.get(recipeFoodId)} outs of ${
         foods.length
       } foods`;
     }
@@ -57,6 +59,7 @@ class FoodsAmounts extends Component {
       food,
       recipe,
       ItemLast: itemLast,
+      btnFinish,
     });
   };
   calcKcal(amount, food) {
@@ -197,7 +200,15 @@ class FoodsAmounts extends Component {
   };
 
   render() {
-    const { amount, foodPortionId, kcal, recipe, food, ItemLast } = this.state;
+    const {
+      amount,
+      foodPortionId,
+      kcal,
+      recipe,
+      food,
+      ItemLast,
+      btnFinish,
+    } = this.state;
     const { userInfo, onLogout } = this.props;
     return (
       <div className="foods-amounts">
@@ -264,7 +275,7 @@ class FoodsAmounts extends Component {
         <div className="center-it">
           <Action
             onClick={this.nextFood}
-            btnTatile="NEXT FOOD"
+            btnTatile={btnFinish ? "FINISH" : "NEXT FOOD"}
             className="next-food"
           />
         </div>
