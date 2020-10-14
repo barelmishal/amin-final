@@ -230,7 +230,7 @@ class FoodsAmounts extends Component {
       kcal,
       recipe,
       food,
-      ItemLast,
+      itemLast,
       btnFinish,
     } = this.state;
     const { userInfo, onLogout } = this.props;
