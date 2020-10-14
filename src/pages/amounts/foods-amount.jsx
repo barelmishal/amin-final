@@ -246,7 +246,7 @@ class FoodsAmounts extends Component {
             btnTatile="selecting SPECIPFIC FOOD"
             className="selecting-specipfic-food"
           />
-          <DynamicText dynamicText={ItemLast} className="items-left" />
+          <DynamicText dynamicText={itemLast} className="items-left" />
           <DynamicText
             dynamicText={recipe && recipe.recipe_description}
             className="recipe-name"
