@@ -37,11 +37,10 @@ class FoodsAmounts extends Component {
     foods.forEach((e, i) => {
       mapFoods.set(e.recipe_foods_id, i + 1);
     });
-    let btnFinish = false;
+    let btnFinish = mapFoods.get(recipeFoodId) === foods.length;
     let itemLast;
-    if (mapFoods.get(recipeFoodId) === foods.length) {
+    if (btnFinish) {
       itemLast = `last food`;
-      btnFinish = true;
     } else {
       itemLast = `${1 + foods.length - mapFoods.get(recipeFoodId)} outs of ${
         foods.length
