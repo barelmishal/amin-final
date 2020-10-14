@@ -57,7 +57,7 @@ class FoodsAmounts extends Component {
       kcal: this.calcKcal(amount, food),
       food,
       recipe,
-      ItemLast: itemLast,
+      itemLast,
       btnFinish,
     });
   };
