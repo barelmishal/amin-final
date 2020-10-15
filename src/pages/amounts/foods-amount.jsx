@@ -33,6 +33,7 @@ class FoodsAmounts extends Component {
     const recipe = this.state.recipes.find((r) => r.id === recipeId);
     const recipes = this.state.recipes;
     const foods = [].concat(...recipes.map((i) => i.foods));
+    console.log(foods);
     const mapFoods = new Map();
     foods.forEach((e, i) => {
       mapFoods.set(e.recipe_foods_id, i + 1);
@@ -59,6 +60,7 @@ class FoodsAmounts extends Component {
       recipe,
       itemLast,
       btnFinish,
+      foods,
     });
   };
   calcKcal(amount, food) {
@@ -232,6 +234,7 @@ class FoodsAmounts extends Component {
       food,
       itemLast,
       btnFinish,
+      foods,
     } = this.state;
     const { userInfo, onLogout } = this.props;
     return (
@@ -242,10 +245,21 @@ class FoodsAmounts extends Component {
           className="bar-steps-title"
         />
         <div className="center-it">
-          <Action
-            btnTatile="selecting SPECIPFIC FOOD"
-            className="selecting-specipfic-food"
-          />
+          {console.log(!!foods)}
+          <select
+            onChange={this.updateState}
+            value={foods}
+            className="btn-select selecting-specipfic-food"
+            name=""
+            id=""
+          >
+            {foods &&
+              foods.map((p) => (
+                <option key={p.recipe_foods_id} value={p.recipe_foods_id}>
+                  {p.food_description}
+                </option>
+              ))}
+          </select>
           <DynamicText dynamicText={itemLast} className="items-left" />
           <DynamicText
             dynamicText={recipe && recipe.recipe_description}
