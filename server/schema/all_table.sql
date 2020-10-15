@@ -83,7 +83,7 @@ create table foods (
   category_id int not null,
   fdc_id int UNIQUE,
   food_description varchar(250) not null,
-  created timestamp NOT NULL default current_timestamp
+  created timestamp NOT NULL default current_timestamp,
   CONSTRAINT fk_category_id_foods_id
     FOREIGN KEY (category_id)
     REFERENCES category(id)
@@ -175,12 +175,9 @@ INSERT INTO nutrients (nutrient_name, unit_name, rank, fdc_id) VALUES ('Vitamin 
 INSERT INTO nutrients (nutrient_name, unit_name, rank, fdc_id) VALUES ('Potassium, K', 'mg', 5700, 1092);
 INSERT INTO nutrients (nutrient_name, unit_name, rank, fdc_id) VALUES ('Manganese, Mn', 'mg', 6100, 1101);
 
-
 -- vita A 
 -- folate
 -- potassium
-
-
 
 -- Food nutrients produces the following:
 -- Tomatoe (a.k.a `food_id`) has 92.5 (a.k.a `amount`) of `Water` (a.k.a `nutrient_id`).
