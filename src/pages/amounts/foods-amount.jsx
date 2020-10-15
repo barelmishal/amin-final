@@ -160,7 +160,6 @@ class FoodsAmounts extends Component {
       .then((recipes) => {
         this.setState({ recipes, loading: false });
         this.updateState();
-        console.log(this.state.recipes);
       });
   };
 

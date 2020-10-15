@@ -165,7 +165,6 @@ class FoodSearchComponent extends Component {
     })
       .then((response) => response.json())
       .then((info) => {
-        console.log(this.props);
         this.props.history.push(
           "/food-amounts?recipe-ids=" +
             recipesIds.join(",") +
