@@ -42,7 +42,7 @@ class FoodsAmounts extends Component {
     if (btnFinish) {
       itemLast = `last food`;
     } else {
-      itemLast = `${1 + foods.length - mapFoods.get(recipeFoodId)} outs of ${
+      itemLast = `${1 + foods.length - mapFoods.get(recipeFoodId)} out of ${
         foods.length
       } foods`;
     }
@@ -57,7 +57,7 @@ class FoodsAmounts extends Component {
       kcal: this.calcKcal(amount, food),
       food,
       recipe,
-      ItemLast: itemLast,
+      itemLast,
       btnFinish,
     });
   };
@@ -229,7 +229,7 @@ class FoodsAmounts extends Component {
       kcal,
       recipe,
       food,
-      ItemLast,
+      itemLast,
       btnFinish,
     } = this.state;
     const { userInfo, onLogout } = this.props;
@@ -245,7 +245,7 @@ class FoodsAmounts extends Component {
             btnTatile="selecting SPECIPFIC FOOD"
             className="selecting-specipfic-food"
           />
-          <DynamicText dynamicText={ItemLast} className="items-left" />
+          <DynamicText dynamicText={itemLast} className="items-left" />
           <DynamicText
             dynamicText={recipe && recipe.recipe_description}
             className="recipe-name"
