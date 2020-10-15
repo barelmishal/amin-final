@@ -33,7 +33,6 @@ class FoodsAmounts extends Component {
     const recipe = this.state.recipes.find((r) => r.id === recipeId);
     const recipes = this.state.recipes;
     const foods = [].concat(...recipes.map((i) => i.foods));
-    console.log(foods);
     const mapFoods = new Map();
     foods.forEach((e, i) => {
       mapFoods.set(e.recipe_foods_id, i + 1);
