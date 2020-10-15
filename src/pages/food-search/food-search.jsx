@@ -160,20 +160,14 @@ class FoodSearchComponent extends Component {
     this.fetchRcipeFromServer(recipesIds.join(","));
     const firstRecipe = this.state.recipes[0];
     const firstfood = this.state.recipes[0].foods[0];
-    fetch("/api/recipes", {
-      method: "POST",
-    })
-      .then((response) => response.json())
-      .then((info) => {
-        this.props.history.push(
-          "/food-amounts?recipe-ids=" +
-            recipesIds.join(",") +
-            "&recipe=" +
-            firstRecipe.id +
-            "&recipe_foods_id=" +
-            firstfood.recipe_foods_id
-        );
-      });
+    this.props.history.push(
+      "/food-amounts?recipe-ids=" +
+        recipesIds.join(",") +
+        "&recipe=" +
+        firstRecipe.id +
+        "&recipe_foods_id=" +
+        firstfood.recipe_foods_id
+    );
   };
 
   render() {
