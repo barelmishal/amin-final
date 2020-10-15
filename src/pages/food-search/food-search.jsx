@@ -105,6 +105,20 @@ class FoodSearchComponent extends Component {
       });
   };
 
+  onCreateRecipeClick = () => {
+    fetch("/api/recipes", {
+      method: "POST",
+    })
+      .then((response) => response.json())
+      .then((info) => {
+        this.props.history.push(
+          "/food-search?recipe-ids=" +
+            [info.IdRecipe, ...this.state.recipeIds].join(",")
+        );
+        this.componentDidMount();
+      });
+  };
+
   dbSelection = (food) => {
     fetch("/api/foodslist/id", {
       method: "POST",
@@ -131,6 +145,36 @@ class FoodSearchComponent extends Component {
         "Unable to save recipe name, please check your internet connection and try again"
       );
     });
+  };
+
+  fetchRcipeFromServer = (recipeIds) => {
+    return fetch("/api/recipes/food-search?recipeIds=" + recipeIds)
+      .then((res) => res.json())
+      .then((recipes) => {
+        this.setState({ recipes, loading: false });
+      });
+  };
+
+  onClickGoToAmount = () => {
+    const recipesIds = this.state.recipeIds;
+    this.fetchRcipeFromServer(recipesIds.join(","));
+    const firstRecipe = this.state.recipes[0];
+    const firstfood = this.state.recipes[0].foods[0];
+    fetch("/api/recipes", {
+      method: "POST",
+    })
+      .then((response) => response.json())
+      .then((info) => {
+        console.log(this.props);
+        this.props.history.push(
+          "/food-amounts?recipe-ids=" +
+            recipesIds.join(",") +
+            "&recipe=" +
+            firstRecipe.id +
+            "&recipe_foods_id=" +
+            firstfood.recipe_foods_id
+        );
+      });
   };
 
   render() {
@@ -189,6 +233,7 @@ class FoodSearchComponent extends Component {
               className="button add-new-recipe"
             />
             <Action
+              onClick={this.onClickGoToAmount}
               btnTatile="GO TO AMOUNTS"
               className="button go-to-amounts"
             />

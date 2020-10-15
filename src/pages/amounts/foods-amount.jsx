@@ -160,6 +160,7 @@ class FoodsAmounts extends Component {
       .then((recipes) => {
         this.setState({ recipes, loading: false });
         this.updateState();
+        console.log(this.state.recipes);
       });
   };
 
@@ -170,8 +171,6 @@ class FoodsAmounts extends Component {
     const recipeId = Number(params.get("recipe"));
     const recipeIds = params.get("recipe-ids");
     const recipeFoodId = Number(params.get("recipe_foods_id"));
-
-    console.log(recipeFoodId);
     const IndexRecipe = (r) => r.id === recipeId;
     let nRecipe = this.state.recipes.findIndex(IndexRecipe);
     const IndexFood = (f) => f.recipe_foods_id === recipeFoodId;
