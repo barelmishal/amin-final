@@ -71,7 +71,7 @@ class FoodsAmounts extends Component {
       gramOfUnit = 1;
     }
     const gram = amount * gramOfUnit;
-    const calc = (food.foodNutrients[0].amount / 100) * gram;
+    const calc = ((food.foodNutrients[0].amount / 100) * gram).toFixed(2);
     return calc;
   }
   handleAmountChange = (event) => {
@@ -92,8 +92,11 @@ class FoodsAmounts extends Component {
     }
   };
   newUnit = (gramPortion, food) => {
-    const calc =
-      (food.foodNutrients[0].amount / 100) * this.state.amount * gramPortion;
+    const calc = (
+      (food.foodNutrients[0].amount / 100) *
+      this.state.amount *
+      gramPortion
+    ).toFixed(2);
     return calc;
   };
   handleUnitChange = (event) => {
@@ -141,8 +144,10 @@ class FoodsAmounts extends Component {
   };
 
   KcalChange = (food, kcal, gramWeight) => {
-    const amountCalc =
-      kcal / ((food.foodNutrients[0].amount / 100) * gramWeight);
+    const amountCalc = (
+      kcal /
+      ((food.foodNutrients[0].amount / 100) * gramWeight)
+    ).toFixed(2);
     return amountCalc;
   };
 
@@ -185,13 +190,13 @@ class FoodsAmounts extends Component {
       nFood = 0;
       nRecipe = 0;
     }
-    const nAamount = Number(amount);
-    if (!isNaN(nAamount) && amount) {
+    const nAmount = Number(amount);
+    if (!isNaN(nAmount) && amount) {
       fetch("/api/recipes/recipe-foods/" + recipeFoodId, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          amount: nAamount,
+          amount: nAmount,
           food_portion_id: foodPortionId || null,
         }),
       })

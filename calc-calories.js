@@ -228,29 +228,8 @@ const recipeis = [
 ];
 
 // input list of obj output cal
-const numberOfItems = (recipeis) => {
-  const nRecipeFoods = recipeis.map((n) => n.foods.length);
-  const nFoods = nRecipeFoods.reduce((n1, n2) => n1 + n2, 0);
-  return `${nFoods} foods`;
-};
+const num1 = 1;
+const num2 = 3;
+const result = Number.parseFloat(num1 / num2).toFixed(2);
 
-const locationItems = (recipeis) => {
-  const recipeFoodsId = recipeis[1].foods[0].recipe_foods_id;
-  const foods = [].concat(...recipeis.map((i) => i.foods));
-  const mapFoods = new Map();
-  foods.forEach((e, i) => {
-    mapFoods.set(e.recipe_foods_id, i + 1);
-  });
-  if (mapFoods.get(recipeFoodsId) === 1) {
-    return `${foods.length} foods`;
-  } else if (mapFoods.get(recipeFoodsId) === foods.length) {
-    const button = "finish";
-    return `you check all amount of foods vary good`;
-  } else {
-    return `${foods.length - mapFoods.get(recipeFoodsId)} food left from ${
-      foods.length
-    } foods`;
-  }
-};
-
-console.log(locationItems(recipeis));
+console.log(result);
