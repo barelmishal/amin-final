@@ -244,7 +244,6 @@ class FoodsAmounts extends Component {
           className="bar-steps-title"
         />
         <div className="center-it">
-          {console.log(!!foods)}
           <select
             onChange={this.updateState}
             value={foods}
