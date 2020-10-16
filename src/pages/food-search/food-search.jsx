@@ -30,13 +30,6 @@ class FoodSearchComponent extends Component {
     this.setState({ recipeIds: recipeIds.split(",") });
     this.fetchRcipeFromServer(recipeIds);
   };
-  fetchRcipeFromServer = (recipeIds) => {
-    fetch("/api/recipes/food-search?recipeIds=" + recipeIds)
-      .then((res) => res.json())
-      .then((recipes) => {
-        this.setState({ recipes, loading: false });
-      });
-  };
   onSearchFetchResults = (event) => {
     const query = event.target.value;
     const datatype = "Survey%20(FNDDS)";
@@ -105,20 +98,6 @@ class FoodSearchComponent extends Component {
       });
   };
 
-  onCreateRecipeClick = () => {
-    fetch("/api/recipes", {
-      method: "POST",
-    })
-      .then((response) => response.json())
-      .then((info) => {
-        this.props.history.push(
-          "/food-search?recipe-ids=" +
-            [info.IdRecipe, ...this.state.recipeIds].join(",")
-        );
-        this.componentDidMount();
-      });
-  };
-
   dbSelection = (food) => {
     fetch("/api/foodslist/id", {
       method: "POST",
@@ -157,7 +136,6 @@ class FoodSearchComponent extends Component {
 
   onClickGoToAmount = () => {
     const recipesIds = this.state.recipeIds;
-    this.fetchRcipeFromServer(recipesIds.join(","));
     const firstRecipe = this.state.recipes[0];
     const firstfood = this.state.recipes[0].foods[0];
     this.props.history.push(
