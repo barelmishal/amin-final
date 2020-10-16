@@ -24,7 +24,7 @@ class FoodsAmounts extends Component {
       this.updateState();
     }
   }
-  // ליצור לוגיקה שמחשבת את האמנות שכאשר אני משנה את היונט
+
   updateState = () => {
     const search = this.props.location.search;
     const params = new URLSearchParams(search);
@@ -170,7 +170,6 @@ class FoodsAmounts extends Component {
     const recipeId = Number(params.get("recipe"));
     const recipeIds = params.get("recipe-ids");
     const recipeFoodId = Number(params.get("recipe_foods_id"));
-
     const IndexRecipe = (r) => r.id === recipeId;
     let nRecipe = this.state.recipes.findIndex(IndexRecipe);
     const IndexFood = (f) => f.recipe_foods_id === recipeFoodId;

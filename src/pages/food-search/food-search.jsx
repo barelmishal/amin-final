@@ -30,13 +30,6 @@ class FoodSearchComponent extends Component {
     this.setState({ recipeIds: recipeIds.split(",") });
     this.fetchRcipeFromServer(recipeIds);
   };
-  fetchRcipeFromServer = (recipeIds) => {
-    fetch("/api/recipes/food-search?recipeIds=" + recipeIds)
-      .then((res) => res.json())
-      .then((recipes) => {
-        this.setState({ recipes, loading: false });
-      });
-  };
   onSearchFetchResults = (event) => {
     const query = event.target.value;
     const datatype = "Survey%20(FNDDS)";
@@ -133,6 +126,28 @@ class FoodSearchComponent extends Component {
     });
   };
 
+  fetchRcipeFromServer = (recipeIds) => {
+    return fetch("/api/recipes/food-search?recipeIds=" + recipeIds)
+      .then((res) => res.json())
+      .then((recipes) => {
+        this.setState({ recipes, loading: false });
+      });
+  };
+
+  onClickGoToAmount = () => {
+    const recipesIds = this.state.recipeIds;
+    const firstRecipe = this.state.recipes[0];
+    const firstfood = this.state.recipes[0].foods[0];
+    this.props.history.push(
+      "/food-amounts?recipe-ids=" +
+        recipesIds.join(",") +
+        "&recipe=" +
+        firstRecipe.id +
+        "&recipe_foods_id=" +
+        firstfood.recipe_foods_id
+    );
+  };
+
   render() {
     const { userInfo, onLogout } = this.props;
     return (
@@ -189,6 +204,7 @@ class FoodSearchComponent extends Component {
               className="button add-new-recipe"
             />
             <Action
+              onClick={this.onClickGoToAmount}
               btnTatile="GO TO AMOUNTS"
               className="button go-to-amounts"
             />
