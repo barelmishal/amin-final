@@ -71,9 +71,7 @@ class FoodsAmounts extends Component {
       gramOfUnit = 1;
     }
     const gram = amount * gramOfUnit;
-    const calc = Number.parseFloat(
-      (food.foodNutrients[0].amount / 100) * gram
-    ).toFixed(2);
+    const calc = ((food.foodNutrients[0].amount / 100) * gram).toFixed(2);
     return calc;
   }
   handleAmountChange = (event) => {
@@ -94,8 +92,10 @@ class FoodsAmounts extends Component {
     }
   };
   newUnit = (gramPortion, food) => {
-    const calc = Number.parseFloat(
-      (food.foodNutrients[0].amount / 100) * this.state.amount * gramPortion
+    const calc = (
+      (food.foodNutrients[0].amount / 100) *
+      this.state.amount *
+      gramPortion
     ).toFixed(2);
     return calc;
   };
@@ -144,8 +144,9 @@ class FoodsAmounts extends Component {
   };
 
   KcalChange = (food, kcal, gramWeight) => {
-    const amountCalc = Number.parseFloat(
-      kcal / ((food.foodNutrients[0].amount / 100) * gramWeight)
+    const amountCalc = (
+      kcal /
+      ((food.foodNutrients[0].amount / 100) * gramWeight)
     ).toFixed(2);
     return amountCalc;
   };
