@@ -157,7 +157,6 @@ class FoodSearchComponent extends Component {
 
   onClickGoToAmount = () => {
     const recipesIds = this.state.recipeIds;
-    this.fetchRcipeFromServer(recipesIds.join(","));
     const firstRecipe = this.state.recipes[0];
     const firstfood = this.state.recipes[0].foods[0];
     this.props.history.push(
