@@ -46,14 +46,17 @@ class HomePageComponent extends Component {
           </Welcome>
         ) : (
           <div className="logout">
-            you are log out
             <div className="login-title">
               {/* look good */}
               <button className="log-in-button">log in</button>
             </div>
             <div className="login-content">
               <div className="app-description">
-                <p>this app ...</p>
+                <p>
+                  amin is a app that make the Nutritionists life easier by
+                  providing great information and Accessible it to the
+                  Nutritionists and to the Nutritionist clients
+                </p>
               </div>
               <div className="register-down dots"></div>
               <GoogleLogin
