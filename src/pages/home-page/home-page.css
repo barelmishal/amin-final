@@ -43,3 +43,8 @@
   border-radius: 15px;
   color: beige;
 }
+
+.home-page .app-description {
+  margin: 10px;
+  margin-top: 40px;
+}
