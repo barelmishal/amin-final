@@ -1,8 +1,8 @@
-const knex = require("knex");
+import * as knex from "knex";
 
 const db = knex({
   client: "pg",
   connection: process.env.DATABASE_URL,
 });
 
-module.exports = db;
+export default db;

@@ -8,10 +8,18 @@ import "./App.css";
 import FoodSearch from "./pages/food-search/food-search";
 import HomePage from "./pages/home-page/home-page";
 import FoodAmounts from "./pages/amounts/foods-amount";
+import { UserInfo } from "./types/UserInfo";
 
-export default class App extends React.Component {
-  constructor(props) {
-    super();
+interface AppState {
+  loading: boolean;
+  userInfo?: UserInfo;
+}
+
+interface AppProps {}
+
+export default class App extends React.Component<AppProps, AppState> {
+  constructor(props: AppProps) {
+    super(props);
     this.state = {
       loading: true,
     };
@@ -28,7 +36,7 @@ export default class App extends React.Component {
       });
   }
 
-  onLogin = (response) => {
+  onLogin = (response: any) => {
     fetch("/api/users/me", {
       method: "POST",
       headers: {
@@ -39,7 +47,7 @@ export default class App extends React.Component {
       }),
     })
       .then((response) => response.json())
-      .then((info) => {
+      .then((info: UserInfo) => {
         this.setState({ userInfo: info });
       });
   };
@@ -48,7 +56,7 @@ export default class App extends React.Component {
     fetch("/api/users/logout", {
       method: "POST",
     }).then(() => {
-      this.setState({ userInfo: null });
+      this.setState({ userInfo: undefined });
     });
   };
 

@@ -1,13 +1,15 @@
-var createError = require("http-errors");
-var express = require("express");
-var path = require("path");
-var cookieParser = require("cookie-parser");
-var logger = require("morgan");
-var compression = require("compression");
+import * as express from "express";
+import * as createError from "http-errors";
+
+import * as path from "path";
+import * as cookieParser from "cookie-parser";
+import * as logger from "morgan";
+import * as compression from "compression";
+
+import indexRouter from "./routes/index";
+import usersRouter from "./routes/users";
 
 const amountsRouter = require("./routes/amounts");
-var indexRouter = require("./routes/index");
-var usersRouter = require("./routes/users");
 var foodslistRouter = require("./routes/foodslist");
 var recipesRouter = require("./routes/recipes");
 

@@ -1,8 +1,11 @@
-var express = require("express");
-var jwt = require("jsonwebtoken");
-const { OAuth2Client } = require("google-auth-library");
-var router = express.Router();
-var db = require("../db");
+import { UserInfo } from "../../src/types/UserInfo";
+import * as express from "express";
+import { Request, Response, NextFunction } from "express";
+import * as jwt from "jsonwebtoken";
+import { OAuth2Client } from "google-auth-library";
+import db from "../db";
+
+const router = express.Router();
 
 const CLIENT_ID = process.env.REACT_APP_GOOGLE_CLIENT_ID;
 const AUTH_SECRET = process.env.AUTH_SECRET;
@@ -18,11 +21,11 @@ async function verify(token) {
   return ticket.getPayload();
 }
 
-router.get("/me", async function (req, res, next) {
+router.get("/me", async (req: Request, res: Response, next: NextFunction) => {
   const authToken = req.cookies.userToken;
   if (authToken) {
     try {
-      jwt.verify(authToken, AUTH_SECRET, async (err, userInfo) => {
+      jwt.verify(authToken, AUTH_SECRET, async (err, userInfo: UserInfo) => {
         if (err) {
           res.json("user not found");
 
@@ -51,12 +54,12 @@ router.get("/me", async function (req, res, next) {
   }
 });
 
-router.post("/me", async (req, res, next) => {
+router.post("/me", async (req: Request, res: Response, next: NextFunction) => {
   const googleToken = req.body.googleToken;
   if (googleToken) {
     try {
       const payload = await verify(googleToken); // we whant to tack email first and last name and when we will store in the database also the id!!
-      const user = {
+      const user: Partial<UserInfo> = {
         google_id: payload.sub,
         email: payload.email,
         first_name: payload.given_name,
@@ -107,9 +110,12 @@ router.post("/me", async (req, res, next) => {
   }
 });
 
-router.post("/logout", async function (req, res, next) {
-  res.clearCookie("userToken");
-  res.sendStatus(200);
-});
+router.post(
+  "/logout",
+  async (req: Request, res: Response, next: NextFunction) => {
+    res.clearCookie("userToken");
+    res.sendStatus(200);
+  }
+);
 
-module.exports = router;
+export default router;

@@ -1,1 +1,1 @@
-web: node server/bin/www
+web: ./node_modules/.bin/ts-node --project server/tsconfig.json server/bin/www
