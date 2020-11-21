@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./App.css";
 // components
 // PAGES
-import FoodSearch from "./pages/food-search/food-search";
+import Search from "./pages/food-search/search";
 import HomePage from "./pages/home-page/home-page";
 import FoodAmounts from "./pages/amounts/foods-amount";
 
@@ -66,8 +66,8 @@ export default class App extends React.Component {
       <div className="App">
         <Router>
           <Switch>
-            <Route path="/food-search">
-              <FoodSearch userInfo={userInfo} onLogout={this.logout} />
+            <Route path="/search">
+              <Search userInfo={userInfo} onLogout={this.logout} />
             </Route>
             <Route path="/food-amounts">
               <FoodAmounts userInfo={userInfo} onLogout={this.logout} />
