@@ -3,8 +3,6 @@ import "./food-search.css";
 import { withRouter } from "react-router-dom";
 import UserNav from "../../components/nav-bar/user-nav";
 
-const FDC_API_KEY = process.env.REACT_APP_FDC_API_KEY;
-
 class SearchComponent extends Component {
   timeout = null;
   constructor(props) {
@@ -21,7 +19,6 @@ class SearchComponent extends Component {
   componentDidMount = () => {};
   onSearchFetchResults = (event) => {
     const query = event.target.value;
-    const datatype = "Survey%20(FNDDS)";
     this.setState({ query });
     if (!query) {
       this.setState({
@@ -143,9 +140,86 @@ class SearchComponent extends Component {
             </div>
           </div>
         ))}
+        <div></div>
       </div>
     );
   }
 }
+// alcohol: "0"
+// arachidonic: "0"
+// arginine: "0.031"
+// biotin: ""
+// butyric: "0"
+// calcium: "14"
+// capric: "0"
+// caproic: "0"
+// caprylic: "0"
+// carbohydrates: "1.46"
+// carotene: "31"
+// cholesterol: "0"
+// choline: "5.7"
+// copper: "0.071"
+// cystine: "0.007"
+// docosahexanoic: "0"
+// docosapentaenoic: "0"
+// eicosapentaenoic: "0"
+// erucic: "0"
+// folate: "14"
+// folate_dfe: "14"
+// food_energy: "12"
+// fructose: "0.75"
+// gadoleic: "0"
+// histidine: "0.002"
+// id: "3792"
+// iodine: ""
+// iron: "0.22"
+// isoleucine: "0.012"
+// lauric: "0"
+// leucine: "0.025"
+// linoleic: "0.002"
+// linolenic: "0.002"
+// lysine: "0.025"
+// magnesium: "12"
+// manganese: "0.073"
+// methionine: "0.012"
+// moisture: "96.73"
+// mono_satured: "0.002"
+// myristic: "0.002"
+// niacin: "0.037"
+// oleic: "0.002"
+// palmitic: "0.01"
+// palmitoleic: "0"
+// pantothenic_acid: "0.24"
+// parinaric: "0"
+// phenylalanine: "0.031"
+// phosphorus: "21"
+// poly_satured: "0.003"
+// potassium: "136"
+// protein: "0.59"
+// riboflavin: "0.025"
+// satured_fat: "0.013"
+// selenium: "0.1"
+// serine: "0.025"
+// sodium: "2"
+// stearic: "0.002"
+// sugar_alcohols: ""
+// thiamin: "0.031"
+// threonine: "0.012"
+// total_dietary_fiber: "0.7"
+// total_fat: "0.16"
+// total_sugars: "1.38"
+// trans_fatty_acids: ""
+// tryptophan: "0.007"
+// tyrosine: "0.002"
+// valine: "0.012"
+// vitamin_a_iu: ""
+// vitamin_a_re: "4"
+// vitamin_b6: "0.051"
+// vitamin_b12: "0"
+// vitamin_c: "3.2"
+// vitamin_d: "0"
+// vitamin_e: "0.03"
+// vitamin_k: "7.2"
+// zinc: "0.17"
 
 export default withRouter(SearchComponent);
