@@ -135,6 +135,12 @@ class SearchComponent extends Component {
         {this.state.selection.map((r) => (
           <div key={r.id}>
             <div className="main">{r.shmmitzrach}</div>
+            <div className="macros">
+              <div className="main">אנרגיה - {r.food_energy}</div>
+              <div className="main">פחמימות - {r.carbohydrates}</div>
+              <div className="main">שומנים - {r.total_fat}</div>
+              <div className="main">חלבונים - {r.protein}</div>
+            </div>
           </div>
         ))}
       </div>
