@@ -1,11 +1,6 @@
 import React, { Component } from "react";
 import "./food-search.css";
-import RecipesItems from "./recipes-box/recipes-box.jsx";
-import Viewport from "./viewport/viewport";
-import RecipeTag from "./recipe-tag/recipe-tag";
-import Scrollbele from "./Scrollbele/Scrollbele";
 import { withRouter } from "react-router-dom";
-import Action from "../../components/buttons/back-to/action";
 import UserNav from "../../components/nav-bar/user-nav";
 
 const FDC_API_KEY = process.env.REACT_APP_FDC_API_KEY;
@@ -51,7 +46,6 @@ class SearchComponent extends Component {
       results: null,
       query: "",
     });
-    this.dbSelection(food.fdcId);
   };
 
   onCreateRecipeClick = () => {
@@ -81,41 +75,12 @@ class SearchComponent extends Component {
     });
   };
 
-  saveRecipeName = (recipeId, name) => {
-    fetch("/api/recipes/" + recipeId, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        recipe_description: name,
-      }),
-    }).catch((err) => {
-      console.error(err);
-      alert(
-        "Unable to save recipe name, please check your internet connection and try again"
-      );
-    });
-  };
-
   fetchRcipeFromServer = (recipeIds) => {
     return fetch("/api/recipes/food-search?recipeIds=" + recipeIds)
       .then((res) => res.json())
       .then((recipes) => {
         this.setState({ recipes, loading: false });
       });
-  };
-
-  onClickGoToAmount = () => {
-    const recipesIds = this.state.recipeIds;
-    const firstRecipe = this.state.recipes[0];
-    const firstfood = this.state.recipes[0].foods[0];
-    this.props.history.push(
-      "/food-amounts?recipe-ids=" +
-        recipesIds.join(",") +
-        "&recipe=" +
-        firstRecipe.id +
-        "&recipe_foods_id=" +
-        firstfood.recipe_foods_id
-    );
   };
 
   render() {
@@ -166,31 +131,12 @@ class SearchComponent extends Component {
               </div>
             )}
           </section>
-
-          <div class="buttons clickable font">
-            <Action
-              onClick={this.onCreateRecipeClick}
-              btnTatile="ADD NEW RECIPE"
-              className="button add-new-recipe"
-            />
-            <Action
-              onClick={this.onClickGoToAmount}
-              btnTatile="GO TO AMOUNTS"
-              className="button go-to-amounts"
-            />
-          </div>
         </div>
-        <Scrollbele>
-          {this.state.recipes.map((r) => (
-            <Viewport key={r.id}>
-              <RecipeTag
-                onBlur={(e) => this.saveRecipeName(r.id, e.target.value)}
-                description={r.recipe_description}
-              />
-              <RecipesItems foods={r.foods} className="main" />
-            </Viewport>
-          ))}
-        </Scrollbele>
+        {this.state.selection.map((r) => (
+          <div key={r.id}>
+            <div className="main">{r.shmmitzrach}</div>
+          </div>
+        ))}
       </div>
     );
   }
