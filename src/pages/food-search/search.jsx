@@ -15,6 +15,83 @@ class SearchComponent extends Component {
       recipeIds: [],
     };
   }
+  nutri = [
+    "food_energy",
+    "carbohydrates",
+    "total_fat",
+    "total_dietary_fiber",
+    "total_sugars",
+    "protein",
+    "alcohol",
+    "butyric",
+    "calcium",
+    "capric",
+    "caproic",
+    "caprylic",
+    "carotene",
+    "arginine",
+    "cholesterol",
+    "choline",
+    "copper",
+    "arachidonic",
+    "cystine",
+    "docosahexanoic",
+    "biotin",
+    "docosapentaenoic",
+    "eicosapentaenoic",
+    "erucic",
+    "folate",
+    "folate_dfe",
+    "fructose",
+    "gadoleic",
+    "histidine",
+    "iodine",
+    "iron",
+    "isoleucine",
+    "lauric",
+    "leucine",
+    "linoleic",
+    "linolenic",
+    "lysine",
+    "magnesium",
+    "manganese",
+    "methionine",
+    "moisture",
+    "mono_satured",
+    "myristic",
+    "niacin",
+    "oleic",
+    "palmitic",
+    "palmitoleic",
+    "pantothenic_acid",
+    "parinaric",
+    "phenylalanine",
+    "phosphorus",
+    "poly_satured",
+    "potassium",
+    "riboflavin",
+    "satured_fat",
+    "selenium",
+    "serine",
+    "sodium",
+    "stearic",
+    "sugar_alcohols",
+    "thiamin",
+    "threonine",
+    "trans_fatty_acids",
+    "tryptophan",
+    "tyrosine",
+    "valine",
+    "vitamin_a_iu",
+    "vitamin_a_re",
+    "vitamin_b6",
+    "vitamin_b12",
+    "vitamin_c",
+    "vitamin_d",
+    "vitamin_e",
+    "vitamin_k",
+    "zinc",
+  ];
 
   componentDidMount = () => {};
   onSearchFetchResults = (event) => {
@@ -140,86 +217,18 @@ class SearchComponent extends Component {
             </div>
           </div>
         ))}
-        <div></div>
+        <div>
+          {this.state.selection.map((r) =>
+            this.nutri.map((s) => (
+              <div>
+                {s}: {r[s]}
+              </div>
+            ))
+          )}
+        </div>
       </div>
     );
   }
 }
-// alcohol: "0"
-// arachidonic: "0"
-// arginine: "0.031"
-// biotin: ""
-// butyric: "0"
-// calcium: "14"
-// capric: "0"
-// caproic: "0"
-// caprylic: "0"
-// carbohydrates: "1.46"
-// carotene: "31"
-// cholesterol: "0"
-// choline: "5.7"
-// copper: "0.071"
-// cystine: "0.007"
-// docosahexanoic: "0"
-// docosapentaenoic: "0"
-// eicosapentaenoic: "0"
-// erucic: "0"
-// folate: "14"
-// folate_dfe: "14"
-// food_energy: "12"
-// fructose: "0.75"
-// gadoleic: "0"
-// histidine: "0.002"
-// id: "3792"
-// iodine: ""
-// iron: "0.22"
-// isoleucine: "0.012"
-// lauric: "0"
-// leucine: "0.025"
-// linoleic: "0.002"
-// linolenic: "0.002"
-// lysine: "0.025"
-// magnesium: "12"
-// manganese: "0.073"
-// methionine: "0.012"
-// moisture: "96.73"
-// mono_satured: "0.002"
-// myristic: "0.002"
-// niacin: "0.037"
-// oleic: "0.002"
-// palmitic: "0.01"
-// palmitoleic: "0"
-// pantothenic_acid: "0.24"
-// parinaric: "0"
-// phenylalanine: "0.031"
-// phosphorus: "21"
-// poly_satured: "0.003"
-// potassium: "136"
-// protein: "0.59"
-// riboflavin: "0.025"
-// satured_fat: "0.013"
-// selenium: "0.1"
-// serine: "0.025"
-// sodium: "2"
-// stearic: "0.002"
-// sugar_alcohols: ""
-// thiamin: "0.031"
-// threonine: "0.012"
-// total_dietary_fiber: "0.7"
-// total_fat: "0.16"
-// total_sugars: "1.38"
-// trans_fatty_acids: ""
-// tryptophan: "0.007"
-// tyrosine: "0.002"
-// valine: "0.012"
-// vitamin_a_iu: ""
-// vitamin_a_re: "4"
-// vitamin_b6: "0.051"
-// vitamin_b12: "0"
-// vitamin_c: "3.2"
-// vitamin_d: "0"
-// vitamin_e: "0.03"
-// vitamin_k: "7.2"
-// zinc: "0.17"
 
 export default withRouter(SearchComponent);
