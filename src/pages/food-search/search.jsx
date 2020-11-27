@@ -136,6 +136,12 @@ class SearchComponent extends Component {
       });
   };
 
+  removeFood = (index) => {
+    const selection = this.state.selection;
+    selection.splice(index, 1);
+    this.setState({ selection });
+  };
+
   dbSelection = (food) => {
     fetch("/api/foodslist/id", {
       method: "POST",
@@ -215,6 +221,9 @@ class SearchComponent extends Component {
         {this.state.selection.map((r) => (
           <div key={r.id}>
             <div className="main">{r.shmmitzrach}</div>
+            <button className="btn-remove-food" onClick={this.removeFood}>
+              remove
+            </button>
             <div className="macros">
               <div className="main">אנרגיה - {r.food_energy}</div>
               <div className="main">פחמימות - {r.carbohydrates}</div>
