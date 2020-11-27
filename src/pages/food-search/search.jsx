@@ -159,6 +159,12 @@ class SearchComponent extends Component {
 
   render() {
     const { userInfo, onLogout } = this.props;
+    const results = this.state.selection.reduce((results, food) => {
+      this.nutri.forEach((nutrient) => {
+        results[nutrient] = (results[nutrient] || 0) + Number(food[nutrient]);
+      });
+      return results;
+    }, {});
     return (
       <div className="food-search">
         <div className="fixed-nav">
@@ -218,13 +224,11 @@ class SearchComponent extends Component {
           </div>
         ))}
         <div>
-          {this.state.selection.map((r) =>
-            this.nutri.map((s) => (
-              <div>
-                {s}: {r[s]}
-              </div>
-            ))
-          )}
+          {Object.keys(results).map((nutri) => (
+            <div>
+              {nutri}: {results[nutri]}
+            </div>
+          ))}
         </div>
       </div>
     );
