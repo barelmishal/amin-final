@@ -224,6 +224,13 @@ class SearchComponent extends Component {
             <button className="btn-remove-food" onClick={this.removeFood}>
               remove
             </button>
+            <div className="units">
+              <select>
+                {r.foodPortions.map((p) => (
+                  <option key={p.mida}>{p.measureUnitName}</option>
+                ))}
+              </select>
+            </div>
             <div className="macros">
               <div className="main">אנרגיה - {r.food_energy}</div>
               <div className="main">פחמימות - {r.carbohydrates}</div>
