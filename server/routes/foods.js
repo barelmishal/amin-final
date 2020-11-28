@@ -35,6 +35,7 @@ router.get("/search", async (req, res, next) => {
         .filter((p) => p.mmitzrach === r.id)
         .map((m) => ({
           ...m,
+          mishkal: Number(m.mishkal),
           measureUnitName: measureUnits.find((u) => u.smlmida === m.mida)
             .shmmida,
         })),
