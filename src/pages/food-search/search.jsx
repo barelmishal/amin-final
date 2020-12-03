@@ -112,9 +112,15 @@ class SearchComponent extends Component {
     }
   };
 
+  handleAmountChange = (e, r) => {
+    r.amount = e.target.value;
+    this.forceUpdate();
+  };
+
   select = (food) => {
     const selection = this.state.selection;
     selection.splice(0, 0, food);
+    food.amount = "100";
     this.setState({
       selection,
       results: null,
@@ -224,8 +230,16 @@ class SearchComponent extends Component {
             <button className="btn-remove-food" onClick={this.removeFood}>
               remove
             </button>
+            <div className="amount">
+              <input
+                type="text"
+                onChange={(e) => this.handleAmountChange(e, r)}
+                value={r.amount}
+              />
+            </div>
             <div className="units">
               <select value="700">
+                {/* need to change the state to make gram can change */}
                 {r.foodPortions.map((p) => (
                   <option key={p.mida} value={p.mida}>
                     ({p.mishkal}gr) {p.measureUnitName}
@@ -233,6 +247,7 @@ class SearchComponent extends Component {
                 ))}
               </select>
             </div>
+
             <div className="macros">
               <div className="main">אנרגיה - {r.food_energy}</div>
               <div className="main">פחמימות - {r.carbohydrates}</div>
