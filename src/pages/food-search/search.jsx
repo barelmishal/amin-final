@@ -225,9 +225,9 @@ class SearchComponent extends Component {
               remove
             </button>
             <div className="units">
-              <select>
+              <select value="700">
                 {r.foodPortions.map((p) => (
-                  <option key={p.mida}>
+                  <option key={p.mida} value={p.mida}>
                     ({p.mishkal}gr) {p.measureUnitName}
                   </option>
                 ))}
