@@ -228,7 +228,7 @@ class SearchComponent extends Component {
               <select>
                 {r.foodPortions.map((p) => (
                   <option key={p.mida}>
-                    {p.measureUnitName} ({p.mishkal})
+                    ({p.mishkal}gr) {p.measureUnitName}
                   </option>
                 ))}
               </select>
