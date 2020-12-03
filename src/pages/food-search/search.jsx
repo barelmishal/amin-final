@@ -116,11 +116,16 @@ class SearchComponent extends Component {
     r.amount = e.target.value;
     this.forceUpdate();
   };
+  hendleUnitChange = (e, r) => {
+    r.unit = e.target.value;
+    this.forceUpdate();
+  };
 
   select = (food) => {
     const selection = this.state.selection;
     selection.splice(0, 0, food);
     food.amount = "100";
+    food.unit = "700";
     this.setState({
       selection,
       results: null,
@@ -238,7 +243,10 @@ class SearchComponent extends Component {
               />
             </div>
             <div className="units">
-              <select value="700">
+              <select
+                value={r.unit}
+                onChange={(e) => this.hendleUnitChange(e, r)}
+              >
                 {/* need to change the state to make gram can change */}
                 {r.foodPortions.map((p) => (
                   <option key={p.mida} value={p.mida}>
