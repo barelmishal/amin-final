@@ -173,12 +173,20 @@ class SearchComponent extends Component {
         this.setState({ recipes, loading: false });
       });
   };
+  calcNutrition = (nutrient, food) => {
+    const gramOfUnit = food.foodPortions.find((fp) => food.unit === fp.mida)
+      .mishkal;
+    const gram = food.amount * gramOfUnit;
+    const calc = (Number(food[nutrient]) / 100) * gram;
+    return calc;
+  };
 
   render() {
     const { userInfo, onLogout } = this.props;
     const results = this.state.selection.reduce((results, food) => {
       this.nutri.forEach((nutrient) => {
-        results[nutrient] = (results[nutrient] || 0) + Number(food[nutrient]);
+        results[nutrient] =
+          (results[nutrient] || 0) + this.calcNutrition(nutrient, food);
       });
       return results;
     }, {});
