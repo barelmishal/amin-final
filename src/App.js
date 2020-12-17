@@ -17,17 +17,6 @@ export default class App extends React.Component {
     };
   }
 
-  async componentDidMount() {
-    fetch("/api/users/me")
-      .then((res) => res.json())
-      .then((userInfo) => {
-        this.setState({ userInfo, loading: false });
-      })
-      .catch((e) => {
-        this.setState({ loading: false });
-      });
-  }
-
   onLogin = (response) => {
     fetch("/api/users/me", {
       method: "POST",
@@ -53,15 +42,7 @@ export default class App extends React.Component {
   };
 
   render() {
-    const { userInfo, loading } = this.state;
-
-    // Hide the entire UI while we load the logged in user info
-    // in order to prevent the logged out content from flickering
-    // before we load the user info.
-    if (loading) {
-      return <div></div>;
-    }
-
+    const { userInfo } = this.state;
     return (
       <div className="App">
         <Router>

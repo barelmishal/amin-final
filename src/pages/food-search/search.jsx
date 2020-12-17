@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import "./food-search.css";
 import { withRouter } from "react-router-dom";
 import UserNav from "../../components/nav-bar/user-nav";
+import "./search.css";
 
 class SearchComponent extends Component {
   timeout = null;
@@ -193,12 +193,6 @@ class SearchComponent extends Component {
     return (
       <div className="food-search">
         <div className="fixed-nav">
-          <UserNav userInfo={userInfo} onLogout={onLogout} />
-          <section className="bar-steps">
-            <div className="bar-steps-title" id="bar-steps">
-              step 1: search and chose foods items
-            </div>
-          </section>
           <section className="food-search-bar">
             <div
               className="input-container"
@@ -219,7 +213,6 @@ class SearchComponent extends Component {
                   const foods = entry[1];
                   return (
                     <div key={category} className="result">
-                      <div className="category">{category}</div>
                       {foods.map((food) => (
                         <div
                           onClick={() => this.select(food)}
