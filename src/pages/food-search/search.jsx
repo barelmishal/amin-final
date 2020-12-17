@@ -265,10 +265,18 @@ class SearchComponent extends Component {
             </div>
 
             <div className="macros">
-              <div className="main">אנרגיה - {r.food_energy}</div>
-              <div className="main">פחמימות - {r.carbohydrates}</div>
-              <div className="main">שומנים - {r.total_fat}</div>
-              <div className="main">חלבונים - {r.protein}</div>
+              <div className="main">
+                אנרגיה - {this.calcNutrition("food_energy", r)}
+              </div>
+              <div className="main">
+                פחמימות - {this.calcNutrition("carbohydrates", r)}
+              </div>
+              <div className="main">
+                שומנים - {this.calcNutrition("total_fat", r)}
+              </div>
+              <div className="main">
+                חלבונים - {this.calcNutrition("protein", r)}
+              </div>
             </div>
           </div>
         ))}
