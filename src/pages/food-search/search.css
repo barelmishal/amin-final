@@ -1,0 +1,34 @@
+.food-search .input-container {
+  width: 100%;
+  border-radius: 10px;
+  position: fixed;
+  display: grid;
+  top: 0;
+}
+
+.food-search .input-container input {
+  display: block;
+  margin: 8px 5px;
+  padding: 12px 20px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  border-radius: 4px;
+}
+
+.food-search .result-list {
+  margin: 55px 0px;
+}
+
+.food-search .description {
+  margin: 5px 5px;
+  padding: 5px 12px;
+}
+.food-search .description:nth-child(odd) {
+  background: #a4c8c8;
+  border-radius: 4px;
+}
+
+.food-search .description:nth-child(even) {
+  background: #e4f6f6;
+  border-radius: 4px;
+}

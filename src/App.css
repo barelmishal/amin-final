@@ -2,3 +2,7 @@ body,
 button {
   font-family: "Rubik", sans-serif;
 }
+
+body {
+  direction: rtl;
+}

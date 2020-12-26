@@ -199,6 +199,7 @@ class SearchComponent extends Component {
               id={this.state.results && "has-text"}
             >
               <input
+                autoComplete="off"
                 type="text"
                 onChange={this.onSearchFetchResults}
                 name="items"
