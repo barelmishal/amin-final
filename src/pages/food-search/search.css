@@ -1,7 +1,7 @@
 .food-search .input-container {
   width: 100%;
   border-radius: 10px;
-  position: fixed;
+  position: sticky;
   display: grid;
   top: 0;
 }
@@ -13,10 +13,6 @@
   border: 1px solid #ccc;
   box-sizing: border-box;
   border-radius: 4px;
-}
-
-.food-search .result-list {
-  margin: 55px 0px;
 }
 
 .food-search .description {

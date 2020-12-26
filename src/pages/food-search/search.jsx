@@ -229,52 +229,53 @@ class SearchComponent extends Component {
                 {!this.state.results.size && <div>לא נמצאו תוצאות</div>}
               </div>
             )}
+            {!this.state.results &&
+              this.state.selection.map((r) => (
+                <div key={r.id}>
+                  <div className="main">{r.shmmitzrach}</div>
+                  <button className="btn-remove-food" onClick={this.removeFood}>
+                    remove
+                  </button>
+                  <div className="amount">
+                    <input
+                      type="text"
+                      onChange={(e) => this.handleAmountChange(e, r)}
+                      value={r.amount}
+                    />
+                  </div>
+                  <div className="units">
+                    <select
+                      value={r.unit}
+                      onChange={(e) => this.hendleUnitChange(e, r)}
+                    >
+                      {/* need to change the state to make gram can change */}
+                      {r.foodPortions.map((p) => (
+                        <option key={p.mida} value={p.mida}>
+                          ({p.mishkal}gr) {p.measureUnitName}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+
+                  <div className="macros">
+                    <div className="main">
+                      אנרגיה - {this.calcNutrition("food_energy", r)}
+                    </div>
+                    <div className="main">
+                      פחמימות - {this.calcNutrition("carbohydrates", r)}
+                    </div>
+                    <div className="main">
+                      שומנים - {this.calcNutrition("total_fat", r)}
+                    </div>
+                    <div className="main">
+                      חלבונים - {this.calcNutrition("protein", r)}
+                    </div>
+                  </div>
+                </div>
+              ))}
           </section>
         </div>
-        {!this.state.results &&
-          this.state.selection.map((r) => (
-            <div key={r.id}>
-              <div className="main">{r.shmmitzrach}</div>
-              <button className="btn-remove-food" onClick={this.removeFood}>
-                remove
-              </button>
-              <div className="amount">
-                <input
-                  type="text"
-                  onChange={(e) => this.handleAmountChange(e, r)}
-                  value={r.amount}
-                />
-              </div>
-              <div className="units">
-                <select
-                  value={r.unit}
-                  onChange={(e) => this.hendleUnitChange(e, r)}
-                >
-                  {/* need to change the state to make gram can change */}
-                  {r.foodPortions.map((p) => (
-                    <option key={p.mida} value={p.mida}>
-                      ({p.mishkal}gr) {p.measureUnitName}
-                    </option>
-                  ))}
-                </select>
-              </div>
 
-              <div className="macros">
-                <div className="main">
-                  אנרגיה - {this.calcNutrition("food_energy", r)}
-                </div>
-                <div className="main">
-                  פחמימות - {this.calcNutrition("carbohydrates", r)}
-                </div>
-                <div className="main">
-                  שומנים - {this.calcNutrition("total_fat", r)}
-                </div>
-                <div className="main">
-                  חלבונים - {this.calcNutrition("protein", r)}
-                </div>
-              </div>
-            </div>
-          ))}
         <div>
           {!this.state.results &&
             Object.keys(results).map((nutri) => (
