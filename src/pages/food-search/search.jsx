@@ -278,7 +278,10 @@ class SearchComponent extends Component {
                   <div className="macros">
                     {(r.expanded ? this.nutri : this.primaryNutri).map((n) => (
                       <div>
-                        {n}: {this.calcNutrition(n, r)}
+                        <div className="color-dark-green">{n}</div>
+                        <div className="color-light-green">
+                          {this.calcNutrition(n, r)}
+                        </div>
                       </div>
                     ))}
                   </div>

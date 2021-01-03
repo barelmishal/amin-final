@@ -28,3 +28,20 @@
   background: #e4f6f6;
   border-radius: 4px;
 }
+
+.food-search .macros {
+  display: grid;
+  padding: 3px;
+  gap: 2px;
+  grid-template-columns: auto auto auto;
+  background-color: #bce7cf;
+  padding: 10px;
+}
+
+.food-search .color-dark-green {
+  background-color: #8bcaa8;
+}
+
+.food-search .color-light-green {
+  background-color: #bce7cf;
+}
