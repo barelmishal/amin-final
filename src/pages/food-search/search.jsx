@@ -143,7 +143,12 @@ class SearchComponent extends Component {
 
   toggleNutri = (food) => {
     food.expanded = !food.expanded;
-    this.forceUpdate();
+    this.forceUpdate(() => {
+      const foodEl = document.getElementById("food-" + food.id);
+      foodEl.scrollIntoView({
+        behavior: "smooth",
+      });
+    });
   };
 
   onCreateRecipeClick = () => {
@@ -244,7 +249,7 @@ class SearchComponent extends Component {
             )}
             {!this.state.results &&
               this.state.selection.map((r) => (
-                <div key={r.id}>
+                <div key={r.id} id={"food-" + r.id}>
                   <div className="main">{r.shmmitzrach}</div>
                   <button className="btn-remove-food" onClick={this.removeFood}>
                     remove
