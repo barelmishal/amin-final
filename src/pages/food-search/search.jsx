@@ -15,6 +15,14 @@ class SearchComponent extends Component {
       recipeIds: [],
     };
   }
+  primaryNutri = [
+    "food_energy",
+    "carbohydrates",
+    "total_dietary_fiber",
+    "total_fat",
+    "protein",
+    "calcium",
+  ];
   nutri = [
     "food_energy",
     "carbohydrates",
@@ -131,6 +139,11 @@ class SearchComponent extends Component {
       results: null,
       query: "",
     });
+  };
+
+  toggleNutri = (food) => {
+    food.expanded = !food.expanded;
+    this.forceUpdate();
   };
 
   onCreateRecipeClick = () => {
@@ -258,19 +271,16 @@ class SearchComponent extends Component {
                   </div>
 
                   <div className="macros">
-                    <div className="main">
-                      אנרגיה - {this.calcNutrition("food_energy", r)}
-                    </div>
-                    <div className="main">
-                      פחמימות - {this.calcNutrition("carbohydrates", r)}
-                    </div>
-                    <div className="main">
-                      שומנים - {this.calcNutrition("total_fat", r)}
-                    </div>
-                    <div className="main">
-                      חלבונים - {this.calcNutrition("protein", r)}
-                    </div>
+                    {(r.expanded ? this.nutri : this.primaryNutri).map((n) => (
+                      <div>
+                        {n}: {this.calcNutrition(n, r)}
+                      </div>
+                    ))}
                   </div>
+                  <button onClick={() => this.toggleNutri(r)}>
+                    {" "}
+                    {r.expanded ? "פחות" : "עוד"} נוטרינטים{" "}
+                  </button>
                 </div>
               ))}
           </section>
